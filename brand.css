@@ -219,7 +219,8 @@ body.type-sans .hero h1 em { font-style: normal; }
   .lockup .wm b { font-size: 14px; }
   .lockup .wm span { letter-spacing: 0.26em; }
   .hdr .contact { padding: 0 16px; font-size: 14px; }
-  .hero-copy { top: auto; bottom: 120px; }
+  .hero-copy { top: auto; bottom: 132px; }
+  .down-line { height: 44px; }
   .hero h1 { font-size: 40px; }
   .hero-meta { top: 84px; font-size: 11px; }
   .pause { bottom: 54px; }
