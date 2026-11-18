@@ -29,15 +29,42 @@
   .card:hover .open { color: var(--amber); }
   .ask { margin-top: 56px; border-top: 1px solid var(--line); padding-top: 28px; color: rgba(238,240,244,.8); font-size: 15px; }
   .ask ul { margin: 10px 0 0; padding-left: 18px; color: var(--muted); }
-  @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } .wrap { padding-top: 32px; } }
+  .round { margin: 0 0 18px; }
+  .grid + .ask, .feature + .round { margin-top: 64px; }
+  .feature { display: grid; grid-template-columns: 1.35fr 1fr; border-color: var(--line-strong); }
+  .feature img { aspect-ratio: auto; height: 100%; min-height: 340px; border-bottom: 0; border-right: 1px solid var(--line); }
+  .feature div { padding: 32px 32px 34px; display: flex; flex-direction: column; justify-content: center; }
+  .feature b { font-family: var(--serif); font-weight: 400; font-size: clamp(26px, 2.4vw, 36px); line-height: 1.1; margin-bottom: 14px; font-variation-settings: "opsz" 72; }
+  .feature p + p { margin-top: 12px; }
+  .feature strong { color: var(--text); font-weight: 500; }
+  .feature .label { color: #c6a15b; }
+  @media (max-width: 900px) {
+    .grid, .feature { grid-template-columns: 1fr; } .wrap { padding-top: 32px; }
+    .feature img { min-height: 0; aspect-ratio: 16 / 10; border-right: 0; border-bottom: 1px solid var(--line); }
+    .feature div { padding: 22px 20px 26px; }
+  }
 </style>
 </head>
 <body>
 <main class="wrap">
   <div class="top"><img src="assets/mark.png" alt=""><span class="label">SkyPulse Solutions IFSC · Website draft</span></div>
-  <h1>Home page, three directions.</h1>
-  <p class="intro">Each link opens a working prototype of the new home page. They share one design system and differ in how the first screen sets the mood. Try them on a phone too, and type into the search bar.</p>
-  <p class="note">Draft for review only. Fleet details, tax figures and regulatory wording are placeholders awaiting confirmation. Direction C uses stock footage until a fleet shoot.</p>
+  <h1>Home page directions.</h1>
+  <p class="intro">Each link opens a working prototype of the new home page. Try them on a phone too.</p>
+  <p class="note">Draft for review only. Fleet details, tax figures and regulatory wording are placeholders awaiting confirmation. Stock footage stands in until a fleet shoot.</p>
+
+  <p class="label round">Latest · Round 2</p>
+  <a class="card feature" href="v2/index.html">
+    <img src="thumbs/v2-brand.jpg" alt="Round 2 brand direction preview">
+    <div>
+      <span class="label">Brand direction</span>
+      <b>A brand page, in the logo's navy and white with gold</b>
+      <p>Built to establish the SkyPulse brand rather than to sell, in the manner of airbus.com: a full-screen film, who we are, our missions, the fleet, GIFT City and the newsroom. There is no call to action.</p>
+      <p>Use the <strong>Review</strong> switch at the bottom right to compare a serif or a light sans headline, and the stock film or a real VT-SES photograph.</p>
+      <span class="open">Open →</span>
+    </div>
+  </a>
+
+  <p class="label round">Earlier · Round 1 · enquiry-led, now superseded</p>
   <div class="grid">
     <a class="card" href="a-on-stand.html"><img src="thumbs/a-on-stand.jpg" alt="Direction A preview"><div><span class="label">Direction A</span><b>On Stand</b><p>Full-bleed VT-SES at golden hour. This is the only full page, so scroll to see the fleet register, lease terms, GIFT City and proof.</p><span class="open">Open →</span></div></a>
     <a class="card" href="b-tail-mark.html"><img src="thumbs/b-tail-mark.jpg" alt="Direction B preview"><div><span class="label">Direction B</span><b>Tail Mark</b><p>An edgier, near-black inset frame around the feather mark on the H130 tail, with the search set in the copy panel.</p><span class="open">Open →</span></div></a>
@@ -45,8 +72,8 @@
   </div>
   <div class="ask">Useful feedback:
     <ul>
-      <li>Which first screen feels most like SkyPulse, and why?</li>
-      <li>Does the search bar read as the obvious next step?</li>
+      <li>Does round 2 feel like SkyPulse, and like a company you would trust with an aircraft?</li>
+      <li>Serif or light sans for the headlines? Film or photograph for the opening?</li>
       <li>Anything that feels off-brand, generic or hard to read?</li>
     </ul>
   </div>
