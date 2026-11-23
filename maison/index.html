@@ -1,0 +1,3004 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="robots" content="noindex, nofollow" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SkyPulse Solutions IFSC — Maison Design Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@300;400;500;600&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=IBM+Plex+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500&family=Marcellus&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      /* Official SkyPulse Brand Palette */
+      --navy: #050A30;
+      --navy-2: #0B1142;
+      --paper: #F5F6FB;
+      --white: #FFFFFF;
+      --ink: #050A30;
+      --ink-muted: #4A5172;
+      --on-navy: #F5F6FB;
+      --on-navy-muted: #ACAFBE;
+      --gold: #C6A15B;
+      --gold-deep: #85652A;
+      --rule-light: rgba(5, 10, 48, 0.13);
+      --rule-navy: rgba(245, 246, 251, 0.15);
+
+      /* Tweakable Typography & Layout Variables */
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --label: 'Montserrat', sans-serif;
+      --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --mono: 'IBM Plex Mono', ui-monospace, monospace;
+      --hero-size: clamp(3.2rem, 6.8vw, 6.4rem);
+      --h2-size: clamp(2.2rem, 4.2vw, 3.8rem);
+      --body-size: 16px;
+      --display-track: -0.01em;
+      --sec-pad: clamp(5rem, 9vw, 8.5rem);
+      --hero-dim: 0.56;
+      --em-style: italic;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+      --anim-dur: 0.85s;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: var(--body-size); -webkit-font-smoothing: antialiased; }
+    body { overflow-x: hidden; background: var(--paper); }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+
+    /* Theme Modes */
+    body[data-mode="nocturnal"] {
+      --paper: #070D38;
+      --white: #0B1142;
+      --ink: #F5F6FB;
+      --ink-muted: #ACAFBE;
+      --gold-deep: var(--gold);
+      --rule-light: rgba(245, 246, 251, 0.14);
+    }
+    body[data-mode="alabaster"] {
+      --navy-band-bg: #F5F6FB;
+    }
+
+    /* Opening Curtain Veil */
+    .veil {
+      position: fixed; inset: 0; z-index: 120; background: var(--navy);
+      display: grid; place-items: center; pointer-events: none;
+    }
+    .veil-inner { display: flex; flex-direction: column; align-items: center; gap: 1.1rem; color: var(--on-navy); }
+    .veil-inner img { height: 44px; filter: brightness(0) invert(1); }
+    .veil-inner span {
+      font-family: var(--label); font-size: 0.7rem; letter-spacing: 0.36em;
+      text-transform: uppercase; color: var(--gold);
+    }
+
+    /* Symmetrical Centered-Crest Header */
+    .header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 70;
+      display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+      padding: 1.35rem clamp(1.5rem, 4.5vw, 4.5rem);
+      color: var(--on-navy);
+      transition: background 0.4s var(--ease), color 0.4s var(--ease), border-color 0.4s ease, padding 0.4s var(--ease), transform 0.45s var(--ease);
+      border-bottom: 1px solid transparent;
+    }
+    /* Hide-on-scroll-down / reveal-on-scroll-up */
+    .header.nav-hidden { transform: translateY(-101%); }
+    @media (prefers-reduced-motion: reduce) { .header { transition: none; } }
+    .header.scrolled {
+      background: rgba(245, 246, 251, 0.92); color: var(--navy);
+      border-bottom-color: var(--rule-light);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      padding-top: 0.95rem; padding-bottom: 0.95rem;
+    }
+    .header.on-dark.scrolled, body[data-mode="nocturnal"] .header.scrolled {
+      background: rgba(5, 10, 48, 0.92); color: var(--on-navy);
+      border-bottom-color: var(--rule-navy);
+    }
+    .header-nav {
+      display: flex; gap: clamp(1.1rem, 2.3vw, 2.3rem);
+      font-family: var(--label); font-size: 0.67rem; font-weight: 500;
+      letter-spacing: 0.22em; text-transform: uppercase;
+    }
+    .header-nav.right { justify-content: flex-end; }
+    .header-nav a { position: relative; padding-bottom: 4px; opacity: 0.88; transition: opacity 0.3s ease; }
+    .header-nav a:hover { opacity: 1; }
+    .header-nav a::after {
+      content: ''; position: absolute; left: 0; bottom: 0; width: 100%; height: 1px;
+      background: var(--gold); transform: scaleX(0); transform-origin: right;
+      transition: transform 0.35s var(--ease);
+    }
+    .header-nav a:hover::after { transform: scaleX(1); transform-origin: left; }
+    .crest img { height: 30px; filter: brightness(0) invert(1); transition: filter 0.4s ease; }
+    .header.scrolled:not(.on-dark) .crest img { filter: brightness(0) saturate(100%) invert(7%) sepia(60%) saturate(4200%) hue-rotate(228deg) brightness(92%) contrast(106%); }
+    body[data-mode="nocturnal"] .header.scrolled .crest img { filter: brightness(0) invert(1); }
+
+    /* Shared Typographic Elements */
+    .eyebrow {
+      font-family: var(--label); font-size: 0.66rem; font-weight: 500;
+      letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold-deep);
+      margin-bottom: 1.15rem; display: block;
+    }
+    .eyebrow.on-dark { color: var(--gold); }
+    .sec-h2 {
+      font-family: var(--serif); font-size: var(--h2-size); font-weight: 400;
+      line-height: 1.07; letter-spacing: var(--display-track);
+    }
+    .sec-h2 em, .hero-content h1 em { font-style: var(--em-style); color: var(--gold); }
+    .on-light .sec-h2 em { color: var(--gold-deep); }
+    .wrap { max-width: 1360px; margin: 0 auto; }
+
+    /* ============================================================
+       1. HERO
+       ============================================================ */
+    .hero {
+      position: relative; height: 100svh; min-height: 680px;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      text-align: center; color: var(--on-navy); overflow: hidden; padding: 0 clamp(1.5rem, 5vw, 5rem);
+      background: var(--navy);
+    }
+    .hero.align-left { align-items: flex-start; text-align: left; }
+    .hero-bg { position: absolute; inset: 0; z-index: 0; }
+    .hero-bg img, .hero-bg video {
+      width: 100%; height: 114%; object-fit: cover; object-position: center;
+      filter: brightness(var(--hero-dim)) contrast(1.06) saturate(0.92);
+      transform: scale(1.06); will-change: transform;
+    }
+    .hero-bg video { display: none; height: 100%; transform: none; }
+    .hero.is-video .hero-bg img { display: none; }
+    .hero.is-video .hero-bg video { display: block; }
+    .hero-overlay {
+      position: absolute; inset: 0; z-index: 1;
+      background:
+        radial-gradient(ellipse 80% 65% at 50% 48%, rgba(5, 10, 48, 0.22) 0%, rgba(5, 10, 48, 0.78) 100%),
+        linear-gradient(180deg, rgba(5, 10, 48, 0.52) 0%, rgba(5, 10, 48, 0.08) 38%, rgba(5, 10, 48, 0.76) 100%);
+    }
+    .hero-content { position: relative; z-index: 3; max-width: 960px; }
+    .hero-kicker {
+      font-family: var(--label); font-size: 0.68rem; letter-spacing: 0.34em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 1.4rem;
+    }
+    .hero-content h1 {
+      font-family: var(--serif); font-weight: 400;
+      font-size: var(--hero-size); line-height: 1.02; letter-spacing: var(--display-track);
+      margin-bottom: 1.6rem;
+    }
+    .hero-sub {
+      font-family: var(--label); font-size: 0.7rem; letter-spacing: 0.25em;
+      text-transform: uppercase; color: rgba(245, 246, 251, 0.82); line-height: 1.9;
+    }
+    .scroll-cue {
+      position: absolute; bottom: 2.25rem; left: 50%; transform: translateX(-50%); z-index: 3;
+      display: flex; flex-direction: column; align-items: center; gap: 0.7rem;
+      font-family: var(--label); font-size: 0.6rem; letter-spacing: 0.3em;
+      text-transform: uppercase; color: var(--on-navy-muted);
+    }
+    .scroll-line { width: 1px; height: 46px; background: rgba(245, 246, 251, 0.24); position: relative; overflow: hidden; }
+    .scroll-line::after {
+      content: ''; position: absolute; top: -100%; left: 0; width: 100%; height: 65%;
+      background: var(--gold); animation: drip 2.3s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+    }
+    @keyframes drip { 0% { top: -65%; } 100% { top: 120%; } }
+
+    /* Variant Containers */
+    .variant-group > [data-variant] { display: none; }
+    .variant-group > [data-variant].is-active { display: block; }
+
+    /* Inline subtle variant switcher bar per section */
+    .sec-bar {
+      display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+    .v-pills {
+      display: inline-flex; gap: 0.3rem; padding: 0.25rem;
+      border: 1px solid var(--rule-light); border-radius: 999px;
+      font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    .on-dark-pills { border-color: var(--rule-navy); }
+    .v-pill {
+      padding: 0.4rem 0.8rem; border-radius: 999px; color: var(--ink-muted); transition: all 0.25s ease;
+    }
+    .on-dark-pills .v-pill { color: var(--on-navy-muted); }
+    .v-pill.active { background: var(--navy); color: var(--on-navy); }
+    .on-dark-pills .v-pill.active, body[data-mode="nocturnal"] .v-pill.active { background: var(--gold); color: var(--navy); font-weight: 500; }
+
+    /* ============================================================
+       2. SECTION TWO — ABOUT (photo + overlay headline · story · numbers)
+       ============================================================ */
+    .sec-about {
+      --a-fg: var(--surf-fg, var(--ink)); --a-muted: var(--surf-muted, var(--ink-muted));
+      --a-accent: var(--surf-accent, var(--gold-deep)); --a-rule: var(--surf-rule, var(--rule-light));
+      display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      min-height: min(86svh, 780px); padding: 0;
+    }
+    .ab-photo {
+      position: relative; margin: 0; overflow: hidden; min-height: 520px;
+      opacity: 0; transition: opacity 1.6s ease;
+    }
+    /* Feathered edges on the photos only: they dissolve into the navy instead of ending in a hard corner */
+    .ab-slides {
+      position: absolute; inset: 0;
+      -webkit-mask-image: linear-gradient(90deg, #000 62%, transparent 100%), linear-gradient(180deg, transparent 0%, #000 16%, #000 84%, transparent 100%);
+      -webkit-mask-composite: source-in;
+              mask-image: linear-gradient(90deg, #000 62%, transparent 100%), linear-gradient(180deg, transparent 0%, #000 16%, #000 84%, transparent 100%);
+              mask-composite: intersect;
+    }
+    .ab-photo.is-in { opacity: 1; }
+    @media (prefers-reduced-motion: reduce) { .ab-photo { opacity: 1; transition: none; } }
+    .ab-slides img {
+      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 35%;
+      opacity: 0; transform: scale(1.12); will-change: opacity, transform;
+      transition: opacity 1.8s ease, transform 0s linear 1.8s;
+    }
+    .ab-slides img.is-on {
+      opacity: 1; transform: scale(1.02) translate3d(-1%, -1%, 0);
+      transition: opacity 1.8s ease, transform var(--ab-hold, 7s) linear;
+    }
+    .ab-slides img.is-off { opacity: 0; transform: scale(1.02) translate3d(-1%, -1%, 0); transition: opacity 1.8s ease; }
+    .ab-photo::after {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background: linear-gradient(180deg, rgba(5,10,48,0.35) 0%, rgba(5,10,48,0) 22%, rgba(5,10,48,0) 35%, rgba(5,10,48,0.55) 62%, rgba(5,10,48,0.92) 100%);
+    }
+    .ab-photo figcaption {
+      position: absolute; left: 0; right: 0; bottom: 0; z-index: 1;
+      padding: clamp(1.75rem, 4vw, 3.5rem) clamp(1.5rem, 4vw, 3.5rem);
+    }
+    .ab-photo-kicker {
+      display: block; margin-bottom: 1rem; font-family: var(--label); font-size: 0.64rem; font-weight: 500;
+      letter-spacing: 0.26em; text-transform: uppercase; color: #C6A15B;
+    }
+    .ab-photo-title {
+      font-family: var(--serif); font-weight: 400; color: #F5F6FB; max-width: 13em;
+      font-size: clamp(2rem, 3.3vw, 3.25rem); line-height: 1.08; letter-spacing: var(--display-track); text-wrap: balance;
+    }
+    .ab-photo-title em { font-style: var(--em-style); color: #C6A15B; }
+    .ab-text {
+      display: flex; flex-direction: column; justify-content: flex-start;
+      padding: clamp(4rem, 9vh, 6.5rem) clamp(1.5rem, 5vw, 5rem) clamp(3rem, 7vh, 4.75rem);
+    }
+    .ab-text > * { max-width: 36rem; }
+    .about-ledger { margin-block-end: clamp(1.75rem, 4vh, 2.75rem); max-width: none; }
+    .ab-lead { font-size: clamp(1.05rem, 1.25vw, 1.2rem); line-height: 1.7; color: var(--a-fg); font-weight: 400; }
+    .ab-text .ab-link { margin: 1.5rem 0 2.5rem; align-self: flex-start; color: var(--a-accent); }
+    .ab-link:hover span { transform: translateX(4px); }
+    .ab-stats {
+      max-width: none; display: grid; grid-template-columns: repeat(4, 1fr);
+      margin-top: auto; padding-top: 1.25rem; border-top: 1px solid var(--a-rule);
+    }
+    .ab-stats-cap {
+      grid-column: 1 / -1; margin-bottom: 1rem;
+      font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--a-accent);
+    }
+    .ab-stat { padding-right: 1rem; }
+    .ab-stat + .ab-stat { padding-left: 1rem; border-left: 1px solid var(--a-rule); }
+    .ab-stat strong {
+      display: flex; align-items: baseline; gap: 0.04em; font-family: var(--serif); font-weight: 400;
+      font-size: clamp(1.9rem, 2.5vw, 2.5rem); line-height: 1; color: var(--a-fg);
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    .ab-stat strong i { font-style: normal; font-size: 0.5em; color: var(--a-accent); }
+    .ab-stat > span { display: block; margin-top: 0.5rem; font-size: 0.78rem; line-height: 1.45; color: var(--a-muted); }
+
+    /* ============================================================
+       1b. WHY CHOOSE US — thin flowing strip
+       ============================================================ */
+    .sec-why {
+      --a-fg: var(--surf-fg, var(--ink)); --a-muted: var(--surf-muted, var(--ink-muted));
+      --a-accent: var(--surf-accent, var(--gold-deep)); --a-rule: var(--surf-rule, var(--rule-light));
+      padding: 0 clamp(1.5rem, 5vw, 5rem);
+    }
+    .why { max-width: 1360px; margin: 0 auto; }
+    /* Flowing mode runs edge to edge of the screen; only the static grid keeps the page margins */
+    .sec-why:has(.why[data-mode="flow"]) { padding-inline: 0; }
+    .why[data-mode="flow"] { max-width: none; }
+    .why-viewport {
+      overflow: hidden;
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 20px, #000 calc(100% - 20px), transparent);
+              mask-image: linear-gradient(90deg, transparent, #000 20px, #000 calc(100% - 20px), transparent);
+    }
+    .why-track { list-style: none; display: flex; width: max-content; }
+    .why[data-mode="flow"] .why-track { animation: whyFlow var(--why-speed, 120s) linear infinite; }
+    .why[data-mode="flow"] .why-viewport:hover .why-track { animation-play-state: paused; }
+    @keyframes whyFlow { to { transform: translate3d(-50%, 0, 0); } }
+    .why-item {
+      flex: none; width: 20rem; display: flex; flex-direction: column; align-items: center; text-align: center;
+      padding: 2.1rem 2.2rem 2.2rem; border-right: 1px solid var(--a-rule); color: var(--a-fg);
+    }
+    .why-item svg {
+      flex: none; width: 30px; height: 30px; margin-bottom: 1.15rem; fill: none; stroke: var(--a-accent); stroke-width: 1.25;
+      stroke-linecap: round; stroke-linejoin: round;
+    }
+    .why-item b { display: block; font-family: var(--serif); font-weight: 400; font-size: 1.4rem; line-height: 1.1; white-space: nowrap; }
+    .why-item span {
+      display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;
+      margin-top: 0.5rem; font-size: 0.85rem; line-height: 1.55; color: var(--a-muted);
+    }
+    /* Static: all twelve in a fixed 4 × 3 grid */
+    .why[data-mode="static"] .why-viewport { -webkit-mask-image: none; mask-image: none; }
+    .why[data-mode="static"] .why-track { width: auto; display: grid; grid-template-columns: repeat(4, 1fr); }
+    .why[data-mode="static"] .why-item { width: auto; padding: 1.8rem 2rem; }
+    .why[data-mode="static"] .why-item:nth-child(4n) { border-right: 0; }
+    .why[data-mode="static"] .why-item:nth-child(n+5) { border-top: 1px solid var(--a-rule); }
+    .why[data-mode="static"] .why-item[data-clone] { display: none; }
+    @media (max-width: 560px) { .why-item { width: 72vw; padding: 1.7rem 1.5rem; } }
+    @media (prefers-reduced-motion: reduce) {
+      .nw-rail[data-moving] .nw-thumbs { animation: none; }
+      .nw-rail[data-moving] { overflow-x: auto; }
+      .nw-rail .nw-thumbs li[data-clone] { display: none; }
+      .ab-slides img, .ab-slides img.is-on { transition: opacity .01s; transform: none; }
+      .why[data-mode="flow"] .why-track { animation: none; }
+      .why[data-mode="flow"] .why-viewport { overflow-x: auto; }
+    }
+    @media (max-width: 980px) {
+      .sec-about { grid-template-columns: 1fr; min-height: 0; }
+      .ab-photo { min-height: 0; aspect-ratio: 4 / 5; max-height: 78svh; }
+      .ab-stats { grid-template-columns: 1fr 1fr; row-gap: 1.4rem; }
+      .ab-stat:nth-of-type(odd) { padding-left: 0; border-left: 0; }
+      .why[data-mode="static"] .why-track { grid-template-columns: 1fr; }
+      .why[data-mode="static"] .why-item { border-right: 0; border-top: 1px solid var(--a-rule); }
+      .sec-why { padding-inline: 0; }
+    }
+
+    /* ============================================================
+       3. SECTION THREE — FLEET (ONE OR TWO SECTIONS · EVEN OR ASYMMETRIC BENTO)
+       ============================================================ */
+    .sec-fleet {
+      background: var(--navy); color: var(--on-navy);
+      padding: clamp(3.5rem, 8vh, 6rem) clamp(1.5rem, 4.5vw, 4.5rem) clamp(3rem, 7vh, 5.5rem);
+    }
+    .sec-fleet-fixed { background: var(--paper); color: var(--ink); }
+    .sec-fleet-fixed[hidden] { display: none; }
+
+    /* ============================================================
+       PAGE PALETTE — every content section is a navy or a brand-grey surface
+       (Tweak Studio: All Navy · All Grey · Alternating)
+       ============================================================ */
+    .surf-navy {
+      --surf-bg: #050A30; --surf-fg: #F5F6FB; --surf-muted: #ACAFBE; --surf-accent: #C6A15B; --surf-rule: rgba(245, 246, 251, 0.15);
+      --paper: #050A30; --white: #0B1142; --ink: #F5F6FB; --ink-muted: #ACAFBE; --gold-deep: #C6A15B;
+      --rule-light: rgba(245, 246, 251, 0.15); --rule-navy: rgba(245, 246, 251, 0.15); --on-navy-muted: #ACAFBE;
+    }
+    .surf-grey {
+      --surf-bg: #ACAFBE; --surf-fg: #050A30; --surf-muted: #262C4A; --surf-accent: #4E3A12; --surf-rule: rgba(5, 10, 48, 0.22);
+      --paper: #ACAFBE; --white: #B9BCC9; --ink: #050A30; --ink-muted: #262C4A; --gold-deep: #4E3A12;
+      --rule-light: rgba(5, 10, 48, 0.22); --rule-navy: rgba(5, 10, 48, 0.22); --on-navy-muted: #262C4A;
+    }
+    :is(section, footer):is(.surf-navy, .surf-grey, .surf-custom) { background: var(--surf-bg); color: var(--surf-fg); }
+    footer.surf-grey .footer-crest img, footer.surf-custom .footer-crest img { filter: brightness(0) saturate(100%); opacity: 0.85; }
+    footer:is(.surf-grey, .surf-custom) :is(.footer-crest span, .footer-cols h4) { color: var(--surf-accent); }
+    /* Hairline where two same-colour sections meet */
+    :is(section, footer).surf-join { box-shadow: inset 0 1px 0 var(--surf-rule); }
+    /* Gold reads on navy but vanishes on grey: section-level accents switch to deep bronze */
+    :is(.surf-navy, .surf-grey, .surf-custom) :is(.eyebrow, .sec-h2 em, .fl-num, .fl-link, .fl-title em, .hal-figure, .voice cite, .ledger-idx, .about-navy-quote em) { color: var(--surf-accent); }
+    :is(.surf-navy, .surf-grey, .surf-custom) .fleet-ledger { border-block-end-color: color-mix(in srgb, var(--surf-accent) 50%, transparent); }
+    :is(.surf-navy, .surf-grey, .surf-custom) .head-spine .fleet-ledger { border-left-color: color-mix(in srgb, var(--surf-accent) 50%, transparent); }
+    :is(.surf-grey, .surf-custom) .hal-top p { color: var(--surf-muted); }
+    /* Header bar matches the grey when it sits over a grey section */
+    body[data-palette] .header.scrolled:not(.on-dark) { background: rgba(172, 175, 190, 0.94); border-bottom-color: rgba(5, 10, 48, 0.18); }
+    body[data-palette="navy"] .header.scrolled:not(.on-dark) { background: rgba(5, 10, 48, 0.92); }
+
+    /* Compact ledger heading: one thin line instead of eyebrow + big H2 */
+    .fleet-frame { display: block; }
+    .fleet-ledger {
+      display: flex; align-items: baseline; flex-wrap: wrap; gap: 0.4rem 1.4rem;
+      padding-block-end: 0.9rem; margin-block-end: clamp(1.1rem, 2.2vh, 1.6rem);
+      border-block-end: 1px solid rgba(198, 161, 91, 0.42);
+    }
+    .fl-num { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.18em; color: var(--gold); }
+    .fl-title {
+      font-family: var(--serif); font-weight: 400; font-size: clamp(1.5rem, 2.1vw, 2rem);
+      line-height: 1; letter-spacing: var(--display-track); white-space: nowrap;
+    }
+    .fl-title em { font-style: var(--em-style); color: var(--gold); }
+    .sec-fleet .fl-title em { color: var(--gold-deep); }
+    .sec-fleet .fl-num { color: var(--gold-deep); }
+    .fl-meta {
+      font-family: var(--label); font-size: 0.64rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--on-navy-muted);
+    }
+    .sec-fleet .fl-meta { color: var(--ink-muted); }
+    .fl-link {
+      margin-inline-start: auto; display: inline-flex; align-items: center; gap: 0.6rem;
+      font-family: var(--label); font-size: 0.66rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--gold); white-space: nowrap;
+    }
+    .sec-fleet .fl-link { color: var(--gold-deep); }
+    .fl-link span { transition: transform 0.35s var(--ease); }
+    .fl-link:hover span { transform: translateX(5px); }
+
+    /* Heading option 2: vertical spine label (zero height) */
+    .fleet-frame.head-spine { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: clamp(1rem, 1.8vw, 1.6rem); }
+    .head-spine .fleet-ledger {
+      writing-mode: vertical-rl; flex-wrap: nowrap; margin: 0;
+      padding-block-end: 0; padding-inline-end: 0; padding-block-start: 0;
+      border-block-end: none; border-inline-start: none;
+      border-left: 1px solid rgba(198, 161, 91, 0.42); padding-left: 0.95rem;
+      gap: 1.1rem; align-items: center;
+    }
+    .head-spine .fl-meta { display: none; }
+    .head-spine .fl-link { margin-inline-start: auto; }
+
+    /* Fleet bento grid (shared) */
+    .fleet-bento { display: grid; gap: clamp(0.75rem, 1.1vw, 1.1rem); }
+    .fleet-bento:hover .fb-tile:not(:hover) { opacity: 0.55; filter: saturate(0.7); }
+    .fb-tile {
+      position: relative; overflow: hidden; background: var(--navy-2);
+      border: 1px solid var(--rule-navy); display: flex; flex-direction: column; justify-content: flex-end;
+      padding: clamp(1rem, 1.5vw, 1.4rem); cursor: pointer; min-width: 0;
+      transition: transform 0.65s var(--ease), border-color 0.45s ease, opacity 0.5s ease, filter 0.5s ease, box-shadow 0.65s var(--ease);
+    }
+    .sec-fleet .fb-tile { border-color: var(--rule-light); }
+
+    /* Layout 1 — ASYMMETRIC: big / wide / small rhythm on a regular 12-col grid */
+    .fleet-bento.layout-asym {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      grid-auto-rows: clamp(220px, 18.5vw, 290px);
+    }
+    /* rotary set (4): left half = lead · right half = H130 on top, AW109 + arriving side by side below */
+    .layout-asym.set-rotary > :nth-child(1) { grid-column: 1 / 7; grid-row: 1 / 3; }
+    .layout-asym.set-rotary > :nth-child(2) { grid-column: 7 / 13; grid-row: 1; }
+    .layout-asym.set-rotary > :nth-child(3) { grid-column: 7 / 10; grid-row: 2; }
+    .layout-asym.set-rotary > :nth-child(4) { grid-column: 10 / 13; grid-row: 2; }
+    /* fixed-wing set (3): left half = lead · right half = two stacked */
+    .layout-asym.set-fixed > :nth-child(1) { grid-column: 1 / 7; grid-row: 1 / 3; }
+    .layout-asym.set-fixed > :nth-child(2) { grid-column: 7 / 13; grid-row: 1; }
+    .layout-asym.set-fixed > :nth-child(3) { grid-column: 7 / 13; grid-row: 2; }
+    /* one-section set (7): rotary block, then mirrored fixed-wing block (lead on the right) */
+    .layout-asym.set-all > :nth-child(1) { grid-column: 1 / 7; grid-row: 1 / 3; }
+    .layout-asym.set-all > :nth-child(2) { grid-column: 7 / 13; grid-row: 1; }
+    .layout-asym.set-all > :nth-child(3) { grid-column: 7 / 10; grid-row: 2; }
+    .layout-asym.set-all > :nth-child(4) { grid-column: 10 / 13; grid-row: 2; }
+    .layout-asym.set-all > :nth-child(5) { grid-column: 7 / 13; grid-row: 3 / 5; }
+    .layout-asym.set-all > :nth-child(6) { grid-column: 1 / 7; grid-row: 3; }
+    .layout-asym.set-all > :nth-child(7) { grid-column: 1 / 7; grid-row: 4; }
+    /* Small tiles get a smaller title so it never wraps across the aircraft */
+    .layout-asym.set-rotary > :nth-child(4) h3, .layout-asym.set-all > :nth-child(4) h3 { font-size: clamp(1.25rem, 1.6vw, 1.6rem); }
+    .layout-asym.set-rotary > :nth-child(4) .fb-caption small, .layout-asym.set-all > :nth-child(4) .fb-caption small { display: none; }
+
+    /* Layout 2 — EVEN GRID: one wide lead, then identical tiles; captions sit below the photo */
+    .fleet-bento.layout-even { grid-template-columns: repeat(6, minmax(0, 1fr)); row-gap: clamp(1.4rem, 2.4vw, 2rem); }
+    .layout-even > .fb-tile { grid-column: span 2; padding: 0; background: transparent; border: none; justify-content: flex-start; }
+    .layout-even > .fb-tile:first-child { grid-column: 1 / -1; }
+    .layout-even.set-fixed > .fb-tile:not(:first-child) { grid-column: span 3; }
+    .layout-even .fb-media { position: relative; inset: auto; aspect-ratio: 4 / 3; border: 1px solid var(--rule-navy); background: var(--navy-2); }
+    .sec-fleet .layout-even .fb-media { border-color: var(--rule-light); }
+    .layout-even > .fb-tile:first-child .fb-media { aspect-ratio: 3 / 1; }
+    .layout-even.set-fixed > .fb-tile:not(:first-child) .fb-media { aspect-ratio: 16 / 9; }
+    .layout-even > .fb-tile::after { display: none; }
+    .layout-even .fb-media::after {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background: linear-gradient(180deg, rgba(5,10,48,0.22) 0%, rgba(5,10,48,0) 30%);
+    }
+    .layout-even > .fb-tile:hover { transform: none; box-shadow: none; }
+    .layout-even > .fb-tile:hover .fb-media { border-color: rgba(198, 161, 91, 0.72); }
+    .layout-even .fb-top { top: 0.9rem; left: 0.9rem; right: 0.9rem; }
+    .layout-even .fb-ground-shadow { bottom: auto; top: 70%; }
+    .layout-even .fb-caption { padding-top: 0.95rem; }
+    .layout-even .fb-caption h3 { text-shadow: none; font-size: clamp(1.5rem, 2vw, 2rem); }
+    .layout-even > .fb-tile:first-child .fb-caption {
+      display: grid; grid-template-columns: auto auto 1fr; align-items: baseline; column-gap: 1.4rem;
+    }
+    .layout-even > .fb-tile:first-child .fb-caption small { grid-column: 1 / -1; }
+    .layout-even > .fb-tile:first-child .fb-arrival { justify-self: end; margin-top: 0; border-top: none; padding-top: 0; }
+    .layout-even .fb-arrival, .layout-even .fb-tile.cabin-arrived .fb-arrival {
+      opacity: 1; max-height: 80px; transform: none;
+    }
+    .layout-even .fb-mini-seat { display: none; }
+    .sec-fleet .layout-even .fb-caption small { color: var(--gold-deep); }
+    .sec-fleet .layout-even .fb-arrival { border-top-color: var(--rule-light); }
+    .sec-fleet .layout-even .fb-arrival-meta { color: var(--ink-muted); }
+    .sec-fleet .layout-even .fb-arrival-meta b { color: var(--gold-deep); }
+
+    /* "Arriving" tile with no photography yet: drafting-sheet placeholder */
+    .fb-media-pending {
+      background:
+        repeating-linear-gradient(135deg, rgba(198,161,91,0.07) 0 1px, transparent 1px 14px),
+        linear-gradient(180deg, #0A1145 0%, #070C36 100%);
+      display: grid; place-items: center;
+    }
+    .fb-media-pending svg { width: min(62%, 220px); height: auto; stroke: rgba(198,161,91,0.55); fill: none; stroke-width: 0.8; }
+    .pending-note {
+      position: absolute; left: 50%; top: 58%; transform: translateX(-50%); white-space: nowrap;
+      font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(172,175,190,0.75);
+    }
+    .layout-asym .fb-pending .pending-note { top: calc(50% + 2.2rem); }
+    .fb-pending .fb-media-pending svg { margin-bottom: 2rem; }
+    .fb-reg { white-space: nowrap; }
+    /* Overlay captions stay light on photos even inside the light fixed-wing section */
+    .sec-fleet .layout-asym .fb-tile { color: #F5F6FB; }
+    .fb-pending .fb-media img { display: none; }
+    .fb-tile:hover {
+      transform: translateY(-5px);
+      border-color: rgba(198, 161, 91, 0.72);
+      box-shadow: 0 24px 52px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(198, 161, 91, 0.25);
+    }
+    .fb-media {
+      position: absolute; inset: 0; z-index: 0; overflow: hidden;
+    }
+    .fb-media img.img-ext {
+      position: absolute; inset: 0; width: 100%; height: 112%; object-fit: cover;
+      filter: brightness(0.84) contrast(1.03);
+      transform: translateY(0) scale(1);
+      transition: transform 1.15s var(--ease), filter 0.65s ease, opacity 0.75s ease;
+    }
+    .fb-media img.img-int {
+      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+      opacity: 0; transform: scale(1.06);
+      filter: brightness(0.84) contrast(1.04);
+      transition: opacity 0.8s var(--ease), transform 1.2s var(--ease);
+    }
+
+    /* Mode 1 (Idea 2): Layered Lift-Off + Ground-Effect Hover Float */
+    .fleet-bento.mode-lift .fb-tile:hover .fb-media img.img-ext {
+      transform: translateY(-18px) scale(1.08);
+      filter: brightness(0.94) contrast(1.06);
+      animation: hoverFloat 3.4s ease-in-out 0.65s infinite alternate;
+    }
+    .fb-ground-shadow {
+      position: absolute; left: 14%; right: 14%; bottom: 10%; height: 22px; z-index: 1;
+      border-radius: 50%; background: radial-gradient(ellipse at center, rgba(2, 5, 22, 0.72) 0%, transparent 72%);
+      opacity: 0; transform: scaleX(0.95); pointer-events: none;
+      transition: opacity 0.7s ease, transform 0.9s var(--ease);
+    }
+    .fleet-bento.mode-lift .fb-tile:hover .fb-ground-shadow {
+      opacity: 0.9; transform: scaleX(0.76) translateY(8px);
+    }
+    @keyframes hoverFloat {
+      0% { transform: translateY(-18px) scale(1.08); }
+      100% { transform: translateY(-26px) scale(1.095); }
+    }
+
+    /* Mode 2 (Idea 3): Exterior -> Cabin / Cockpit Crossfade */
+    .fleet-bento.mode-crossfade .fb-tile:hover .fb-media img.img-ext {
+      opacity: 0; transform: scale(1.05);
+    }
+    .fleet-bento.mode-crossfade .fb-tile:hover .fb-media img.img-int {
+      opacity: 1; transform: scale(1);
+    }
+
+    /* Mode 3: Hover Flight Video Layer (Frame 0 IS the resting still image — zero jump cut) */
+    .fb-media video {
+      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+      opacity: 0; pointer-events: none;
+      filter: brightness(0.88) contrast(1.03);
+      transition: filter 0.5s ease;
+    }
+    .fleet-bento.mode-video .fb-tile[data-has-video="true"] .fb-media video { opacity: 1; }
+    .fleet-bento.mode-video .fb-tile[data-has-video="true"] .fb-media img.img-ext { opacity: 0; }
+    .fleet-bento.mode-video .fb-tile[data-has-video="true"]:hover .fb-media video { filter: brightness(0.96) contrast(1.05); }
+    /* Tiles without a generated video yet gently lift-off on hover even in video mode */
+    .fleet-bento.mode-video .fb-tile:not([data-has-video="true"]):hover .fb-media img.img-ext {
+      transform: translateY(-14px) scale(1.07);
+      filter: brightness(0.94) contrast(1.05);
+    }
+
+    /* Ultra-light transparent bottom vignette (keeps 85%+ of photo completely clear) */
+    .fb-tile::after {
+      content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+      background: linear-gradient(180deg, rgba(5,10,48,0.12) 0%, rgba(5,10,48,0) 42%, rgba(5,10,48,0.72) 100%);
+      transition: background 0.5s ease;
+    }
+    .fb-tile:hover::after {
+      background: linear-gradient(180deg, rgba(5,10,48,0.1) 0%, rgba(5,10,48,0) 48%, rgba(5,10,48,0.8) 100%);
+    }
+    .fb-top {
+      position: absolute; top: 1.2rem; left: 1.2rem; right: 1.2rem; z-index: 3;
+      display: flex; justify-content: space-between; align-items: center; gap: 0.5rem;
+    }
+    .fb-reg {
+      font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.14em; color: var(--gold);
+      background: rgba(5, 10, 48, 0.52); padding: 0.32rem 0.62rem; border: 1px solid rgba(198,161,91,0.36);
+      backdrop-filter: blur(6px);
+    }
+    .fb-status-wrap { display: inline-flex; align-items: center; gap: 0.45rem; }
+    .fb-status {
+      font-family: var(--label); font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--on-navy); background: rgba(5, 10, 48, 0.48); padding: 0.3rem 0.55rem;
+      backdrop-filter: blur(6px);
+    }
+    /* Subtle Animated Rotor / Avionics Disc on Hover */
+    .rotor-disc {
+      width: 26px; height: 26px; border-radius: 50%;
+      border: 1px solid rgba(198, 161, 91, 0.35);
+      background: rgba(5, 10, 48, 0.52);
+      display: grid; place-items: center;
+      opacity: 0.6; transition: opacity 0.35s ease, border-color 0.35s ease;
+    }
+    .rotor-disc svg { width: 14px; height: 14px; stroke: var(--gold); }
+    .fb-tile:hover .rotor-disc { opacity: 1; border-color: var(--gold); }
+    .fb-tile[data-kind="rotary"]:hover .rotor-disc svg { animation: rotorSpin 0.8s linear infinite; }
+    .fb-tile[data-kind="fixed"]:hover .rotor-disc svg { animation: wingGlide 1.6s ease-in-out infinite alternate; }
+    @keyframes rotorSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    @keyframes wingGlide { from { transform: translateY(2px); } to { transform: translateY(-3px); } }
+
+    /* Minimal Transparent Bottom Caption (No Opaque Box) */
+    .fb-caption {
+      position: relative; z-index: 3;
+      transition: transform 0.55s var(--ease);
+    }
+    .fb-caption small {
+      display: block; font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 0.25rem;
+    }
+    .fb-caption h3 {
+      font-family: var(--serif); font-size: clamp(1.75rem, 2.5vw, 2.45rem);
+      font-weight: 400; line-height: 1.05; text-shadow: 0 2px 16px rgba(5,10,48,0.55);
+    }
+    /* Whisper-light hover specs revealed cleanly beneath title — zero opaque card */
+    .fb-whisper {
+      max-height: 0; opacity: 0; overflow: hidden;
+      transform: translateY(10px);
+      transition: max-height 0.55s var(--ease), opacity 0.45s ease, transform 0.55s var(--ease);
+    }
+    .fb-tile:hover .fb-whisper, .fb-tile.touched .fb-whisper {
+      max-height: 76px; opacity: 1; transform: translateY(0);
+    }
+    .fb-whisper-line {
+      margin-top: 0.65rem; padding-top: 0.55rem;
+      border-top: 1px solid rgba(245, 246, 251, 0.22);
+      font-size: 0.82rem; color: rgba(245, 246, 251, 0.92); font-weight: 300;
+      letter-spacing: 0.02em; text-shadow: 0 1px 10px rgba(5,10,48,0.7);
+    }
+    .fb-whisper-missions {
+      margin-top: 0.3rem; font-family: var(--mono); font-size: 0.62rem;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold);
+    }
+
+    /* Option A: Timed Arrival Bar (fades in gently once camera arrives inside cabin) */
+    .fb-arrival {
+      display: flex; align-items: center; justify-content: space-between; gap: 0.85rem;
+      margin-top: 0.55rem; padding-top: 0.55rem;
+      border-top: 1px solid rgba(198, 161, 91, 0.38);
+      opacity: 0; max-height: 0; overflow: hidden; transform: translateY(8px);
+      transition: opacity 0.65s var(--ease), max-height 0.65s var(--ease), transform 0.65s var(--ease);
+    }
+    .fb-tile.cabin-arrived .fb-arrival,
+    .fb-tile:not([data-timed="true"]):hover .fb-arrival {
+      opacity: 1; max-height: 68px; transform: translateY(0);
+    }
+    .fb-arrival-meta {
+      font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.12em;
+      text-transform: uppercase; color: rgba(245, 246, 251, 0.92); line-height: 1.5;
+    }
+    .fb-arrival-meta b { color: var(--gold); font-weight: 500; }
+    .fb-mini-seat {
+      height: 32px; width: auto; opacity: 0.9; filter: drop-shadow(0 2px 8px rgba(5,10,48,0.8));
+      flex-shrink: 0;
+    }
+
+    /* Option B: Click-to-Open Full Luxury Aircraft Dossier Modal */
+    .dossier-modal {
+      position: fixed; inset: 0; z-index: 130;
+      background: rgba(3, 6, 24, 0.82); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+      display: grid; place-items: center; padding: clamp(1rem, 3vw, 2.5rem);
+      opacity: 0; pointer-events: none; transition: opacity 0.4s var(--ease);
+    }
+    .dossier-modal.open { opacity: 1; pointer-events: auto; }
+    .dossier-sheet {
+      width: min(1040px, 100%); max-height: 90svh; overflow-y: auto;
+      background: var(--navy); color: var(--on-navy);
+      border: 1px solid rgba(198, 161, 91, 0.35);
+      box-shadow: 0 36px 90px rgba(0, 0, 0, 0.6);
+      transform: translateY(20px) scale(0.985); transition: transform 0.45s var(--ease);
+    }
+    .dossier-modal.open .dossier-sheet { transform: translateY(0) scale(1); }
+    .ds-head {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.35rem 2rem; border-bottom: 1px solid var(--rule-navy);
+    }
+    .ds-head-left small {
+      display: block; font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.18em;
+      color: var(--gold); text-transform: uppercase; margin-bottom: 0.25rem;
+    }
+    .ds-head-left h3 { font-family: var(--serif); font-size: 2.1rem; font-weight: 400; line-height: 1; }
+    .ds-close {
+      width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--rule-navy);
+      color: var(--on-navy); font-size: 1.25rem; display: grid; place-items: center;
+      transition: border-color 0.25s ease, color 0.25s ease;
+    }
+    .ds-close:hover { border-color: var(--gold); color: var(--gold); }
+    .ds-body {
+      display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 2rem; padding: 2rem;
+    }
+    .ds-gallery { display: flex; flex-direction: column; gap: 1rem; }
+    .ds-gallery img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; border: 1px solid var(--rule-navy); }
+    .ds-seating-box {
+      background: #FFFFFF; padding: 1.15rem 1.35rem; border: 1px solid var(--rule-navy);
+      display: flex; flex-direction: column; gap: 0.5rem;
+    }
+    .ds-seating-box small {
+      font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--navy);
+    }
+    .ds-seating-box img { width: 100%; height: auto; aspect-ratio: auto; border: none; object-fit: contain; }
+    .ds-info p { font-size: 0.94rem; line-height: 1.75; color: rgba(245,246,251,0.82); font-weight: 300; margin-bottom: 1.5rem; }
+    .ds-pillars {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; margin-bottom: 1.5rem;
+    }
+    .ds-pillar {
+      padding: 0.9rem 1rem; border: 1px solid var(--rule-navy); background: rgba(11, 17, 66, 0.55);
+    }
+    .ds-pillar span { display: block; font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.25rem; }
+    .ds-pillar strong { font-family: var(--serif); font-size: 1.25rem; font-weight: 400; }
+    .ds-spec-list { border-top: 1px solid var(--rule-navy); }
+    .ds-spec-row {
+      display: flex; justify-content: space-between; gap: 1rem;
+      padding: 0.8rem 0; border-bottom: 1px solid var(--rule-navy); font-size: 0.84rem;
+    }
+    .ds-spec-row span:first-child { font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--on-navy-muted); }
+
+    @media (max-width: 980px) {
+      .sec-fleet { padding: 3.5rem 1.25rem 3rem; }
+      .fleet-frame.head-spine { display: block; }
+      .head-spine .fleet-ledger { writing-mode: horizontal-tb; border-left: none; padding-left: 0; border-block-end: 1px solid rgba(198,161,91,0.42); padding-block-end: 0.9rem; margin-block-end: 1.2rem; flex-wrap: wrap; }
+      .fleet-bento.layout-asym, .fleet-bento.layout-even { grid-template-columns: minmax(0, 1fr); grid-auto-rows: 300px; }
+      .fleet-bento.layout-even { grid-auto-rows: auto; }
+      .fleet-bento > .fb-tile, .layout-asym.set-rotary > *, .layout-asym.set-fixed > *, .layout-asym.set-all > *, .layout-even > .fb-tile:first-child, .layout-even.set-fixed > .fb-tile:not(:first-child) { grid-column: 1 / -1 !important; grid-row: auto !important; }
+      .layout-even > .fb-tile:first-child .fb-media { aspect-ratio: 4 / 3; }
+      .layout-even > .fb-tile:first-child .fb-caption { display: block; }
+      .ds-body { grid-template-columns: 1fr; }
+    }
+
+    /* Variant B: Smooth Horizontal Carousel */
+    .carousel-shell { position: relative; }
+    .carousel-controls {
+      display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem;
+    }
+    .carousel-hint { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.14em; color: var(--on-navy-muted); text-transform: uppercase; }
+    .carousel-arrows { display: flex; gap: 0.6rem; }
+    .c-arrow {
+      width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--rule-navy);
+      display: grid; place-items: center; color: var(--on-navy); font-size: 1rem;
+      transition: all 0.25s ease;
+    }
+    .c-arrow:hover { border-color: var(--gold); color: var(--gold); background: rgba(198,161,91,0.08); }
+    .carousel-track {
+      display: flex; gap: 1.5rem; overflow-x: auto; scroll-snap-type: x mandatory;
+      padding-bottom: 1.25rem; scrollbar-width: none; cursor: grab;
+    }
+    .carousel-track::-webkit-scrollbar { display: none; }
+    .c-card {
+      flex: 0 0 clamp(310px, 34vw, 460px); scroll-snap-align: start;
+      background: var(--navy-2); border: 1px solid var(--rule-navy); overflow: hidden;
+      transition: border-color 0.35s ease, transform 0.5s var(--ease);
+    }
+    .c-card:hover { border-color: var(--gold); transform: translateY(-4px); }
+    .c-card-img { position: relative; aspect-ratio: 16 / 10; overflow: hidden; }
+    .c-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.9s var(--ease); }
+    .c-card:hover .c-card-img img { transform: scale(1.06); }
+    .c-card-body { padding: 1.5rem; }
+    .c-card-body h3 { font-family: var(--serif); font-size: 1.9rem; font-weight: 400; margin: 0.35rem 0 0.75rem; }
+    .c-card-specs {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem;
+      padding-top: 0.9rem; border-top: 1px solid var(--rule-navy); font-size: 0.78rem;
+    }
+    .c-card-specs span { display: block; font-family: var(--mono); font-size: 0.6rem; color: var(--on-navy-muted); text-transform: uppercase; margin-bottom: 0.2rem; }
+
+    /* Variant C: Interactive Tail Register + Live Plate */
+    .register-split {
+      display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 3.5rem; align-items: start;
+    }
+    .reg-list { border-top: 1px solid var(--rule-navy); }
+    .reg-row {
+      display: grid; grid-template-columns: 155px 1fr auto; gap: 1.25rem; align-items: baseline;
+      padding: 1.45rem 0; border-bottom: 1px solid var(--rule-navy); cursor: pointer;
+      transition: padding-left 0.35s var(--ease), border-color 0.3s ease;
+    }
+    .reg-row:hover, .reg-row.active { padding-left: 0.85rem; border-bottom-color: var(--gold); }
+    .reg-code { font-family: var(--mono); font-size: 0.72rem; color: var(--gold); letter-spacing: 0.1em; }
+    .reg-name { font-family: var(--serif); font-size: 1.85rem; font-weight: 400; }
+    .reg-meta { font-family: var(--label); font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--on-navy-muted); }
+    .reg-preview { position: sticky; top: 6.5rem; border: 1px solid var(--rule-navy); background: var(--navy-2); overflow: hidden; }
+    .reg-preview-img { aspect-ratio: 4 / 3; overflow: hidden; }
+    .reg-preview-img img { width: 100%; height: 100%; object-fit: cover; transition: opacity 0.3s ease; }
+    .reg-preview-cap { padding: 1.4rem; font-size: 0.88rem; line-height: 1.65; color: var(--on-navy-muted); }
+
+    /* ============================================================
+       4. SECTION FOUR — SERVICES & MISSIONS (3 DESIGN VARIANTS)
+       ============================================================ */
+    .sec-missions {
+      background: var(--paper); color: var(--ink);
+      padding: var(--sec-pad) 0 0;
+    }
+    .missions-head-wrap { padding: 0 clamp(1.5rem, 5vw, 5rem); }
+
+    /* Variant A: Expanding Architectural Curtain Panes */
+    .panes {
+      display: flex; width: 100%; height: clamp(480px, 62vh, 650px);
+      background: var(--navy); overflow: hidden;
+    }
+    .pane {
+      position: relative; flex: 1 1 0; overflow: hidden;
+      border-right: 1px solid var(--rule-navy);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 2rem 1.6rem; color: var(--on-navy); cursor: pointer;
+      transition: flex-grow 0.85s var(--ease);
+    }
+    .pane:last-child { border-right: none; }
+    .pane.active, .pane:hover { flex-grow: 2.75; }
+    .pane img {
+      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+      filter: brightness(0.42) saturate(0.78); transform: scale(1.06);
+      transition: transform 1.1s var(--ease), filter 0.65s ease;
+    }
+    .pane.active img, .pane:hover img { filter: brightness(0.7) saturate(1); transform: scale(1); }
+    .pane::after {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background: linear-gradient(180deg, rgba(5,10,48,0.2) 0%, rgba(5,10,48,0.12) 44%, rgba(5,10,48,0.92) 100%);
+    }
+    .pane-inner { position: relative; z-index: 2; }
+    .pane-num { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.2em; color: var(--gold); margin-bottom: 0.65rem; display: block; }
+    .pane h3 { font-family: var(--serif); font-size: clamp(1.5rem, 2.1vw, 2.2rem); font-weight: 400; white-space: nowrap; margin-bottom: 0.6rem; }
+    .pane-detail { max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.6s var(--ease), opacity 0.5s ease; }
+    .pane.active .pane-detail, .pane:hover .pane-detail { max-height: 150px; opacity: 1; }
+    .pane-detail p { font-size: 0.86rem; line-height: 1.6; color: rgba(245,246,251,0.82); max-width: 330px; margin-bottom: 0.7rem; }
+    .pane-detail span { display: inline-block; font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); padding-top: 0.5rem; border-top: 1px solid rgba(198,161,91,0.4); }
+
+    /* Curtain panes v3: full-screen panes, thin ledger heading overlaid, spine labels crossfading to titles */
+    @media (min-width: 981px) {
+      .sec-missions:has([data-variant="panes"].is-active) { padding: 0; }
+      .sec-missions:has([data-variant="panes"].is-active) .missions-head-wrap { display: none; }
+      .sec-missions .panes { height: 100svh; min-height: 640px; position: relative; }
+      .sec-missions .panes::before {
+        content: ''; position: absolute; inset: 0 0 auto 0; height: 24%; z-index: 3; pointer-events: none;
+        background: linear-gradient(180deg, rgba(5,10,48,0.82) 0%, rgba(5,10,48,0.4) 55%, rgba(5,10,48,0) 100%);
+      }
+    }
+    .panes-ledger { display: none; }
+    @media (min-width: 981px) {
+      .panes-ledger {
+        display: flex; position: absolute; z-index: 4; pointer-events: none;
+        top: clamp(1.6rem, 4.5vh, 2.6rem); left: clamp(1.5rem, 4.5vw, 4.5rem); right: clamp(1.5rem, 4.5vw, 4.5rem);
+        align-items: baseline; gap: 0.4rem 1.4rem; padding-bottom: 0.85rem;
+        border-bottom: 1px solid rgba(198, 161, 91, 0.45); color: #F5F6FB;
+      }
+      .panes-ledger .fl-num, .panes-ledger .fl-title em { color: var(--gold) !important; }
+      .panes-ledger .fl-meta { color: rgba(245, 246, 251, 0.72) !important; }
+      .panes-ledger .fl-title { text-shadow: 0 2px 18px rgba(5,10,48,0.5); }
+    }
+
+    /* Pane content: closed = vertical spine label, open = horizontal title block. They crossfade; never morph. */
+    .pane { min-width: 0; }
+    .pane-spine {
+      position: absolute; left: clamp(1.1rem, 1.6vw, 1.6rem); bottom: 2rem; z-index: 2;
+      display: flex; flex-direction: column; align-items: flex-start; gap: 0.8rem;
+      opacity: 1; transition: opacity 0.45s ease 0.3s; pointer-events: none;
+    }
+    .pane-spine .ps-text {
+      writing-mode: vertical-rl; transform: rotate(180deg); white-space: nowrap;
+      font-family: var(--serif); font-weight: 400; font-size: clamp(1.3rem, 1.6vw, 1.75rem); line-height: 1; color: #F5F6FB;
+    }
+    .pane-spine .pane-num { margin: 0; }
+    .pane.active .pane-spine { opacity: 0; transition: opacity 0.18s ease 0s; }
+    .pane .pane-inner {
+      width: min(25rem, calc(100vw - 3rem)); opacity: 0; transform: translateY(12px);
+      transition: opacity 0.2s ease, transform 0.2s ease; pointer-events: none;
+    }
+    .pane.active .pane-inner {
+      opacity: 1; transform: none; pointer-events: auto;
+      transition: opacity 0.55s ease 0.42s, transform 0.75s var(--ease) 0.42s;
+    }
+    .pane h3 { white-space: normal; font-size: clamp(1.9rem, 2.5vw, 2.6rem); line-height: 1.08; margin-bottom: 0.7rem; }
+    .pane .pane-detail, .pane.active .pane-detail, .pane:hover .pane-detail { max-height: none; opacity: 1; }
+    /* JS keeps exactly one pane active on hover, so the plain :hover growth is disabled to avoid two open panes */
+    .pane:hover:not(.active) { flex-grow: 1; }
+    .pane:hover:not(.active) img { filter: brightness(0.5) saturate(0.85); }
+
+    /* ---- Pane photo motion ----
+       1. Ken Burns drift: always on, each pane its own speed/direction (animates `transform`)
+       2. Open pane: photo settles from a zoom (animates `scale`) + one gold light sweep
+       3. Mouse parallax on the open pane (animates `translate`, set from JS)
+       4. Scroll-in: panes wipe up one after another (clip-path)                                  */
+    .pane img {
+      animation: paneDrift 15s ease-in-out infinite alternate;
+      scale: 1.12; translate: 0 0;
+      transition: scale 1.6s var(--ease), translate 0.9s var(--ease), filter 0.65s ease;
+      will-change: transform;
+    }
+    .pane.active img { scale: 1; translate: var(--px, 0) var(--py, 0); }
+    .pane:nth-of-type(2) img { animation: paneDrift2 17s ease-in-out -5s infinite alternate; }
+    .pane:nth-of-type(3) img { animation: paneDrift3 14s ease-in-out -9s infinite alternate; }
+    .pane:nth-of-type(4) img { animation: paneDrift2 18s ease-in-out -3s infinite alternate; }
+    .pane:nth-of-type(5) img { animation: paneDrift 16s ease-in-out -11s infinite alternate; }
+    .pane:nth-of-type(6) img { animation: paneDrift3 15s ease-in-out -7s infinite alternate; }
+    @keyframes paneDrift { from { transform: scale(1.06) translate3d(-3.5%, 1.5%, 0); } to { transform: scale(1.22) translate3d(3%, -2.5%, 0); } }
+    @keyframes paneDrift2 { from { transform: scale(1.2) translate3d(3.5%, -2%, 0); } to { transform: scale(1.06) translate3d(-3%, 2%, 0); } }
+    @keyframes paneDrift3 { from { transform: scale(1.1) translate3d(0, 3%, 0); } to { transform: scale(1.24) translate3d(-2%, -3%, 0); } }
+
+    .pane-sheen {
+      position: absolute; inset: 0; z-index: 1; pointer-events: none; overflow: hidden;
+    }
+    .pane-sheen::before {
+      content: ''; position: absolute; top: -10%; bottom: -10%; left: -60%; width: 45%;
+      background: linear-gradient(100deg, transparent 0%, rgba(198,161,91,0.0) 20%, rgba(232,206,150,0.22) 50%, rgba(198,161,91,0) 80%, transparent 100%);
+      transform: skewX(-12deg); opacity: 0;
+    }
+    .pane.active .pane-sheen::before { animation: paneSheen 1.6s var(--ease) 0.25s 1 both; }
+    @keyframes paneSheen { 0% { left: -60%; opacity: 0; } 15% { opacity: 1; } 100% { left: 130%; opacity: 0; } }
+
+    .panes.reveal-ready .pane { clip-path: inset(100% 0 0 0); }
+    .panes.reveal-ready.in-view .pane { clip-path: inset(0 0 0 0); transition: clip-path 1.1s cubic-bezier(0.77, 0, 0.18, 1), flex-grow 0.85s var(--ease); }
+    .panes.reveal-ready.in-view .pane:nth-of-type(2) { transition-delay: 0.08s, 0s; }
+    .panes.reveal-ready.in-view .pane:nth-of-type(3) { transition-delay: 0.16s, 0s; }
+    .panes.reveal-ready.in-view .pane:nth-of-type(4) { transition-delay: 0.24s, 0s; }
+    .panes.reveal-ready.in-view .pane:nth-of-type(5) { transition-delay: 0.32s, 0s; }
+    .panes.reveal-ready.in-view .pane:nth-of-type(6) { transition-delay: 0.40s, 0s; }
+    .panes.reveal-ready.in-view.revealed .pane { transition-delay: 0s; }
+    @media (prefers-reduced-motion: reduce) {
+      .pane img { animation: none; transition: none; } .pane-sheen { display: none; }
+      .panes.reveal-ready .pane { clip-path: none; } .pane-spine, .pane .pane-inner { transition: none; }
+    }
+    @media (max-width: 980px) {
+      .pane-spine { display: none; }
+      .pane .pane-inner { opacity: 1; transform: none; width: auto; pointer-events: auto; }
+    }
+
+    /* Variant B: Mission Carousel + Lease Models Ribbon */
+    .mission-carousel-wrap { padding: 0 clamp(1.5rem, 5vw, 5rem) var(--sec-pad); }
+    .lease-ribbon {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+      background: var(--rule-light); border: 1px solid var(--rule-light); margin-bottom: 2.5rem;
+    }
+    .lease-cell { background: var(--white); padding: 1.35rem 1.5rem; }
+    .lease-cell small { display: block; font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.14em; color: var(--gold-deep); text-transform: uppercase; margin-bottom: 0.35rem; }
+    .lease-cell strong { font-family: var(--serif); font-size: 1.35rem; font-weight: 400; color: var(--ink); }
+    .m-carousel { display: flex; gap: 1.5rem; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 0.75rem; }
+    .m-carousel::-webkit-scrollbar { display: none; }
+    .m-slide {
+      flex: 0 0 clamp(300px, 31vw, 430px); scroll-snap-align: start;
+      position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: var(--navy); color: var(--on-navy);
+      display: flex; flex-direction: column; justify-content: flex-end; padding: 1.85rem;
+    }
+    .m-slide img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(0.62); transition: transform 0.9s var(--ease); }
+    .m-slide:hover img { transform: scale(1.07); }
+    .m-slide::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(5,10,48,0.08) 0%, rgba(5,10,48,0.88) 100%); }
+    .m-slide-body { position: relative; z-index: 2; }
+    .m-slide-body small { font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.16em; color: var(--gold); text-transform: uppercase; }
+    .m-slide-body h3 { font-family: var(--serif); font-size: 2rem; font-weight: 400; margin: 0.35rem 0 0.55rem; }
+    .m-slide-body p { font-size: 0.85rem; line-height: 1.6; color: rgba(245,246,251,0.8); }
+
+    /* Variant C: Editorial Mission Bento Mosaic */
+    .mission-bento-wrap { padding: 0 clamp(1.5rem, 5vw, 5rem) var(--sec-pad); }
+    .mission-bento {
+      display: grid; grid-template-columns: repeat(12, 1fr); gap: 1.25rem;
+    }
+    .mb-card {
+      position: relative; overflow: hidden; background: var(--navy); color: var(--on-navy);
+      min-height: 300px; padding: 1.75rem; display: flex; flex-direction: column; justify-content: flex-end;
+    }
+    .mb-card.c-6 { grid-column: span 6; min-height: 360px; }
+    .mb-card.c-4 { grid-column: span 4; min-height: 310px; }
+    .mb-card.c-8 { grid-column: span 8; min-height: 330px; }
+    .mb-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(0.58); transition: transform 0.9s var(--ease); }
+    .mb-card:hover img { transform: scale(1.06); }
+    .mb-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(5,10,48,0.12) 0%, rgba(5,10,48,0.88) 100%); }
+    .mb-card > div { position: relative; z-index: 2; }
+    .mb-card small { font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.16em; color: var(--gold); text-transform: uppercase; }
+    .mb-card h3 { font-family: var(--serif); font-size: 1.95rem; font-weight: 400; margin: 0.35rem 0 0.45rem; }
+    .mb-card p { font-size: 0.85rem; line-height: 1.6; color: rgba(245,246,251,0.8); max-width: 44ch; }
+
+    /* ============================================================
+       5. NEWS + FOOTER
+       ============================================================ */
+    /* ---------- Latest news: lead story + thumbnail rail ---------- */
+    .sec-news { padding: var(--sec-pad) clamp(1.5rem, 5vw, 5.5rem); }
+    .sec-news .fl-meta { color: var(--surf-muted, var(--ink-muted)); }
+    .news-ledger { margin-block-end: clamp(1.5rem, 3vh, 2.25rem); }
+    .nw-lead {
+      display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+      height: clamp(440px, 54vh, 560px); /* fixed: every story gets the same frame */
+      background: color-mix(in srgb, var(--surf-fg, #050A30) 5%, transparent);
+    }
+    .nw-lead-img { position: relative; display: block; overflow: hidden; background: var(--navy); }
+    .nw-lead-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
+    .nw-lead-img:hover img { transform: scale(1.03); }
+    .nw-lead-text {
+      display: flex; flex-direction: column; justify-content: flex-end; min-height: 0; overflow: hidden;
+      padding: clamp(1.75rem, 3.5vw, 3.25rem);
+    }
+    .nw-meta, .nw-thumb-meta {
+      font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--surf-accent, var(--gold-deep));
+    }
+    .nw-lead-text h3 {
+      font-family: var(--serif); font-weight: 400; font-size: clamp(1.6rem, 2.2vw, 2.2rem); line-height: 1.14;
+      letter-spacing: var(--display-track); margin: 1rem 0 1.1rem; text-wrap: balance;
+      display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 4; overflow: hidden;
+    }
+    .nw-lead-text p { font-size: 0.95rem; line-height: 1.75; font-weight: 300; color: var(--surf-muted, var(--ink-muted)); max-width: 42ch;
+      display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; }
+    .nw-lead-text .nw-read { margin: 2rem 0 0; align-self: flex-start; }
+    /* swap animation */
+    .nw-lead :is(.nw-lead-img img, .nw-lead-text > *) { transition: opacity 0.45s ease, transform 0.6s var(--ease); }
+    .nw-lead.is-swapping .nw-lead-img img { opacity: 0; transform: scale(1.04); }
+    .nw-lead.is-swapping .nw-lead-text > * { opacity: 0; transform: translateY(10px); }
+
+    .nw-rail { --nw-gap: clamp(1rem, 2vw, 1.75rem); --nw-cols: 4; margin-top: clamp(1.5rem, 3vw, 2.25rem); container-type: inline-size; }
+    .nw-thumbs { list-style: none; display: grid; grid-template-columns: repeat(var(--nw-cols), minmax(0, 1fr)); gap: var(--nw-gap); }
+    /* More stories than fit: the row becomes a slow moving rail (pauses on hover / keyboard focus) */
+    .nw-rail[data-moving] {
+      overflow: hidden; padding-block: 8px; margin-block-end: -8px;
+    }
+    .nw-rail[data-moving] .nw-thumbs { display: flex; gap: 0; width: max-content; animation: whyFlow var(--nw-speed, 90s) linear infinite; }
+    .nw-rail[data-moving] .nw-thumbs li { flex: none; width: calc((100cqi - (var(--nw-cols) - 1) * var(--nw-gap)) / var(--nw-cols)); margin-inline-end: var(--nw-gap); }
+    .nw-rail[data-moving]:is(:hover, :has(:focus-visible)) .nw-thumbs { animation-play-state: paused; }
+    .nw-rail:not([data-moving]) .nw-thumbs li[data-clone] { display: none; }
+    .nw-thumb {
+      all: unset; box-sizing: border-box; display: flex; flex-direction: column; gap: 0.7rem; width: 100%; cursor: pointer;
+      transition: opacity 0.45s ease;
+    }
+    .nw-thumb.is-swapping { opacity: 0; }
+    .nw-thumb-img { display: block; aspect-ratio: 16 / 9; overflow: hidden; background: var(--navy); }
+    .nw-thumb-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s var(--ease), filter 0.5s ease; filter: saturate(0.85); }
+    .nw-thumb:hover .nw-thumb-img img, .nw-thumb:focus-visible .nw-thumb-img img { transform: scale(1.05); filter: none; }
+    .nw-thumb-title {
+      font-family: var(--serif); font-size: 1.12rem; line-height: 1.28; color: var(--surf-fg, var(--ink));
+      display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;
+      transition: color 0.3s ease;
+    }
+    .nw-thumb:hover .nw-thumb-title { color: var(--surf-accent, var(--gold-deep)); }
+    .nw-thumb:focus-visible { outline: 1px solid var(--surf-accent, var(--gold-deep)); outline-offset: 6px; }
+    @media (max-width: 980px) {
+      .nw-lead { grid-template-columns: 1fr; height: auto; }
+      .nw-lead-text { justify-content: flex-start; min-height: 22.5rem; }
+      .nw-lead-img { aspect-ratio: 16 / 10; }
+      .nw-rail { --nw-cols: 2; }
+    }
+    @media (max-width: 560px) {
+      /* phones: a swipeable row instead of motion */
+      .nw-rail, .nw-rail[data-moving] { -webkit-mask-image: none; mask-image: none; overflow: visible; padding-block: 0; margin-block-end: 0; }
+      .nw-rail .nw-thumbs, .nw-rail[data-moving] .nw-thumbs { display: flex; width: auto; animation: none; overflow-x: auto; scroll-snap-type: x mandatory; gap: 1rem; margin-inline: -1.5rem; padding-inline: 1.5rem; scroll-padding-inline: 1.5rem; scrollbar-width: none; }
+      .nw-rail .nw-thumbs li, .nw-rail[data-moving] .nw-thumbs li { flex: 0 0 64vw; width: auto; margin: 0; scroll-snap-align: start; }
+      .nw-rail .nw-thumbs li[data-clone] { display: none; }
+    }
+
+    footer {
+      background: var(--navy); color: var(--on-navy-muted);
+      padding: 5rem clamp(1.5rem, 5vw, 5.5rem) 4rem;
+    }
+    .footer-crest { max-width: 1320px; margin: 0 auto 3.25rem; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 0.9rem; }
+    .footer-crest img { height: 34px; filter: brightness(0) invert(1); }
+    .footer-crest span { font-family: var(--label); font-size: 0.7rem; letter-spacing: 0.34em; text-transform: uppercase; color: var(--on-navy); }
+    .footer-cols {
+      max-width: 1320px; margin: 0 auto;
+      display: grid; grid-template-columns: 1.45fr 1fr 1fr 1fr; gap: 2.5rem;
+      padding: 2.5rem 0; border-top: 1px solid var(--rule-navy); border-bottom: 1px solid var(--rule-navy);
+      font-size: 0.85rem; line-height: 1.75;
+    }
+    .footer-cols h4 { font-family: var(--label); font-size: 0.64rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.9rem; }
+    .footer-cols ul { list-style: none; }
+    .footer-legal {
+      max-width: 1320px; margin: 1.75rem auto 0;
+      display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem;
+      font-family: var(--mono); font-size: 0.68rem; color: rgba(172, 175, 190, 0.68);
+    }
+
+    /* ============================================================
+       TWEAK STUDIO DRAWER (FLOATING LIVE CONTROLS)
+       ============================================================ */
+    .tweak-fab {
+      position: fixed; bottom: 1.4rem; right: 1.4rem; z-index: 95;
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      padding: 0.72rem 1.2rem; border-radius: 999px;
+      background: rgba(5, 10, 48, 0.94); color: #F5F6FB;
+      border: 1px solid rgba(198, 161, 91, 0.55);
+      box-shadow: 0 14px 36px rgba(5, 10, 48, 0.35);
+      font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+      backdrop-filter: blur(12px); transition: transform 0.25s ease, border-color 0.25s ease;
+    }
+    .tweak-fab:hover { transform: translateY(-2px); border-color: var(--gold); }
+    .tweak-fab .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); }
+
+    .tweak-panel:not(.open) { box-shadow: none !important; }
+    .tweak-panel {
+      --tp-bg: rgba(7, 12, 42, 0.97); --tp-line: rgba(255,255,255,0.1); --tp-dim: #8F94AB; --tp-fg: #EEF0F7; --tp-gold: #C6A15B;
+      position: fixed; top: 1rem; right: 1rem; bottom: 1rem; width: min(408px, calc(100vw - 2rem));
+      z-index: 110; background: var(--tp-bg); color: var(--tp-fg);
+      border: 1px solid rgba(198, 161, 91, 0.3); border-radius: 14px;
+      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45);
+      display: flex; flex-direction: column; overflow: hidden;
+      transform: translateX(calc(100% + 2rem)); transition: transform 0.4s var(--ease);
+      font-family: 'Inter', sans-serif; font-size: 13px; letter-spacing: 0;
+    }
+    .tweak-panel.open { transform: translateX(0); }
+    .tp-head { display: flex; justify-content: space-between; align-items: center; padding: 0.9rem 1.1rem; border-bottom: 1px solid var(--tp-line); }
+    .tp-head strong { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--tp-gold); font-weight: 500; }
+    .tp-close { font-size: 1.15rem; color: var(--tp-dim); padding: 0.15rem 0.45rem; border-radius: 6px; }
+    .tp-close:hover { color: #fff; background: rgba(255,255,255,0.08); }
+
+    .tp-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; padding: 0.55rem 0.7rem; border-bottom: 1px solid var(--tp-line); }
+    .tp-tab { padding: 0.5rem 0.25rem; border-radius: 7px; color: var(--tp-dim); font-size: 0.78rem; font-weight: 500; transition: background 0.2s, color 0.2s; }
+    .tp-tab:hover { color: #fff; }
+    .tp-tab.active { color: #fff; background: rgba(198,161,91,0.16); box-shadow: inset 0 0 0 1px rgba(198,161,91,0.45); }
+
+    .tp-body { flex: 1; overflow-y: auto; padding: 0.4rem 0 1rem; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.2) transparent; }
+    .tp-pane { display: none; flex-direction: column; }
+    .tp-pane.active { display: flex; }
+
+    /* Groups: always-open blocks (Page, Type) and collapsible section blocks (Sections) */
+    .tp-group { padding: 0.95rem 1.1rem; border-bottom: 1px solid var(--tp-line); display: flex; flex-direction: column; gap: 0.85rem; }
+    .tp-group > h4, .tp-sec summary .ts-name { font-size: 0.8rem; font-weight: 600; color: #fff; letter-spacing: 0.01em; }
+    .tp-group > h4 small, .tp-hint { display: block; font-weight: 400; font-size: 0.72rem; color: var(--tp-dim); margin-top: 0.2rem; line-height: 1.45; }
+    .tp-sec { border-bottom: 1px solid var(--tp-line); }
+    .tp-sec summary {
+      list-style: none; cursor: pointer; display: grid; grid-template-columns: 26px 1fr auto 14px; align-items: center; gap: 0.6rem;
+      padding: 0.8rem 1.1rem; transition: background 0.2s;
+    }
+    .tp-sec summary::-webkit-details-marker { display: none; }
+    .tp-sec summary:hover { background: rgba(255,255,255,0.035); }
+    .tp-sec summary .ts-num { font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; color: var(--tp-gold); }
+    .tp-sec summary .ts-sw { width: 30px; height: 18px; border-radius: 4px; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.22); }
+    .tp-sec summary::after { content: '›'; color: var(--tp-dim); font-size: 1rem; transition: transform 0.25s; justify-self: end; }
+    .tp-sec[open] summary::after { transform: rotate(90deg); }
+    .tp-sec[open] summary { background: rgba(255,255,255,0.03); }
+    .tp-sec-body { padding: 0.35rem 1.1rem 1.1rem; display: flex; flex-direction: column; gap: 0.95rem; }
+    .tp-sub { font-family: 'IBM Plex Mono', monospace; font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--tp-gold); padding-top: 0.35rem; border-top: 1px dashed rgba(255,255,255,0.1); }
+
+    .ctrl { display: flex; flex-direction: column; gap: 0.45rem; }
+    .ctrl label, .ctrl > .lbl {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.72rem; color: var(--tp-dim); font-weight: 500;
+    }
+    .ctrl label b { color: var(--tp-fg); font-weight: 500; font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; }
+    .ctrl select, .ctrl input[type="text"], .ctrl textarea {
+      width: 100%; background: rgba(255,255,255,0.05); color: var(--tp-fg);
+      border: 1px solid rgba(255,255,255,0.14); border-radius: 7px;
+      padding: 0.5rem 0.6rem; font-size: 0.8rem; font-family: 'Inter', sans-serif;
+    }
+    .ctrl select:focus, .ctrl input:focus, .ctrl textarea:focus { outline: none; border-color: var(--tp-gold); }
+    .ctrl select option { background: #050A30; color: #F5F6FB; }
+    .ctrl input[type="range"] { width: 100%; accent-color: var(--tp-gold); cursor: pointer; }
+    .chip-group { display: flex; flex-wrap: wrap; gap: 4px; padding: 3px; background: rgba(255,255,255,0.04); border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); }
+    .chip {
+      flex: 1 1 auto; padding: 0.42rem 0.55rem; border-radius: 6px; font-size: 0.74rem; color: #C4C8D8; text-align: center;
+      transition: background 0.2s, color 0.2s;
+    }
+    .chip:hover { color: #fff; background: rgba(255,255,255,0.06); }
+    .chip.active { color: #fff; background: rgba(198,161,91,0.22); box-shadow: inset 0 0 0 1px rgba(198,161,91,0.55); }
+
+    /* Palette rhythm cards with real colour stripes */
+    .pal-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; background: none; border: none; padding: 0; }
+    .pal-cards .chip { display: flex; flex-direction: column; gap: 0.4rem; padding: 0.45rem; background: rgba(255,255,255,0.04); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1); }
+    .pal-strip { display: grid; grid-template-rows: repeat(6, 7px); border-radius: 4px; overflow: hidden; }
+    .pal-strip i { display: block; }
+
+    /* Colour pickers */
+    .color-rows { display: flex; flex-direction: column; gap: 6px; }
+    .color-rows[hidden], .ff-item[hidden] { display: none; }
+    .color-row { display: grid; grid-template-columns: 1fr 34px 82px; align-items: center; gap: 8px; }
+    .color-row span { font-size: 0.74rem; color: #C4C8D8; }
+    .color-row input[type="color"] {
+      -webkit-appearance: none; appearance: none; width: 34px; height: 26px; padding: 0; border: none; background: none; cursor: pointer;
+    }
+    .color-row input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
+    .color-row input[type="color"]::-webkit-color-swatch { border: 1px solid rgba(255,255,255,0.3); border-radius: 6px; }
+    .color-row input[type="color"]::-moz-color-swatch { border: 1px solid rgba(255,255,255,0.3); border-radius: 6px; }
+    .color-row input.hex {
+      width: 82px; background: rgba(255,255,255,0.05); color: var(--tp-fg); border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 6px; padding: 0.32rem 0.45rem; font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; text-transform: uppercase;
+    }
+    .color-row input.hex:focus { outline: none; border-color: var(--tp-gold); }
+    .preset-row { display: flex; gap: 6px; flex-wrap: wrap; }
+    .preset-sw { display: inline-flex; align-items: center; gap: 6px; padding: 4px 8px 4px 4px; border-radius: 7px; font-size: 0.7rem; color: #C4C8D8; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.12); }
+    .preset-sw:hover { color: #fff; box-shadow: inset 0 0 0 1px var(--tp-gold); }
+    .preset-sw b { display: flex; width: 34px; height: 18px; border-radius: 4px; overflow: hidden; }
+    .preset-sw b i { flex: 1; }
+
+    /* Per-section surface picker: real swatches */
+    .surf-seg { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; }
+    .surf-opt { display: flex; flex-direction: column; align-items: center; gap: 5px; padding: 6px 4px; border-radius: 7px; font-size: 0.66rem; color: #C4C8D8; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1); }
+    .surf-opt i { width: 100%; height: 22px; border-radius: 4px; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.2); display: grid; place-items: center; font-style: normal; font-family: 'Cormorant Garamond', serif; font-size: 0.95rem; }
+    .surf-opt:hover { color: #fff; }
+    .surf-opt.active { color: #fff; box-shadow: inset 0 0 0 1px var(--tp-gold); background: rgba(198,161,91,0.12); }
+
+    /* Font fields with live previews */
+    .font-field { position: relative; }
+    .ff-current {
+      width: 100%; display: grid; grid-template-columns: 1fr auto 12px; align-items: center; gap: 8px; text-align: left;
+      padding: 0.5rem 0.65rem; border-radius: 7px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.14);
+    }
+    .ff-current:hover, .font-field.open .ff-current { border-color: var(--tp-gold); }
+    .ff-current .ff-name { font-size: 1.05rem; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .ff-cat { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--tp-dim); }
+    .ff-current::after { content: '▾'; color: var(--tp-dim); font-size: 0.7rem; }
+    .ff-pop { display: none; margin-top: 6px; border: 1px solid rgba(255,255,255,0.14); border-radius: 9px; background: rgba(3, 6, 28, 0.96); overflow: hidden; }
+    .font-field.open .ff-pop { display: block; }
+    .ff-tools { display: grid; grid-template-columns: 1fr auto; gap: 6px; padding: 6px; border-bottom: 1px solid var(--tp-line); }
+    .ff-tools input { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); color: #fff; border-radius: 6px; padding: 0.35rem 0.5rem; font-size: 0.75rem; }
+    .ff-tools .chip-group { flex-wrap: nowrap; }
+    .ff-tools .chip { padding: 0.3rem 0.45rem; font-size: 0.66rem; }
+    .ff-list { max-height: 248px; overflow-y: auto; scrollbar-width: thin; }
+    .ff-item { width: 100%; display: grid; grid-template-columns: 1fr auto; align-items: baseline; gap: 8px; padding: 0.55rem 0.75rem; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .ff-item .ff-name { font-size: 1.1rem; color: #E6E8F2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .ff-item:hover { background: rgba(255,255,255,0.05); }
+    .ff-item.active { background: rgba(198,161,91,0.14); }
+    .ff-item.active .ff-name { color: #fff; }
+
+    .tp-foot { padding: 0.8rem 1.1rem 0.7rem; border-top: 1px solid var(--tp-line); display: grid; grid-template-columns: 1fr 1fr 1.5fr; gap: 0.6rem; }
+    .tp-save-status { grid-column: 1 / -1; font-size: 0.68rem; color: var(--tp-dim); display: flex; align-items: center; gap: 0.5rem; min-height: 1.2em; }
+    .tp-save-status button { color: var(--tp-gold); font-size: 0.68rem; text-decoration: underline; text-underline-offset: 2px; }
+    #tSave { position: relative; }
+    #tSave.dirty::after { content: ''; position: absolute; top: -3px; right: -3px; width: 9px; height: 9px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 2px var(--tp-bg); }
+    .tp-btn {
+      padding: 0.55rem 0.75rem; border-radius: 7px; font-size: 0.74rem; font-weight: 500;
+      border: 1px solid rgba(255,255,255,0.18); color: var(--tp-fg); transition: all 0.2s ease;
+    }
+    .tp-btn.primary { background: var(--tp-gold); color: #050A30; border-color: var(--tp-gold); font-weight: 600; }
+    .tp-btn:hover { opacity: 0.9; }
+
+    @media (max-width: 980px) {
+      .header-nav { display: none; }
+      .header { grid-template-columns: 1fr; justify-items: center; }
+      .about-split, .about-spread, .about-figures, .register-split, .footer-cols, .lease-ribbon { grid-template-columns: 1fr; }
+      .about-fig + .about-fig { padding-left: 0; border-left: none; border-top: 1px solid var(--rule-light); }
+      .fb-tile.span-7, .fb-tile.span-5, .fb-tile.span-4, .mb-card.c-6, .mb-card.c-4, .mb-card.c-8 { grid-column: span 12; }
+      .panes { flex-direction: column; height: auto; }
+      .pane { min-height: 210px; border-right: none; border-bottom: 1px solid var(--rule-navy); }
+      .pane h3 { white-space: normal; }
+      .pane-detail { max-height: 150px; opacity: 1; }
+      .reg-preview { position: static; }
+    }
+  </style>
+</head>
+<body data-palette="mix">
+  <div class="veil" id="veil" aria-hidden="true">
+    <div class="veil-inner">
+      <img src="media/mark.png" alt="" />
+      <span>SkyPulse Solutions IFSC</span>
+    </div>
+  </div>
+
+  <header class="header" id="header">
+    <nav class="header-nav" aria-label="Left navigation">
+      <a href="#about">Leasing</a>
+      <a href="#fleet">Fleet</a>
+      <a href="#missions">Missions</a>
+    </nav>
+    <a href="#" class="crest" aria-label="SkyPulse Solutions IFSC Home">
+      <img src="media/mark.png" alt="SkyPulse feather crest" />
+    </a>
+    <nav class="header-nav right" aria-label="Right navigation">
+      <a href="#why">Why SkyPulse</a>
+      <a href="#journal">News</a>
+      <a href="#footer">Company</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- 1. HERO -->
+    <section class="hero" id="hero" data-theme="dark">
+      <div class="hero-bg">
+        <img id="heroPhoto" src="media/cabin.jpg" alt="SkyPulse executive aircraft cabin" />
+        <video id="heroVideo" autoplay muted loop playsinline poster="media/ses-golden.jpg">
+          <source src="media/stock-sky.mp4" type="video/mp4" />
+        </video>
+      </div>
+      <div class="hero-overlay" aria-hidden="true"></div>
+      <div class="hero-content">
+        <p class="hero-kicker" id="heroKicker">GIFT City IFSC · Aircraft Operating Lessor</p>
+        <h1 id="heroTitle">Aviation leasing, <em>held to a higher standard.</em></h1>
+        <p class="hero-sub" id="heroSub">Rotary &amp; Fixed-Wing Assets &nbsp;·&nbsp; Dry &amp; Operating Leases &nbsp;·&nbsp; Gandhinagar, India</p>
+      </div>
+      <div class="scroll-cue" aria-hidden="true">
+        <span>Scroll</span>
+        <div class="scroll-line"></div>
+      </div>
+    </section>
+
+    <!-- 2. ABOUT — photo with headline overlay · short story · GIFT City numbers -->
+    <section class="sec-about surf-navy" id="about" data-theme="dark">
+      <figure class="ab-photo">
+        <div class="ab-slides" aria-hidden="true">
+          <img class="is-on" src="media/tail.jpg" alt="" />
+          <img src="media/h130-hfx.jpg" alt="" loading="lazy" />
+          <img src="media/cabin.jpg" alt="" loading="lazy" />
+          <img src="media/aw109-hgx-sky.jpg" alt="" loading="lazy" />
+          <img src="media/gift-city.jpg" alt="" loading="lazy" />
+        </div>
+        <figcaption>
+          <h2 class="ab-photo-title">Innovative aerospace solutions for <em>a better tomorrow.</em></h2>
+        </figcaption>
+      </figure>
+      <div class="ab-text">
+        <header class="fleet-ledger about-ledger">
+          <span class="fl-num">01</span>
+          <span class="fl-title">About <em>SkyPulse</em></span>
+          <span class="fl-meta">GIFT City IFSC · Est. 2024</span>
+        </header>
+        <p class="ab-lead">Incorporated in 2024 at GIFT City IFSC, SkyPulse leases helicopters and fixed-wing aircraft to India’s airlines, operators and government agencies, backed by IFSC tax benefits and the Cape Town Convention.</p>
+        <a class="fl-link ab-link" href="#company">Our company <span>→</span></a>
+        <div class="ab-stats" aria-label="GIFT City IFSC in numbers">
+          <p class="ab-stats-cap">GIFT City IFSC in numbers</p>
+          <div class="ab-stat"><strong><span data-count="85">85</span><i>%</i></strong><span>of India’s airline fleet is leased</span></div>
+          <div class="ab-stat"><strong><span data-count="38">38</span></strong><span>lessors in GIFT IFSC</span></div>
+          <div class="ab-stat"><strong><span data-count="370">370</span><i>+</i></strong><span>assets leased via GIFT IFSC</span></div>
+          <div class="ab-stat"><strong><span data-count="20">20</span><i>yr</i></strong><span>income-tax holiday</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 1b. WHY CHOOSE US — thin flowing strip under About -->
+    <section class="sec-why surf-grey" id="why" data-theme="light" aria-label="Why choose SkyPulse">
+      <div class="why" id="whyChoose" data-mode="flow">
+        <div class="why-viewport">
+          <ul class="why-track">
+            <li class="why-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3v9a3 3 0 0 0 3 3h7M7 12h8a2 2 0 0 1 2 2v1M6 21h12M9 15l-1 6M16 15l1 6"/></svg><div><b>Luxury &amp; comfort</b><span>Cabins specified for VIP, corporate and pilgrimage flying.</span></div></li>
+            <li class="why-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v6c0 4.2-3 7.6-7 9-4-1.4-7-4.8-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg><div><b>Safety &amp; security</b><span>Global OEM airframes held to stringent safety protocols.</span></div></li>
+            <li class="why-item"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><div><b>Any time, anywhere</b><span>Lease terms that put capacity where you need it, 24/7.</span></div></li>
+            <li class="why-item"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 3.8 5.6 3.8 9s-1.2 6.4-3.8 9c-2.6-2.6-3.8-5.6-3.8-9S9.4 5.6 12 3z"/></svg><div><b>All around the globe</b><span>A recognised global fleet that saves you time and cost.</span></div></li>
+            <li class="why-item"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.4"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M15 14.2c3 .2 6 2.4 6 5.8"/></svg><div><b>Experienced team</b><span>Fleet management led by founders with deep aviation pedigree.</span></div></li>
+            <li class="why-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.7"/><path d="M20 4v4h-4"/></svg><div><b>360° under one roof</b><span>Planning, leasing, finance and operations, end to end.</span></div></li>
+            <li class="why-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16v10H4z"/><circle cx="12" cy="12" r="2.4"/><path d="M7 10v4M17 10v4"/></svg><div><b>Cost-effective aircraft</b><span>No withholding tax on lease rentals, and GST capped at 5%.</span></div></li>
+            <li class="why-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4M10 12h5M10 16h5"/></svg><div><b>Simple regulation</b><span>One regulator, IFSCA, backed by the Cape Town Convention.</span></div></li>
+            <li class="why-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19h16"/><path d="M5 15l5-5 3 3 6-6"/><path d="M15 7h4v4"/></svg><div><b>Sector growth</b><span>85% of India’s airline fleet is leased, and demand keeps rising.</span></div></li>
+            <li class="why-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 13l7 2 8-8c1-1 2.6-1 3 0 .4.6.2 1.4-.4 2l-8 8 2 7-2 1-3.5-5.5L5.5 23l-1-1 1.5-4L2 15z"/></svg><div><b>Faster delivery</b><span>Aircraft in service sooner than a new-build purchase order.</span></div></li>
+            <li class="why-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V5M16 20v-7M22 20H2"/></svg><div><b>Business viability</b><span>A 20-year income-tax holiday for IFSC leasing entities.</span></div></li>
+            <li class="why-item"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M17 6l3 3M15 8l2 2"/></svg><div><b>Easier access</b><span>Fly without the upfront capital cost of buying outright.</span></div></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. FLEET — rotary section (also the single combined section). Tweak Studio switches 1 vs 2 sections. -->
+    <section class="sec-fleet surf-navy" id="fleet" data-theme="dark">
+      <div class="wrap fleet-frame">
+        <header class="fleet-ledger"
+          data-one-title="The <em>Fleet</em>" data-one-meta="Rotary &amp; fixed-wing · 08 in service · 25+ arriving"
+          data-two-title="Rotary <em>Fleet</em>" data-two-meta="Helicopters · 06 in service · R44 &amp; H125 arriving">
+          <span class="fl-num" data-secnum="2">02</span>
+          <h2 class="fl-title">Rotary <em>Fleet</em></h2>
+          <span class="fl-meta">Helicopters · 06 in service · R44 &amp; H125 arriving</span>
+          <a class="fl-link" href="#full-fleet" title="Full fleet page — to be designed">View the full fleet <span aria-hidden="true">&rarr;</span></a>
+        </header>
+
+        <div class="variant-group" id="group-fleet">
+          <!-- Fleet Variant A: Bento (Even Grid or Asymmetric) -->
+          <div data-variant="bento" class="is-active">
+            <div class="fleet-bento layout-asym set-rotary mode-video" id="fleetBento">
+              <!-- R1. Lead: AW109 VT-HGX (exterior -> cabin tour video) -->
+              <article class="fb-tile" data-group="rotary" data-kind="rotary" data-has-video="true" data-timed="true" data-dossier="aw109">
+                <div class="fb-media">
+                  <img class="img-ext" src="media/aw109-hgx.jpg" style="object-position:center 78%;" alt="Leonardo AW109S Grand VT-HGX" />
+                  <img class="img-int" src="assets/vt-hgx/vt-hgx-interior.jpg" alt="VT-HGX cream diamond-quilted leather cabin" />
+                  <video muted playsinline preload="auto" style="object-position:center 78%;"><source src="videos/vt-hgx-tour.mp4" type="video/mp4" /></video>
+                </div>
+                <div class="fb-ground-shadow" aria-hidden="true"></div>
+                <div class="fb-top">
+                  <span class="fb-reg">VT-HGX</span>
+                  <span class="fb-status-wrap">
+                    <span class="fb-status">In Service</span>
+                    <span class="rotor-disc" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><line x1="2" y1="12" x2="22" y2="12"/><line x1="12" y1="2" x2="12" y2="22"/><circle cx="12" cy="12" r="2.2"/></svg></span>
+                  </span>
+                </div>
+                <div class="fb-caption">
+                  <small>Twin-Engine Rotary · A109S Grand</small>
+                  <h3>Leonardo AW109</h3>
+                  <div class="fb-arrival">
+                    <div class="fb-arrival-meta"><b>06 Pax · 02 Crew</b> · Twin-Engine · VIP Club Cabin<br/>Click for full seating layout &amp; dossier</div>
+                    <img class="fb-mini-seat" src="assets/vt-hgx/vt-hgx-seating.png" alt="06 Pax + 02 Crew seating layout" />
+                  </div>
+                </div>
+              </article>
+
+              <!-- R2. Airbus H130 (4 airframes) -->
+              <article class="fb-tile" data-group="rotary" data-kind="rotary" data-has-video="true" data-dossier="h130">
+                <div class="fb-media">
+                  <img class="img-ext" src="media/ses-golden.jpg" alt="Airbus H130 VT-SES" />
+                  <img class="img-int" src="media/cockpit.jpg" alt="Airbus H130 cockpit view" />
+                  <video muted playsinline preload="auto" style="transform:scale(1.16);"><source src="videos/h130-ses-liftoff.mp4" type="video/mp4" /></video>
+                </div>
+                <div class="fb-ground-shadow" aria-hidden="true"></div>
+                <div class="fb-top">
+                  <span class="fb-reg">VT-SES · SDS · HFX · HEX</span>
+                  <span class="fb-status-wrap">
+                    <span class="fb-status">In Service · 4</span>
+                    <span class="rotor-disc" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><line x1="2" y1="12" x2="22" y2="12"/><line x1="12" y1="2" x2="12" y2="22"/><circle cx="12" cy="12" r="2.2"/></svg></span>
+                  </span>
+                </div>
+                <div class="fb-caption">
+                  <small>Single-Engine Rotary</small>
+                  <h3>Airbus H130</h3>
+                  <div class="fb-arrival">
+                    <div class="fb-arrival-meta"><b>4 Airframes · Up to 7 Pax</b> · Fenestron Quiet Tail</div>
+                  </div>
+                </div>
+              </article>
+
+              <!-- R3. AW109 VT-HAX (lift-off video) -->
+              <article class="fb-tile" data-group="rotary" data-kind="rotary" data-dossier="aw109">
+                <div class="fb-media">
+                  <img class="img-ext" src="media/aw109-hax.jpg" style="object-position:center 95%;" alt="Leonardo AW109 VT-HAX" />
+                  <img class="img-int" src="assets/vt-hgx/vt-hgx-interior.jpg" alt="AW109 executive cabin (representative)" />
+                </div>
+                <div class="fb-ground-shadow" aria-hidden="true"></div>
+                <div class="fb-top">
+                  <span class="fb-reg">VT-HAX</span>
+                  <span class="fb-status-wrap">
+                    <span class="fb-status">In Service</span>
+                    <span class="rotor-disc" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><line x1="2" y1="12" x2="22" y2="12"/><line x1="12" y1="2" x2="12" y2="22"/><circle cx="12" cy="12" r="2.2"/></svg></span>
+                  </span>
+                </div>
+                <div class="fb-caption">
+                  <small>Twin-Engine Rotary</small>
+                  <h3>Leonardo AW109</h3>
+                  <div class="fb-arrival">
+                    <div class="fb-arrival-meta"><b>Twin-Engine</b> · Executive Cabin</div>
+                  </div>
+                </div>
+              </article>
+
+              <!-- R4. Arriving rotary: R44 / H125 (no photography yet — drafting placeholder) -->
+              <article class="fb-tile fb-pending" data-group="rotary" data-kind="rotary" data-dossier="pipeline">
+                <div class="fb-media fb-media-pending">
+                  <svg viewBox="0 0 120 60" aria-hidden="true"><line x1="6" y1="12" x2="114" y2="12"/><line x1="60" y1="12" x2="60" y2="20"/><path d="M38 34c0-8 8-14 20-14h8c8 0 14 6 14 14v4H44c-4 0-6-2-6-4z"/><path d="M80 32h26l4-6"/><line x1="48" y1="46" x2="78" y2="46"/><line x1="54" y1="38" x2="52" y2="46"/><line x1="72" y1="38" x2="74" y2="46"/></svg>
+                  <span class="pending-note">Imagery to follow</span>
+                </div>
+                <div class="fb-top">
+                  <span class="fb-reg">R44 · H125</span>
+                  <span class="fb-status-wrap"><span class="fb-status">Arriving</span></span>
+                </div>
+                <div class="fb-caption">
+                  <small>Light &amp; Utility Rotary</small>
+                  <h3>R44 · H125</h3>
+                  <div class="fb-arrival">
+                    <div class="fb-arrival-meta"><b>Arriving 2026–27</b> · FTO &amp; Utility</div>
+                  </div>
+                </div>
+              </article>
+
+              <!-- Fixed-wing tiles: shown here in one-section mode, moved to #fleet-fixed in two-section mode -->
+              <!-- F1. Beechcraft King Air -->
+              <article class="fb-tile" data-group="fixed" data-kind="fixed" data-dossier="kingair">
+                <div class="fb-media">
+                  <img class="img-ext" src="assets/kingair-acd.jpg" style="object-position:center 55%;" alt="Beechcraft King Air VT-ACD" />
+                  <img class="img-int" src="media/cabin.jpg" alt="Beechcraft King Air cabin" />
+                </div>
+                <div class="fb-ground-shadow" aria-hidden="true"></div>
+                <div class="fb-top">
+                  <span class="fb-reg">VT-ACD</span>
+                  <span class="fb-status-wrap">
+                    <span class="fb-status">In Service</span>
+                    <span class="rotor-disc" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M12 3l8 14H4L12 3z"/></svg></span>
+                  </span>
+                </div>
+                <div class="fb-caption">
+                  <small>Twin-Turboprop</small>
+                  <h3>Beechcraft King Air</h3>
+                  <div class="fb-arrival">
+                    <div class="fb-arrival-meta"><b>Short-Field · Pressurised</b> · Regional &amp; Medevac Lease</div>
+                  </div>
+                </div>
+              </article>
+
+              <!-- F2. Hawker 400 -->
+              <article class="fb-tile" data-group="fixed" data-kind="fixed" data-dossier="hawker">
+                <div class="fb-media">
+                  <img class="img-ext" src="assets/hawker400-hbx.jpg" style="object-position:center 60%;" alt="Hawker 400 VT-HBX" />
+                  <img class="img-int" src="media/cabin-2.jpg" alt="Hawker 400 executive cabin" />
+                </div>
+                <div class="fb-ground-shadow" aria-hidden="true"></div>
+                <div class="fb-top">
+                  <span class="fb-reg">VT-HBX</span>
+                  <span class="fb-status-wrap">
+                    <span class="fb-status">In Service</span>
+                    <span class="rotor-disc" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M12 3l8 14H4L12 3z"/></svg></span>
+                  </span>
+                </div>
+                <div class="fb-caption">
+                  <small>Light Business Jet</small>
+                  <h3>Hawker 400</h3>
+                  <div class="fb-arrival">
+                    <div class="fb-arrival-meta"><b>High-Cruise Jet</b> · Flat-Floor Executive Cabin</div>
+                  </div>
+                </div>
+              </article>
+
+              <!-- F3. Tecnam P2010 (arriving) -->
+              <article class="fb-tile" data-group="fixed" data-kind="fixed" data-dossier="pipeline">
+                <div class="fb-media">
+                  <img class="img-ext" src="assets/tecnam-p2010.jpg" style="object-position:62% center;" alt="Tecnam P2010 training aircraft" />
+                  <img class="img-int" src="media/cockpit.jpg" alt="Glass cockpit training avionics" />
+                </div>
+                <div class="fb-ground-shadow" aria-hidden="true"></div>
+                <div class="fb-top">
+                  <span class="fb-reg">25× P2010</span>
+                  <span class="fb-status-wrap"><span class="fb-status">Arriving</span></span>
+                </div>
+                <div class="fb-caption">
+                  <small>FTO Training Fleet</small>
+                  <h3>Tecnam P2010</h3>
+                  <div class="fb-arrival">
+                    <div class="fb-arrival-meta"><b>25 Planned Trainers</b> · FTO Operating Leases</div>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <!-- Fleet Variant B: Smooth Horizontal Carousel -->
+          <div data-variant="carousel">
+            <div class="carousel-shell">
+              <div class="carousel-controls">
+                <span class="carousel-hint">Drag or use arrows · 6 Fleet Platforms</span>
+                <div class="carousel-arrows">
+                  <button class="c-arrow" id="fleetPrev" aria-label="Previous aircraft">&#8592;</button>
+                  <button class="c-arrow" id="fleetNext" aria-label="Next aircraft">&#8594;</button>
+                </div>
+              </div>
+              <div class="carousel-track" id="fleetCarousel">
+                <article class="c-card">
+                  <div class="c-card-img"><img src="media/ses-golden.jpg" alt="Airbus H130" /></div>
+                  <div class="c-card-body">
+                    <span class="fb-reg">VT-SES · VT-SDS</span>
+                    <h3>Airbus H130</h3>
+                    <div class="c-card-specs"><div><span>Fleet</span>4 Airframes</div><div><span>Cabin</span>7 Pax</div><div><span>Status</span>In Service</div></div>
+                  </div>
+                </article>
+                <article class="c-card">
+                  <div class="c-card-img"><img src="media/aw109-hax.jpg" alt="Leonardo AW109" /></div>
+                  <div class="c-card-body">
+                    <span class="fb-reg">VT-HAX · VT-HGX</span>
+                    <h3>Leonardo AW109</h3>
+                    <div class="c-card-specs"><div><span>Engines</span>Twin Turbine</div><div><span>Cabin</span>6–7 Pax</div><div><span>Status</span>In Service</div></div>
+                  </div>
+                </article>
+                <article class="c-card">
+                  <div class="c-card-img"><img src="media/h130-hfx.jpg" alt="Airbus H130 T2" /></div>
+                  <div class="c-card-body">
+                    <span class="fb-reg">VT-HFX · VT-HEX</span>
+                    <h3>Airbus H130 T2</h3>
+                    <div class="c-card-specs"><div><span>Tail</span>Fenestron</div><div><span>Mission</span>Pilgrimage / EMS</div><div><span>Status</span>In Service</div></div>
+                  </div>
+                </article>
+                <article class="c-card">
+                  <div class="c-card-img"><img src="media/cabin.jpg" alt="Beechcraft King Air" /></div>
+                  <div class="c-card-body">
+                    <span class="fb-reg">VT-ACD</span>
+                    <h3>Beechcraft King Air</h3>
+                    <div class="c-card-specs"><div><span>Type</span>Turboprop</div><div><span>Runway</span>Short-Field</div><div><span>Status</span>In Service</div></div>
+                  </div>
+                </article>
+                <article class="c-card">
+                  <div class="c-card-img"><img src="media/cabin-2.jpg" alt="Hawker 400" /></div>
+                  <div class="c-card-body">
+                    <span class="fb-reg">VT-HBX</span>
+                    <h3>Hawker 400</h3>
+                    <div class="c-card-specs"><div><span>Type</span>Light Jet</div><div><span>Mission</span>VIP / Medevac</div><div><span>Status</span>In Service</div></div>
+                  </div>
+                </article>
+                <article class="c-card">
+                  <div class="c-card-img"><img src="media/cockpit.jpg" alt="Tecnam P2010" /></div>
+                  <div class="c-card-body">
+                    <span class="fb-reg">25× P2010 · R44 · H125</span>
+                    <h3>Arriving Fleet</h3>
+                    <div class="c-card-specs"><div><span>Trainers</span>25 Planned</div><div><span>Rotary</span>R44 &amp; H125</div><div><span>Status</span>Arriving</div></div>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+
+          <!-- Fleet Variant C: Interactive Tail Register + Live Plate -->
+          <div data-variant="register">
+            <div class="register-split">
+              <div class="reg-list" id="regList">
+                <div class="reg-row active" data-img="media/ses-golden.jpg" data-cap="Airbus H130 (VT-SES, VT-SDS, VT-HFX, VT-HEX) — Four single-engine helicopters in active Indian service for pilgrimage, VIP, EMS, and urban shuttle operators.">
+                  <span class="reg-code">VT-SES · SDS · HFX · HEX</span>
+                  <span class="reg-name">Airbus H130</span>
+                  <span class="reg-meta">In Service · 4</span>
+                </div>
+                <div class="reg-row" data-img="media/aw109-hax.jpg" data-cap="Leonardo AW109 (VT-HAX, VT-HGX) — Twin-engine helicopters delivering high cruise speed, executive cabin quietness, and dual-engine safety redundancy.">
+                  <span class="reg-code">VT-HAX · VT-HGX</span>
+                  <span class="reg-name">Leonardo AW109</span>
+                  <span class="reg-meta">In Service · 2</span>
+                </div>
+                <div class="reg-row" data-img="media/cabin.jpg" data-cap="Beechcraft King Air (VT-ACD) — Pressurised twin-turboprop engineered for regional business aviation, short airstrips, and medical evacuation.">
+                  <span class="reg-code">VT-ACD</span>
+                  <span class="reg-name">Beechcraft King Air</span>
+                  <span class="reg-meta">In Service · 1</span>
+                </div>
+                <div class="reg-row" data-img="media/cabin-2.jpg" data-cap="Hawker 400 (VT-HBX) — High-speed executive light jet leased to operators serving corporate and family-office principals across India.">
+                  <span class="reg-code">VT-HBX</span>
+                  <span class="reg-name">Hawker 400</span>
+                  <span class="reg-meta">In Service · 1</span>
+                </div>
+                <div class="reg-row" data-img="media/cockpit.jpg" data-cap="Arriving Pipeline — 25 planned Tecnam P2010 glass-cockpit trainers plus Robinson R44 and Airbus H125 helicopters for India’s growing FTO and utility sectors.">
+                  <span class="reg-code">25× P2010 · R44 · H125</span>
+                  <span class="reg-name">Training &amp; Utility Pipeline</span>
+                  <span class="reg-meta">Arriving</span>
+                </div>
+              </div>
+              <aside class="reg-preview">
+                <div class="reg-preview-img"><img id="regImg" src="media/ses-golden.jpg" alt="Selected aircraft" /></div>
+                <div class="reg-preview-cap" id="regCap">Airbus H130 (VT-SES, VT-SDS, VT-HFX, VT-HEX) — Four single-engine helicopters in active Indian service for pilgrimage, VIP, EMS, and urban shuttle operators.</div>
+              </aside>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3b. FLEET — fixed-wing section (only visible in two-section mode) -->
+    <section class="sec-fleet sec-fleet-fixed on-light surf-grey" id="fleet-fixed" data-theme="light">
+      <div class="wrap fleet-frame">
+        <header class="fleet-ledger">
+          <span class="fl-num" data-secnum="3">03</span>
+          <h2 class="fl-title">Fixed-Wing <em>Fleet</em></h2>
+          <span class="fl-meta">Turboprop &amp; jet · 02 in service · 25 trainers arriving</span>
+          <a class="fl-link" href="#full-fleet" title="Full fleet page — to be designed">View the full fleet <span aria-hidden="true">&rarr;</span></a>
+        </header>
+        <div class="fleet-bento layout-asym set-fixed mode-video" id="fleetBentoFixed"></div>
+      </div>
+    </section>
+    <!-- 4. SERVICES & MISSIONS (3 SWITCHABLE DIRECTIONS) -->
+    <section class="sec-missions on-light surf-navy" id="missions" data-theme="dark">
+      <div class="wrap missions-head-wrap">
+        <div class="sec-bar">
+          <div>
+            <span class="eyebrow">03 / Leasing Services &amp; Missions</span>
+            <h2 class="sec-h2">Six sectors, <em>structured around your mission.</em></h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="variant-group" id="group-missions">
+        <!-- Missions Variant A: Expanding Curtain Panes -->
+        <div data-variant="panes" class="is-active">
+          <div class="panes">
+            <header class="panes-ledger">
+              <span class="fl-num" data-secnum-base="3">04</span>
+              <h2 class="fl-title">Leasing <em>by Mission</em></h2>
+              <span class="fl-meta">Six sectors · rotary &amp; fixed-wing operating leases</span>
+            </header>
+            <article class="pane active">
+              <img src="media/h130-sds.jpg" alt="Emergency Medical Services" />
+              <div class="pane-inner">
+                <span class="pane-num">I</span>
+                <h3>Emergency Medical</h3>
+                <div class="pane-detail"><p>Dedicated HEMS and pressurised medevac aircraft leased to hospital networks and specialist air-ambulance operators.</p><span>H130 · AW109 · King Air</span></div>
+              </div>
+            </article>
+            <article class="pane">
+              <img src="media/h130-hex.jpg" alt="Search and Rescue" />
+              <div class="pane-inner">
+                <span class="pane-num">II</span>
+                <h3>Search &amp; Rescue</h3>
+                <div class="pane-detail"><p>High-altitude, coastal, and disaster-response rotorcraft structured on dependable multi-year leases.</p><span>H130 · H125 · AW109</span></div>
+              </div>
+            </article>
+            <article class="pane">
+              <img src="media/ses-golden.jpg" alt="Religious Pilgrimage" />
+              <div class="pane-inner">
+                <span class="pane-num">III</span>
+                <h3>Pilgrimage</h3>
+                <div class="pane-detail"><p>High-utility rotorcraft engineered for India’s Himalayan and sacred mountain aviation corridors.</p><span>Airbus H130 · H125</span></div>
+              </div>
+            </article>
+            <article class="pane">
+              <img src="media/aw109-hgx.jpg" alt="VIP and UHNWI" />
+              <div class="pane-inner">
+                <span class="pane-num">IV</span>
+                <h3>VIP &amp; UHNWI</h3>
+                <div class="pane-detail"><p>Twin-engine helicopters and executive jets leased to licensed operators serving corporate principals and family offices.</p><span>AW109 · Hawker 400</span></div>
+              </div>
+            </article>
+            <article class="pane">
+              <img src="media/aw109-hgx-sky.jpg" alt="Megapolis Shuttle" />
+              <div class="pane-inner">
+                <span class="pane-num">V</span>
+                <h3>Megapolis Shuttle</h3>
+                <div class="pane-detail"><p>Quiet, modern rotorcraft enabling point-to-point urban connectivity between airports and business hubs.</p><span>H130 · AW109</span></div>
+              </div>
+            </article>
+            <article class="pane">
+              <img src="media/cockpit.jpg" alt="Flight Training Organisations" />
+              <div class="pane-inner">
+                <span class="pane-num">VI</span>
+                <h3>Flight Training</h3>
+                <div class="pane-detail"><p>Dedicated training-fleet programmes anchored by 25 planned Tecnam P2010 aircraft and Robinson R44 helicopters for Indian FTOs.</p><span>Tecnam P2010 · R44</span></div>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- Missions Variant B: Lease Ribbon + Wide Cinematic Carousel -->
+        <div data-variant="mcarousel">
+          <div class="wrap mission-carousel-wrap">
+            <div class="lease-ribbon">
+              <div class="lease-cell"><small>Structure 01</small><strong>Dry Lease</strong></div>
+              <div class="lease-cell"><small>Structure 02</small><strong>Operating Lease</strong></div>
+              <div class="lease-cell"><small>Structure 03</small><strong>Short &amp; Long Term</strong></div>
+              <div class="lease-cell"><small>Structure 04</small><strong>International Partnering</strong></div>
+            </div>
+            <div class="carousel-controls">
+              <span class="carousel-hint" style="color:var(--ink-muted);">Scroll or use arrows · 6 Operational Sectors</span>
+              <div class="carousel-arrows">
+                <button class="c-arrow" style="border-color:var(--rule-light); color:var(--ink);" id="missionPrev" aria-label="Previous mission">&#8592;</button>
+                <button class="c-arrow" style="border-color:var(--rule-light); color:var(--ink);" id="missionNext" aria-label="Next mission">&#8594;</button>
+              </div>
+            </div>
+            <div class="m-carousel" id="missionCarousel">
+              <article class="m-slide"><img src="media/ses-golden.jpg" alt="Religious Pilgrimage" /><div class="m-slide-body"><small>01 · High-Altitude Rotary</small><h3>Religious Pilgrimage</h3><p>High-utility Airbus H130 and H125 fleets serving India’s mountain and temple aviation corridors.</p></div></article>
+              <article class="m-slide"><img src="media/h130-sds.jpg" alt="Emergency Medical Services" /><div class="m-slide-body"><small>02 · HEMS &amp; Medevac</small><h3>Emergency Medical</h3><p>Dedicated air-ambulance helicopters and pressurised King Air aircraft for hospital and state networks.</p></div></article>
+              <article class="m-slide"><img src="media/h130-hex.jpg" alt="Search and Rescue" /><div class="m-slide-body"><small>03 · State &amp; Coastal</small><h3>Search &amp; Rescue</h3><p>Mission-ready rotorcraft supporting alpine, offshore, and rapid disaster-response operations.</p></div></article>
+              <article class="m-slide"><img src="media/aw109-hgx.jpg" alt="VIP & UHNWI" /><div class="m-slide-body"><small>04 · Executive Aviation</small><h3>VIP &amp; UHNWI</h3><p>Twin-engine AW109s and Hawker 400 jets leased to operators serving principals and family offices.</p></div></article>
+              <article class="m-slide"><img src="media/aw109-hgx-sky.jpg" alt="Megapolis Shuttle" /><div class="m-slide-body"><small>05 · Urban Mobility</small><h3>Megapolis Shuttle</h3><p>Low-noise urban helicopter leases linking airports, financial districts, and regional heliports.</p></div></article>
+              <article class="m-slide"><img src="media/cockpit.jpg" alt="Flight Training" /><div class="m-slide-body"><small>06 · FTO Fleet Pipeline</small><h3>Flight Training</h3><p>25 planned Tecnam P2010 trainers and Robinson R44 helicopters scaling India’s flying schools.</p></div></article>
+            </div>
+          </div>
+        </div>
+
+        <!-- Missions Variant C: Editorial Bento Mosaic -->
+        <div data-variant="mbento">
+          <div class="wrap mission-bento-wrap">
+            <div class="mission-bento">
+              <article class="mb-card c-6"><img src="media/ses-golden.jpg" alt="Pilgrimage" /><div><small>Airbus H130 · H125</small><h3>Religious Pilgrimage</h3><p>High-altitude rotary capacity built for India’s most demanding mountain corridors.</p></div></article>
+              <article class="mb-card c-6"><img src="media/h130-sds.jpg" alt="EMS" /><div><small>H130 · AW109 · King Air</small><h3>Emergency Medical Services</h3><p>Rapid-response HEMS and fixed-wing medevac leasing for healthcare operators.</p></div></article>
+              <article class="mb-card c-4"><img src="media/h130-hex.jpg" alt="SAR" /><div><small>Rotary Utility</small><h3>Search &amp; Rescue</h3><p>Alpine, coastal, and disaster-response fleet availability.</p></div></article>
+              <article class="mb-card c-4"><img src="media/aw109-hgx.jpg" alt="VIP" /><div><small>AW109 · Hawker 400</small><h3>VIP &amp; UHNWI</h3><p>Executive rotorcraft and light jets via licensed partner operators.</p></div></article>
+              <article class="mb-card c-4"><img src="media/aw109-hgx-sky.jpg" alt="Shuttle" /><div><small>Urban Mobility</small><h3>Megapolis Shuttle</h3><p>Point-to-point metro connectivity with Fenestron acoustics.</p></div></article>
+              <article class="mb-card c-8" style="grid-column:span 12;"><img src="media/cockpit.jpg" alt="Training" /><div><small>25× Tecnam P2010 · Robinson R44</small><h3>Flight Training Organisations (FTOs)</h3><p>Structured trainer operating leases designed for new and expanding Indian flying schools.</p></div></article>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. LATEST NEWS — one lead story + thumbnails; clicking a thumbnail swaps it into the lead -->
+    <section class="sec-news surf-grey" id="journal" data-theme="light" aria-label="Latest news">
+      <div class="wrap">
+        <header class="fleet-ledger news-ledger">
+          <span class="fl-num" data-secnum-base="4">05</span>
+          <h2 class="fl-title">Latest <em>News</em></h2>
+          <span class="fl-meta">Achievements · Expert views · Aviation news</span>
+          <a class="fl-link" href="#all-news" title="News page (to be designed)">All 28 stories <span aria-hidden="true">&rarr;</span></a>
+        </header>
+
+        <article class="nw-lead" id="newsLead" aria-live="polite">
+          <a class="nw-lead-img" id="nwLink1" href="https://skypulsesolutions.com/achievements/hal-and-skypulse-solutions-ifsc-sign-mou-to-build-indias-next-generation-civil-helicopter-ecosystem/" target="_blank" rel="noopener"><img id="nwImg" src="media/news-hal.jpg" alt="" /></a>
+          <div class="nw-lead-text">
+            <span class="nw-meta" id="nwMeta">Achievement · 23 Sep 2026</span>
+            <h3 id="nwTitle">HAL and SkyPulse Solutions IFSC sign MoU to build India’s next-generation civil helicopter ecosystem</h3>
+            <p id="nwBlurb">30 helicopters, one vision: an MoU with Hindustan Aeronautics Limited to build an integrated ecosystem for leasing and deploying Indian-made civil helicopters.</p>
+            <a class="fl-link nw-read" id="nwLink2" href="https://skypulsesolutions.com/achievements/hal-and-skypulse-solutions-ifsc-sign-mou-to-build-indias-next-generation-civil-helicopter-ecosystem/" target="_blank" rel="noopener">Read the story <span aria-hidden="true">&rarr;</span></a>
+          </div>
+        </article>
+
+        <div class="nw-rail" id="newsRail">
+        <ul class="nw-thumbs" id="newsThumbs" aria-label="More stories">
+          <li><button class="nw-thumb" type="button" data-slot="0" data-cat="Aviation news" data-date="2 Nov 2026" data-title="India’s aviation growth is entering a new phase: aircraft leasing, innovative financing and helicopter expansion" data-blurb="New leasing policy, a landmark IndiGo financing deal through GIFT IFSC and a renewed push for helicopter operations show where Indian aviation is heading." data-img="assets/news/news-growth.jpg" data-url="https://skypulsesolutions.com/aviation-news/indias-aviation-growth-is-entering-a-new-phase-aircraft-leasing-innovative-financing-and-helicopter-expansion/">
+            <span class="nw-thumb-img"><img src="assets/news/news-growth.jpg" alt="" loading="lazy" /></span>
+            <span class="nw-thumb-meta">Aviation news · 2 Nov 2026</span>
+            <span class="nw-thumb-title">India’s aviation growth is entering a new phase: aircraft leasing, innovative financing and helicopter expansion</span>
+          </button></li>
+          <li><button class="nw-thumb" type="button" data-slot="1" data-cat="Expert view" data-date="9 Oct 2026" data-title="Aircraft supply shortage is becoming a structural problem" data-blurb="Why a prolonged gap between aircraft demand and production capacity could reshape airline fleet strategies and strengthen the role of leasing." data-img="media/news-supply.jpg" data-url="https://skypulsesolutions.com/aviation-expert-views/aircraft-supply-shortage-is-becoming-a-structural-problem/">
+            <span class="nw-thumb-img"><img src="media/news-supply.jpg" alt="" loading="lazy" /></span>
+            <span class="nw-thumb-meta">Expert view · 9 Oct 2026</span>
+            <span class="nw-thumb-title">Aircraft supply shortage is becoming a structural problem</span>
+          </button></li>
+          <li><button class="nw-thumb" type="button" data-slot="2" data-cat="Aviation news" data-date="16 Sep 2026" data-title="India’s air travel growth forecast raised to 9.3%: what it means for aviation and aircraft leasing" data-blurb="Airbus now expects India’s domestic traffic to grow 9.3% a year through 2045, among the fastest rates in Asia-Pacific." data-img="assets/news/news-forecast.jpg" data-url="https://skypulsesolutions.com/aviation-news/indias-air-travel-growth-forecast-raised-to-9-3-what-it-means-for-aviation-and-aircraft-leasing/">
+            <span class="nw-thumb-img"><img src="assets/news/news-forecast.jpg" alt="" loading="lazy" /></span>
+            <span class="nw-thumb-meta">Aviation news · 16 Sep 2026</span>
+            <span class="nw-thumb-title">India’s air travel growth forecast raised to 9.3%: what it means for aviation and aircraft leasing</span>
+          </button></li>
+          <li><button class="nw-thumb" type="button" data-slot="3" data-cat="Aviation news" data-date="2 Sep 2026" data-title="India’s aviation financing moment: five signals that could reshape the industry" data-blurb="New regional airports, growing fleets, GIFT City’s rise as a finance hub and the arrival of eVTOLs are converging into one opportunity." data-img="assets/news/news-financing.jpg" data-url="https://skypulsesolutions.com/aviation-news/indias-aviation-financing-moment-five-signals-that-could-reshape-the-industry/">
+            <span class="nw-thumb-img"><img src="assets/news/news-financing.jpg" alt="" loading="lazy" /></span>
+            <span class="nw-thumb-meta">Aviation news · 2 Sep 2026</span>
+            <span class="nw-thumb-title">India’s aviation financing moment: five signals that could reshape the industry</span>
+          </button></li>
+          <li><button class="nw-thumb" type="button" data-slot="4" data-cat="Aviation news" data-date="3 Aug 2026" data-title="Hub and spoke: India’s new aviation strategy to strengthen global connectivity" data-blurb="A plan for 44 airports, including four major hubs, to connect India’s domestic and international routes more efficiently." data-img="assets/news/news-hub.jpg" data-url="https://skypulsesolutions.com/aviation-news/hub-and-spoke-indias-new-aviation-strategy-to-strengthen-global-connectivity/">
+            <span class="nw-thumb-img"><img src="assets/news/news-hub.jpg" alt="" loading="lazy" /></span>
+            <span class="nw-thumb-meta">Aviation news · 3 Aug 2026</span>
+            <span class="nw-thumb-title">Hub and spoke: India’s new aviation strategy to strengthen global connectivity</span>
+          </button></li>
+          <li><button class="nw-thumb" type="button" data-slot="5" data-cat="Aviation news" data-date="18 Jul 2026" data-title="SkyPulse at MoCA’s UDAN stakeholder workshop in New Delhi" data-blurb="Joining policymakers, state governments, airlines and financiers at Vigyan Bhawan to shape the next phase of India’s regional connectivity scheme." data-img="media/news-udan.jpg" data-url="https://skypulsesolutions.com/aviation-news/skypulse-at-mocas-udan-stakeholder-workshop-in-new-delhi/">
+            <span class="nw-thumb-img"><img src="media/news-udan.jpg" alt="" loading="lazy" /></span>
+            <span class="nw-thumb-meta">Aviation news · 18 Jul 2026</span>
+            <span class="nw-thumb-title">SkyPulse at MoCA’s UDAN stakeholder workshop in New Delhi</span>
+          </button></li>
+          <li><button class="nw-thumb" type="button" data-slot="6" data-cat="Aviation news" data-date="1 Jul 2026" data-title="Beyond assembly lines: how domestic helicopter manufacturing is reshaping India’s aviation future" data-blurb="India’s first private helicopter final assembly lines and new global partnerships are bringing manufacturing onshore." data-img="assets/news/news-assembly.jpg" data-url="https://skypulsesolutions.com/aviation-news/beyond-assembly-lines-how-domestic-helicopter-manufacturing-is-reshaping-indias-aviation-future/">
+            <span class="nw-thumb-img"><img src="assets/news/news-assembly.jpg" alt="" loading="lazy" /></span>
+            <span class="nw-thumb-meta">Aviation news · 1 Jul 2026</span>
+            <span class="nw-thumb-title">Beyond assembly lines: how domestic helicopter manufacturing is reshaping India’s aviation future</span>
+          </button></li>
+          <li><button class="nw-thumb" type="button" data-slot="7" data-cat="Aviation news" data-date="13 Jun 2026" data-title="GIFT City announces a silent transformation in global aircraft leasing" data-blurb="GIFT City’s leadership on why the financing for the 2,200 aircraft Indian airlines have on order should happen in India." data-img="assets/news/news-giftcity.jpg" data-url="https://skypulsesolutions.com/aviation-news/gift-city-announces-a-silent-transformation-in-global-aircraft-leasing/">
+            <span class="nw-thumb-img"><img src="assets/news/news-giftcity.jpg" alt="" loading="lazy" /></span>
+            <span class="nw-thumb-meta">Aviation news · 13 Jun 2026</span>
+            <span class="nw-thumb-title">GIFT City announces a silent transformation in global aircraft leasing</span>
+          </button></li>
+          <li><button class="nw-thumb" type="button" data-slot="8" data-cat="Achievement" data-date="15 Apr 2026" data-title="SkyPulse Solutions shines at the 7th Aerospace &amp; Defence MRO South Asia Summit" data-blurb="Taking part in a key regional gathering of leaders in aviation maintenance, leasing and asset management." data-img="media/news-mro-award.jpg" data-url="https://skypulsesolutions.com/achievements/skypulse-solutions-shines-at-the-7th-aerospace-defence-mro-south-asia-summit/">
+            <span class="nw-thumb-img"><img src="media/news-mro-award.jpg" alt="" loading="lazy" /></span>
+            <span class="nw-thumb-meta">Achievement · 15 Apr 2026</span>
+            <span class="nw-thumb-title">SkyPulse Solutions shines at the 7th Aerospace &amp; Defence MRO South Asia Summit</span>
+          </button></li>
+          <li><button class="nw-thumb" type="button" data-slot="9" data-cat="Aviation news" data-date="2 Feb 2026" data-title="SkyPulse Solutions at Wings India 2026" data-blurb="Four days at India’s civil aviation show, and a strong response from operators, partners and start-ups to flexible rotor-wing and light fixed-wing leasing." data-img="media/news-wings.jpg" data-url="https://skypulsesolutions.com/aviation-news/skypulse-at-wings-india-2026/">
+            <span class="nw-thumb-img"><img src="media/news-wings.jpg" alt="" loading="lazy" /></span>
+            <span class="nw-thumb-meta">Aviation news · 2 Feb 2026</span>
+            <span class="nw-thumb-title">SkyPulse Solutions at Wings India 2026</span>
+          </button></li>
+        </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="footer" data-theme="dark">
+    <div class="footer-crest">
+      <img src="media/mark.png" alt="SkyPulse feather crest" />
+      <span>SkyPulse Solutions IFSC Private Limited</span>
+    </div>
+    <div class="footer-cols">
+      <div><h4>Registered Office</h4><p>Unit 80, The Platform, Ground Floor, 11 T2, Block 11, GIFT SEZ, Gandhinagar 382355, Gujarat, India.<br/>Monday–Friday · 10:00–18:00 IST</p></div>
+      <div><h4>Directory</h4><ul><li><a href="#about">Leasing</a></li><li><a href="#fleet">Fleet Register</a></li><li><a href="#why">Why SkyPulse</a></li><li><a href="#journal">News</a></li></ul></div>
+      <div><h4>Governance</h4><ul><li>Leadership &amp; Board</li><li>Annual Return (Form MGT-7)</li><li>Privacy Policy</li><li>Grievance Redressal</li></ul></div>
+      <div><h4>Correspondence</h4><ul><li>info@skypulsesolutions.com</li><li>+91 98214 32482</li><li>GIFT City · Gandhinagar</li></ul></div>
+    </div>
+    <div class="footer-legal">
+      <span>© 2026 SkyPulse Solutions IFSC Private Limited · Aircraft Operating Lessor · Not a Charter Operator</span>
+      <span>Statutory disclosures published pursuant to Companies (Incorporation) Rules r.26</span>
+    </div>
+  </footer>
+
+  <!-- OPTION B: FULL LUXURY AIRCRAFT DOSSIER MODAL (CLICK ANY BENTO TILE) -->
+  <div class="dossier-modal" id="dossierModal" role="dialog" aria-modal="true" aria-label="Aircraft Dossier">
+    <div class="dossier-sheet">
+      <div class="ds-head">
+        <div class="ds-head-left">
+          <small id="dsReg">VT-HGX · VT-HAX</small>
+          <h3 id="dsTitle">Leonardo AW109S Grand</h3>
+        </div>
+        <button class="ds-close" id="dsClose" aria-label="Close dossier">&times;</button>
+      </div>
+      <div class="ds-body">
+        <div class="ds-gallery">
+          <img id="dsImg1" src="media/aw109-hgx.jpg" alt="Exterior view" />
+          <img id="dsImg2" src="assets/vt-hgx/vt-hgx-interior.jpg" alt="Interior view" />
+          <div class="ds-seating-box" id="dsSeatingWrap">
+            <small>Cabin Seating Architecture · 06 Passengers + 02 Crew</small>
+            <img id="dsSeating" src="assets/vt-hgx/vt-hgx-seating.png" alt="Top-down seating layout" />
+          </div>
+        </div>
+        <div class="ds-info">
+          <p id="dsDesc"></p>
+          <div class="ds-pillars" id="dsPillars"></div>
+          <div class="ds-spec-list" id="dsSpecs"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TWEAK STUDIO FAB & DRAWER -->
+  <button class="tweak-fab" id="openTweak" aria-label="Open Tweak Studio">
+    <span class="dot"></span> Tweak Studio
+  </button>
+
+  <aside class="tweak-panel" id="tweakPanel" aria-label="Live Design Tweak Studio">
+    <div class="tp-head">
+      <strong>SkyPulse Tweak Studio</strong>
+      <button class="tp-close" id="closeTweak" aria-label="Close">&times;</button>
+    </div>
+
+    <div class="tp-tabs" role="tablist">
+      <button class="tp-tab active" data-tp="page">Page</button>
+      <button class="tp-tab" data-tp="sections">Sections</button>
+      <button class="tp-tab" data-tp="type">Type</button>
+    </div>
+
+    <div class="tp-body">
+      <!-- ============ TAB 1: PAGE (global colour system) ============ -->
+      <div class="tp-pane active" data-pane="page">
+        <div class="tp-group">
+          <h4>Section rhythm<small>How navy and grey surfaces run down the page. Hero and footer stay navy.</small></h4>
+          <div class="chip-group pal-cards" id="tPalette">
+            <button class="chip active" data-pal="mix"><span class="pal-strip" data-strip="mix"></span>Alternating</button>
+            <button class="chip" data-pal="navy"><span class="pal-strip" data-strip="navy"></span>All navy</button>
+            <button class="chip" data-pal="grey"><span class="pal-strip" data-strip="grey"></span>All grey</button>
+          </div>
+        </div>
+        <div class="tp-group">
+          <h4>Navy surface<small>Used by every navy section, the hero overlay and the footer.</small></h4>
+          <div class="color-rows" data-palette-rows="navy"></div>
+        </div>
+        <div class="tp-group">
+          <h4>Grey surface</h4>
+          <div class="color-rows" data-palette-rows="grey"></div>
+        </div>
+        <div class="tp-group">
+          <h4>Palette presets<small>One click sets both surfaces.</small></h4>
+          <div class="preset-row" id="tPresets"></div>
+        </div>
+        <div class="tp-group">
+          <div class="ctrl">
+            <label>Section spacing <b id="vPad">110px</b></label>
+            <input type="range" id="tPad" min="56" max="170" value="110" />
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ TAB 2: SECTIONS (one block per section) ============ -->
+      <div class="tp-pane" data-pane="sections">
+        <details class="tp-sec" open>
+          <summary><span class="ts-num">00</span><span class="ts-name">Hero</span><span class="ts-sw" style="background:#050A30"></span></summary>
+          <div class="tp-sec-body">
+            <div class="ctrl">
+              <label>Headline</label>
+              <select id="tHeroPreset">
+                <option value="Aviation leasing, <em>held to a higher standard.</em>">Aviation leasing, held to a higher standard.</option>
+                <option value="Your one-stop <em>aviation leasing</em> solution.">Your one-stop aviation leasing solution.</option>
+                <option value="Sovereign-grade <em>aircraft leasing</em> from GIFT City.">Sovereign-grade aircraft leasing from GIFT City.</option>
+                <option value="The quiet capital behind <em>India’s skies.</em>">The quiet capital behind India’s skies.</option>
+                <option value="Precision-owned fleets for <em>India’s operators.</em>">Precision-owned fleets for India’s operators.</option>
+                <option value="Where global aircraft meet <em>Indian ambition.</em>">Where global aircraft meet Indian ambition.</option>
+              </select>
+              <textarea id="tHeroCustom" rows="2">Aviation leasing, <em>held to a higher standard.</em></textarea>
+              <span class="tp-hint">Wrap words in &lt;em&gt; to make them gold italic.</span>
+            </div>
+            <div class="ctrl"><label>Kicker</label><input type="text" id="tHeroKicker" value="GIFT City IFSC · Aircraft Operating Lessor" /></div>
+            <div class="ctrl"><label>Subtitle</label><input type="text" id="tHeroSub" value="Rotary & Fixed-Wing Assets · Dry & Operating Leases · Gandhinagar, India" /></div>
+            <div class="ctrl">
+              <label>Background</label>
+              <select id="tHeroMedia">
+                <option value="media/cabin.jpg">Executive cabin (photo)</option>
+                <option value="media/ses-golden.jpg">Airbus H130 VT-SES, golden hour</option>
+                <option value="media/aw109-hgx-sky.jpg">Leonardo AW109 in flight</option>
+                <option value="media/tail.jpg">H130 tail detail</option>
+                <option value="video">Atmospheric sky (looping video)</option>
+              </select>
+            </div>
+            <div class="ctrl"><label>Image brightness <b id="vHeroDim">56%</b></label><input type="range" id="tHeroDim" min="30" max="90" value="56" /></div>
+            <div class="ctrl">
+              <label>Alignment</label>
+              <div class="chip-group" id="tHeroAlign">
+                <button class="chip active" data-val="center">Centered</button>
+                <button class="chip" data-val="left">Left</button>
+              </div>
+            </div>
+            <button class="tp-btn" id="tReplayVeil">Replay opening curtain</button>
+          </div>
+        </details>
+
+        <details class="tp-sec" data-sec-block="about">
+          <summary><span class="ts-num">01</span><span class="ts-name">About</span><span class="ts-sw"></span></summary>
+          <div class="tp-sec-body">
+            <div class="ctrl">
+              <label>Numbers</label>
+              <div class="chip-group" id="tStatAnim">
+                <button class="chip active" data-val="count">Count up</button>
+                <button class="chip" data-val="static">Static</button>
+              </div>
+            </div>
+            <div class="tp-sub">Colours</div>
+            <div class="surf-ctrl" data-sec="about"></div>
+          </div>
+        </details>
+
+        <details class="tp-sec" data-sec-block="why">
+          <summary><span class="ts-num">—</span><span class="ts-name">Why choose us strip</span><span class="ts-sw"></span></summary>
+          <div class="tp-sec-body">
+            <div class="ctrl">
+              <label>Motion</label>
+              <div class="chip-group" id="tWhyMode">
+                <button class="chip active" data-val="flow">Flowing</button>
+                <button class="chip" data-val="static">Static grid</button>
+              </div>
+            </div>
+            <div class="ctrl"><label>Flow speed <b id="vWhySpeed">120s / loop</b></label><input type="range" id="tWhySpeed" min="50" max="240" value="120" /></div>
+            <div class="tp-sub">Colours</div>
+            <div class="surf-ctrl" data-sec="why"></div>
+          </div>
+        </details>
+
+        <details class="tp-sec" data-sec-block="fleet">
+          <summary><span class="ts-num">02</span><span class="ts-name">Fleet</span><span class="ts-sw"></span></summary>
+          <div class="tp-sec-body">
+            <div class="ctrl">
+              <label>Format</label>
+              <div class="chip-group" data-sync="fleet">
+                <button class="chip active" data-val="bento">Bento</button>
+                <button class="chip" data-val="carousel">Carousel</button>
+                <button class="chip" data-val="register">Register list</button>
+              </div>
+            </div>
+            <div class="ctrl">
+              <label>Split</label>
+              <div class="chip-group" id="tFleetSplit">
+                <button class="chip active" data-split="two">Rotary + fixed-wing</button>
+                <button class="chip" data-split="one">One section</button>
+              </div>
+            </div>
+            <div class="ctrl">
+              <label>Bento grid</label>
+              <div class="chip-group" id="tFleetLayout">
+                <button class="chip active" data-layout="layout-asym">Asymmetric</button>
+                <button class="chip" data-layout="layout-even">Even grid</button>
+              </div>
+            </div>
+            <div class="ctrl">
+              <label>Heading</label>
+              <div class="chip-group" id="tFleetHead">
+                <button class="chip active" data-head="ledger">Thin line</button>
+                <button class="chip" data-head="spine">Vertical spine</button>
+              </div>
+            </div>
+            <div class="ctrl">
+              <label>Hover motion</label>
+              <div class="chip-group" id="tBentoHover">
+                <button class="chip active" data-bmode="mode-video">Video</button>
+                <button class="chip" data-bmode="mode-lift">Lift-off</button>
+                <button class="chip" data-bmode="mode-crossfade">Cabin reveal</button>
+              </div>
+            </div>
+            <div class="tp-sub">Rotary colours</div>
+            <div class="surf-ctrl" data-sec="fleet"></div>
+            <div class="tp-sub">Fixed-wing colours</div>
+            <div class="surf-ctrl" data-sec="fleet-fixed"></div>
+          </div>
+        </details>
+
+        <details class="tp-sec" data-sec-block="missions">
+          <summary><span class="ts-num">03</span><span class="ts-name">Services &amp; missions</span><span class="ts-sw"></span></summary>
+          <div class="tp-sec-body">
+            <div class="ctrl">
+              <label>Layout</label>
+              <div class="chip-group" data-sync="missions">
+                <button class="chip active" data-val="panes">Curtain panes</button>
+                <button class="chip" data-val="mcarousel">Carousel</button>
+                <button class="chip" data-val="mbento">Mosaic</button>
+              </div>
+            </div>
+            <div class="tp-sub">Colours</div>
+            <div class="surf-ctrl" data-sec="missions"></div>
+          </div>
+        </details>
+
+        <details class="tp-sec" data-sec-block="journal">
+          <summary><span class="ts-num">04</span><span class="ts-name">Latest news</span><span class="ts-sw"></span></summary>
+          <div class="tp-sec-body"><div class="surf-ctrl" data-sec="journal"></div></div>
+        </details>
+
+        <details class="tp-sec" data-sec-block="footer">
+          <summary><span class="ts-num">—</span><span class="ts-name">Footer</span><span class="ts-sw"></span></summary>
+          <div class="tp-sec-body"><div class="surf-ctrl" data-sec="footer"></div></div>
+        </details>
+      </div>
+
+      <!-- ============ TAB 3: TYPE ============ -->
+      <div class="tp-pane" data-pane="type">
+        <div class="tp-group">
+          <h4>Fonts<small>Hover a font to preview it on the page; click to keep it.</small></h4>
+          <div class="ctrl"><span class="lbl">Headlines</span><div class="font-field" data-role="display"></div></div>
+          <div class="ctrl"><span class="lbl">Body text</span><div class="font-field" data-role="body"></div></div>
+          <div class="ctrl"><span class="lbl">Labels &amp; navigation</span><div class="font-field" data-role="label"></div></div>
+          <div class="ctrl"><span class="lbl">Codes &amp; numbers (tail numbers, specs)</span><div class="font-field" data-role="mono"></div></div>
+        </div>
+        <div class="tp-group">
+          <h4>Sizes</h4>
+          <div class="ctrl"><label>Hero headline <b id="vHeroSize">92px</b></label><input type="range" id="tHeroSize" min="48" max="124" value="92" /></div>
+          <div class="ctrl"><label>Section headings <b id="vH2Size">58px</b></label><input type="range" id="tH2Size" min="34" max="80" value="58" /></div>
+          <div class="ctrl"><label>Body text <b id="vBodySize">16px</b></label><input type="range" id="tBodySize" min="14" max="19" value="16" /></div>
+          <div class="ctrl"><label>Headline letter spacing <b id="vTrack">-0.01em</b></label><input type="range" id="tTrack" min="-4" max="8" step="1" value="-1" /></div>
+        </div>
+        <div class="tp-group">
+          <div class="ctrl">
+            <label>Emphasised words</label>
+            <div class="chip-group" id="tEmStyle">
+              <button class="chip active" data-val="italic"><em>Italic</em></button>
+              <button class="chip" data-val="normal">Upright</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tp-foot">
+      <button class="tp-btn" id="tReset" title="Go back to your last saved default">Reset</button>
+      <button class="tp-btn" id="tCopy">Copy spec</button>
+      <button class="tp-btn primary" id="tSave" title="Make the current look the default on every load">Save as default</button>
+      <p class="tp-save-status" id="tSaveStatus"></p>
+    </div>
+  </aside>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script>
+    const root = document.documentElement;
+    const state = {
+      heroLine: 'Aviation leasing, <em>held to a higher standard.</em>',
+      displayFont: "'Cormorant Garamond', Georgia, serif",
+      bodyFont: "'Inter', sans-serif",
+      about: { why: 'flow', speed: 120, numbers: 'count' },
+      fleet: 'bento',
+      missions: 'panes',
+      mode: 'classic',
+      gold: '#C6A15B',
+      navy: '#050A30'
+    };
+
+    // Drawer Toggle & Tabs
+    const panel = document.getElementById('tweakPanel');
+    document.getElementById('openTweak').addEventListener('click', () => panel.classList.add('open'));
+    document.getElementById('closeTweak').addEventListener('click', () => panel.classList.remove('open'));
+    document.querySelectorAll('.tp-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.tp-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tp-pane').forEach(p => p.classList.remove('active'));
+        tab.classList.add('active');
+        document.querySelector(`.tp-pane[data-pane="${tab.dataset.tp}"]`).classList.add('active');
+      });
+    });
+
+    // Switch Section Variants (synced between inline pills & tweak bar)
+    function setVariant(group, val) {
+      state[group] = val;
+      const container = document.getElementById(`group-${group}`);
+      container.querySelectorAll(':scope > [data-variant]').forEach(el => {
+        const active = el.dataset.variant === val;
+        el.classList.toggle('is-active', active);
+        if (active && window.gsap) {
+          gsap.fromTo(el, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' });
+        }
+      });
+      document.querySelectorAll(`.v-pills[data-group="${group}"] .v-pill`).forEach(b => b.classList.toggle('active', b.dataset.target === val));
+      document.querySelectorAll(`.chip-group[data-sync="${group}"] .chip`).forEach(c => c.classList.toggle('active', c.dataset.val === val));
+      if (window.ScrollTrigger) ScrollTrigger.refresh();
+    }
+
+    document.querySelectorAll('.v-pills').forEach(bar => {
+      const grp = bar.dataset.group;
+      bar.querySelectorAll('.v-pill').forEach(btn => btn.addEventListener('click', () => setVariant(grp, btn.dataset.target)));
+    });
+    document.querySelectorAll('.chip-group[data-sync]').forEach(cg => {
+      const grp = cg.dataset.sync;
+      cg.querySelectorAll('.chip').forEach(btn => btn.addEventListener('click', () => setVariant(grp, btn.dataset.val)));
+    });
+
+    // Hero Tweaks
+    const heroEl = document.getElementById('hero');
+    const heroTitle = document.getElementById('heroTitle');
+    const heroKicker = document.getElementById('heroKicker');
+    const heroSub = document.getElementById('heroSub');
+    const heroPhoto = document.getElementById('heroPhoto');
+    const tHeroPreset = document.getElementById('tHeroPreset');
+    const tHeroCustom = document.getElementById('tHeroCustom');
+
+    tHeroPreset.addEventListener('change', () => {
+      heroTitle.innerHTML = tHeroPreset.value;
+      tHeroCustom.value = tHeroPreset.value;
+      state.heroLine = tHeroPreset.value;
+    });
+    tHeroCustom.addEventListener('input', () => {
+      heroTitle.innerHTML = tHeroCustom.value;
+      state.heroLine = tHeroCustom.value;
+    });
+    document.getElementById('tHeroKicker').addEventListener('input', e => heroKicker.textContent = e.target.value);
+    document.getElementById('tHeroSub').addEventListener('input', e => heroSub.textContent = e.target.value);
+    document.getElementById('tHeroMedia').addEventListener('change', e => {
+      if (e.target.value === 'video') {
+        heroEl.classList.add('is-video');
+      } else {
+        heroEl.classList.remove('is-video');
+        heroPhoto.src = e.target.value;
+      }
+    });
+    document.getElementById('tHeroDim').addEventListener('input', e => {
+      root.style.setProperty('--hero-dim', (e.target.value / 100).toFixed(2));
+      document.getElementById('vHeroDim').textContent = `${e.target.value}%`;
+    });
+    document.querySelectorAll('#tHeroAlign .chip').forEach(c => {
+      c.addEventListener('click', () => {
+        document.querySelectorAll('#tHeroAlign .chip').forEach(x => x.classList.remove('active'));
+        c.classList.add('active');
+        heroEl.classList.toggle('align-left', c.dataset.val === 'left');
+      });
+    });
+
+    // Typography Tweaks
+    document.getElementById('tHeroSize').addEventListener('input', e => {
+      root.style.setProperty('--hero-size', `${e.target.value}px`);
+      document.getElementById('vHeroSize').textContent = `${e.target.value}px`;
+    });
+    document.getElementById('tH2Size').addEventListener('input', e => {
+      root.style.setProperty('--h2-size', `${e.target.value}px`);
+      document.getElementById('vH2Size').textContent = `${e.target.value}px`;
+    });
+    document.getElementById('tBodySize').addEventListener('input', e => {
+      root.style.setProperty('--body-size', `${e.target.value}px`);
+      document.getElementById('vBodySize').textContent = `${e.target.value}px`;
+    });
+    document.getElementById('tTrack').addEventListener('input', e => {
+      const em = (e.target.value / 100).toFixed(2) + 'em';
+      root.style.setProperty('--display-track', em);
+      document.getElementById('vTrack').textContent = em;
+    });
+    document.querySelectorAll('#tEmStyle .chip').forEach(c => {
+      c.addEventListener('click', () => {
+        document.querySelectorAll('#tEmStyle .chip').forEach(x => x.classList.remove('active'));
+        c.classList.add('active');
+        root.style.setProperty('--em-style', c.dataset.val);
+      });
+    });
+
+    // Spacing & Style Tweaks
+    document.getElementById('tPad').addEventListener('input', e => {
+      root.style.setProperty('--sec-pad', `${e.target.value}px`);
+      document.getElementById('vPad').textContent = `${e.target.value}px`;
+    });
+
+    // Copy Spec & Reset
+    document.getElementById('tCopy').addEventListener('click', async e => {
+      const summary = JSON.stringify({
+        ...state,
+        palette: { rhythm: state.palette, navy: PAL.navy, grey: PAL.grey },
+        sectionColours: Object.fromEntries(Object.entries(secState).filter(([, v]) => v.mode !== 'auto').map(([k, v]) => [k, v.mode === 'custom' ? v.c : v.mode])),
+        heroSize: getComputedStyle(root).getPropertyValue('--hero-size').trim(),
+        h2Size: getComputedStyle(root).getPropertyValue('--h2-size').trim(),
+        bodySize: getComputedStyle(root).getPropertyValue('--body-size').trim(),
+        tracking: getComputedStyle(root).getPropertyValue('--display-track').trim()
+      }, null, 2);
+      try { await navigator.clipboard.writeText(summary); e.target.textContent = 'Copied!'; }
+      catch { prompt('Copy your settings:', summary); }
+      setTimeout(() => e.target.textContent = 'Copy spec', 1500);
+    });
+    document.getElementById('tReset').addEventListener('click', () => location.reload());
+
+    // ============================================================
+    // TWEAK STUDIO EDITOR — colour system, per-section surfaces, fonts
+    // ============================================================
+    const PAL = {
+      navy: { bg: '#050a30', fg: '#f5f6fb', accent: '#c6a15b' },
+      grey: { bg: '#acafbe', fg: '#050a30', accent: '#4e3a12' }
+    };
+    const PRESETS = [
+      ['Brand', { bg: '#050a30', fg: '#f5f6fb', accent: '#c6a15b' }, { bg: '#acafbe', fg: '#050a30', accent: '#4e3a12' }],
+      ['Obsidian', { bg: '#0b0d14', fg: '#f2f2f4', accent: '#c9a962' }, { bg: '#9ea1ad', fg: '#0b0d14', accent: '#45340e' }],
+      ['Midnight', { bg: '#0a153e', fg: '#f5f6fb', accent: '#d8c39e' }, { bg: '#b5b8c6', fg: '#0a153e', accent: '#55411c' }],
+      ['Slate', { bg: '#1c2340', fg: '#f5f6fb', accent: '#c6a15b' }, { bg: '#c9cbd5', fg: '#1c2340', accent: '#6b5226' }]
+    ];
+    const SEC_ORDER = ['about', 'why', 'fleet', 'fleet-fixed', 'missions', 'journal'];
+    const SEC_ALL = [...SEC_ORDER, 'footer'];
+    const secEl = id => document.getElementById(id);
+    const secState = Object.fromEntries(SEC_ALL.map(id => [id, { mode: 'auto', c: null }]));
+    state.palette = 'mix';
+
+    const paletteStyle = document.createElement('style');
+    document.head.appendChild(paletteStyle);
+    const mix = (a, pct, b) => `color-mix(in srgb, ${a} ${pct}%, ${b})`;
+    function surfVars(c) {
+      const muted = mix(c.fg, 78, c.bg), rule = mix(c.fg, 20, 'transparent');
+      return `--surf-bg:${c.bg};--surf-fg:${c.fg};--surf-accent:${c.accent};--surf-muted:${muted};--surf-rule:${rule};` +
+        `--paper:${c.bg};--white:${mix(c.bg, 90, '#ffffff')};--ink:${c.fg};--ink-muted:${muted};--gold-deep:${c.accent};` +
+        `--rule-light:${rule};--rule-navy:${rule};--on-navy-muted:${muted};`;
+    }
+    function luminance(hex) {
+      const c = [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16) / 255).map(x => x <= 0.03928 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4);
+      return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2];
+    }
+    function renderPaletteCSS() {
+      const n = PAL.navy, g = PAL.grey;
+      paletteStyle.textContent =
+        `.surf-navy{${surfVars(n)}} .surf-grey{${surfVars(g)}}` +
+        `.header.on-dark.scrolled{background:${mix(n.bg, 92, 'transparent')};}` +
+        `body[data-palette] .header.scrolled:not(.on-dark){background:${mix(g.bg, 94, 'transparent')};color:${g.fg};}`;
+      root.style.setProperty('--navy', n.bg);
+      root.style.setProperty('--navy-2', mix(n.bg, 94, '#ffffff'));
+      root.style.setProperty('--on-navy', n.fg);
+      root.style.setProperty('--gold', n.accent);
+    }
+    function effective(id) {
+      const ss = secState[id];
+      if (ss.mode === 'custom') return ss.c;
+      const el = secEl(id);
+      return PAL[el.classList.contains('surf-grey') ? 'grey' : 'navy'];
+    }
+    function applyPalette() {
+      document.body.dataset.palette = state.palette;
+      let i = 0, prev = 'navy';
+      SEC_ALL.forEach(id => {
+        const el = secEl(id), ss = secState[id], inFlow = id !== 'footer';
+        if (el.hidden) return;
+        let surf = !inFlow ? 'navy' : state.palette === 'mix' ? (i % 2 === 0 ? 'navy' : 'grey') : state.palette;
+        if (ss.mode !== 'auto') surf = ss.mode;
+        el.classList.remove('surf-navy', 'surf-grey', 'surf-custom');
+        el.classList.add('surf-' + surf);
+        if (surf === 'custom') el.setAttribute('style', surfVars(ss.c)); else el.removeAttribute('style');
+        const key = surf === 'custom' ? ss.c.bg : surf;
+        el.classList.toggle('surf-join', inFlow && i > 0 && key === prev);
+        const bg = surf === 'custom' ? ss.c.bg : PAL[surf].bg;
+        el.dataset.theme = luminance(bg) > 0.3 ? 'light' : 'dark';
+        if (inFlow) { prev = key; i++; }
+      });
+      refreshEditorSwatches();
+      window.dispatchEvent(new Event('scroll'));
+    }
+
+    // --- UI helpers ---
+    function colorRow(label, get, set) {
+      const row = document.createElement('div');
+      row.className = 'color-row';
+      row.innerHTML = `<span>${label}</span><input type="color" aria-label="${label}"><input class="hex" maxlength="7" spellcheck="false" aria-label="${label} hex">`;
+      const [pick, hex] = row.querySelectorAll('input');
+      row.sync = () => { pick.value = get(); hex.value = get().toUpperCase(); };
+      pick.addEventListener('input', () => { set(pick.value); hex.value = pick.value.toUpperCase(); });
+      hex.addEventListener('change', () => {
+        let v = hex.value.trim(); if (!v.startsWith('#')) v = '#' + v;
+        if (/^#[0-9a-f]{6}$/i.test(v)) set(v.toLowerCase());
+        row.sync();
+      });
+      row.sync();
+      return row;
+    }
+    const paletteRows = [];
+    document.querySelectorAll('[data-palette-rows]').forEach(box => {
+      const k = box.dataset.paletteRows;
+      [['bg', 'Background'], ['fg', 'Text'], ['accent', 'Accent']].forEach(([f, label]) => {
+        const r = colorRow(label, () => PAL[k][f], v => { PAL[k][f] = v; renderPaletteCSS(); applyPalette(); });
+        paletteRows.push(r); box.appendChild(r);
+      });
+    });
+    const presetBox = document.getElementById('tPresets');
+    PRESETS.forEach(([name, n, g]) => {
+      const b = document.createElement('button');
+      b.className = 'preset-sw';
+      b.innerHTML = `<b><i style="background:${n.bg}"></i><i style="background:${n.accent}"></i><i style="background:${g.bg}"></i></b>${name}`;
+      b.addEventListener('click', () => {
+        Object.assign(PAL.navy, n); Object.assign(PAL.grey, g);
+        renderPaletteCSS(); applyPalette(); paletteRows.forEach(r => r.sync());
+      });
+      presetBox.appendChild(b);
+    });
+    document.querySelectorAll('#tPalette .chip').forEach(btn => btn.addEventListener('click', () => {
+      document.querySelectorAll('#tPalette .chip').forEach(b => b.classList.toggle('active', b === btn));
+      state.palette = btn.dataset.pal; applyPalette();
+    }));
+
+    // Per-section surface pickers
+    const SURF_LABEL = { auto: 'Page', navy: 'Navy', grey: 'Grey', custom: 'Custom' };
+    const surfCtrls = [];
+    document.querySelectorAll('.surf-ctrl').forEach(box => {
+      const id = box.dataset.sec, ss = secState[id];
+      box.innerHTML = `<div class="surf-seg">${Object.keys(SURF_LABEL).map(m => `<button class="surf-opt" data-m="${m}"><i>Aa</i>${SURF_LABEL[m]}</button>`).join('')}</div>`;
+      const rows = document.createElement('div');
+      rows.className = 'color-rows'; rows.style.marginTop = '8px';
+      box.appendChild(rows);
+      const custom = [];
+      [['bg', 'Background'], ['fg', 'Text'], ['accent', 'Accent']].forEach(([f, label]) => {
+        const r = colorRow(label, () => (ss.c || effective(id))[f], v => { ss.c[f] = v; applyPalette(); });
+        custom.push(r); rows.appendChild(r);
+      });
+      box.querySelectorAll('.surf-opt').forEach(b => b.addEventListener('click', () => {
+        const m = b.dataset.m;
+        if (m === 'custom' && !ss.c) ss.c = { ...effective(id) };
+        ss.mode = m; applyPalette(); custom.forEach(r => r.sync());
+      }));
+      surfCtrls.push({ box, id, ss, rows });
+    });
+    function refreshEditorSwatches() {
+      const n = PAL.navy, g = PAL.grey;
+      surfCtrls.forEach(({ box, id, ss, rows }) => {
+        const sw = { auto: `linear-gradient(90deg, ${n.bg} 50%, ${g.bg} 50%)`, navy: n.bg, grey: g.bg, custom: ss.c ? ss.c.bg : 'conic-gradient(from 90deg, #c6a15b, #6c8cd5, #acafbe, #050a30, #c6a15b)' };
+        const fg = { auto: '#ffffff', navy: n.fg, grey: g.fg, custom: ss.c ? ss.c.fg : '#ffffff' };
+        box.querySelectorAll('.surf-opt').forEach(b => {
+          const i = b.querySelector('i'); i.style.background = sw[b.dataset.m]; i.style.color = fg[b.dataset.m];
+          b.classList.toggle('active', b.dataset.m === ss.mode);
+        });
+        rows.hidden = ss.mode !== 'custom';
+      });
+      document.querySelectorAll('[data-sec-block]').forEach(d => {
+        const id = d.dataset.secBlock, sw = d.querySelector('.ts-sw');
+        if (id === 'fleet') sw.style.background = `linear-gradient(90deg, ${effective('fleet').bg} 50%, ${secEl('fleet-fixed').hidden ? effective('fleet').bg : effective('fleet-fixed').bg} 50%)`;
+        else sw.style.background = effective(id).bg;
+      });
+      const heroSw = document.querySelector('.tp-sec:not([data-sec-block]) .ts-sw');
+      if (heroSw) heroSw.style.background = n.bg;
+      document.querySelectorAll('.pal-strip').forEach(s => {
+        const seq = s.dataset.strip === 'mix' ? [n, g, n, g, n, g] : s.dataset.strip === 'navy' ? [n, n, n, n, n, n] : [n, g, g, g, g, n];
+        s.innerHTML = seq.map((c, k) => `<i style="background:${c.bg};${k && seq[k - 1] === c ? `box-shadow: inset 0 1px 0 ${mix(c.fg, 25, 'transparent')}` : ''}"></i>`).join('');
+      });
+    }
+
+    // --- Fonts (lazy-loaded from Google Fonts; hover previews live on the page) ---
+    const FONT_LIB = {
+      // name: [category, Google Fonts axis spec ('' = regular only, null = already loaded in <head>)]
+      'Cormorant Garamond': ['Serif', null], 'Bodoni Moda': ['Serif', null], 'Playfair Display': ['Serif', null],
+      'Instrument Serif': ['Serif', null], 'Cinzel': ['Serif', null], 'Marcellus': ['Serif', null],
+      'DM Serif Display': ['Serif', 'ital@0;1'], 'Fraunces': ['Serif', 'ital,wght@0,300;0,400;1,300;1,400'],
+      'EB Garamond': ['Serif', 'ital,wght@0,400;0,500;1,400'], 'Libre Baskerville': ['Serif', 'ital,wght@0,400;1,400'],
+      'Libre Caslon Display': ['Serif', ''], 'Gilda Display': ['Serif', ''], 'Italiana': ['Serif', ''], 'Prata': ['Serif', ''],
+      'Newsreader': ['Serif', 'ital,wght@0,300;0,400;1,300;1,400'], 'Lora': ['Serif', 'ital,wght@0,400;0,500;1,400'],
+      'Spectral': ['Serif', 'ital,wght@0,300;0,400;1,300;1,400'], 'Noto Serif Display': ['Serif', 'ital,wght@0,300;0,400;1,300;1,400'],
+      'Gloock': ['Serif', ''], 'Young Serif': ['Serif', ''],
+      'Montserrat': ['Sans', null], 'Albert Sans': ['Sans', null], 'Inter': ['Sans', null], 'Plus Jakarta Sans': ['Sans', null],
+      'Jost': ['Sans', 'ital,wght@0,300;0,400;0,500;1,300;1,400'], 'Tenor Sans': ['Sans', ''],
+      'Josefin Sans': ['Sans', 'ital,wght@0,300;0,400;0,600;1,300;1,400'], 'Raleway': ['Sans', 'ital,wght@0,300;0,400;0,500;1,300;1,400'],
+      'Manrope': ['Sans', 'wght@300;400;500;600'], 'Syne': ['Sans', 'wght@400;500;600'], 'Outfit': ['Sans', 'wght@300;400;500;600'],
+      'Space Grotesk': ['Sans', 'wght@300;400;500'], 'Urbanist': ['Sans', 'ital,wght@0,300;0,400;0,500;1,300;1,400'],
+      'DM Sans': ['Sans', 'ital,wght@0,300;0,400;0,500;1,400'], 'Figtree': ['Sans', 'wght@300;400;500;600'],
+      'Work Sans': ['Sans', 'wght@300;400;500;600'], 'Source Sans 3': ['Sans', 'wght@300;400;500;600'],
+      'IBM Plex Sans': ['Sans', 'wght@300;400;500;600'], 'Lato': ['Sans', 'wght@300;400;700'],
+      'Nunito Sans': ['Sans', 'wght@300;400;600'], 'Karla': ['Sans', 'wght@300;400;500;600'], 'Public Sans': ['Sans', 'wght@300;400;500;600'],
+      'IBM Plex Mono': ['Mono', null], 'JetBrains Mono': ['Mono', 'wght@300;400;500'], 'DM Mono': ['Mono', 'wght@300;400;500'],
+      'Space Mono': ['Mono', 'wght@400;700'], 'Roboto Mono': ['Mono', 'wght@300;400;500'], 'Fira Code': ['Mono', 'wght@300;400;500'],
+      'Geist Mono': ['Mono', 'wght@300;400;500']
+    };
+    const serifs = Object.keys(FONT_LIB).filter(n => FONT_LIB[n][0] === 'Serif');
+    const sans = Object.keys(FONT_LIB).filter(n => FONT_LIB[n][0] === 'Sans');
+    const ROLES = {
+      display: { v: '--serif', cur: 'Cormorant Garamond', list: [...serifs, 'Montserrat', 'Albert Sans', 'Jost', 'Tenor Sans', 'Josefin Sans', 'Raleway', 'Manrope', 'Syne', 'Outfit', 'Space Grotesk', 'Urbanist'] },
+      body: { v: '--sans', cur: 'Inter', list: [...sans, 'EB Garamond', 'Newsreader', 'Lora', 'Spectral', 'Libre Baskerville'] },
+      label: { v: '--label', cur: 'Montserrat', list: ['Montserrat', 'Jost', 'Tenor Sans', 'Inter', 'Albert Sans', 'Manrope', 'Josefin Sans', 'Raleway', 'Outfit', 'Urbanist', 'Space Grotesk', 'Syne', 'Cinzel', 'Marcellus', 'IBM Plex Mono', 'DM Mono'] },
+      mono: { v: '--mono', cur: 'IBM Plex Mono', list: Object.keys(FONT_LIB).filter(n => FONT_LIB[n][0] === 'Mono') }
+    };
+    const loadedFonts = new Set(Object.keys(FONT_LIB).filter(n => FONT_LIB[n][1] === null));
+    function loadFont(name) {
+      if (loadedFonts.has(name)) return;
+      loadedFonts.add(name);
+      const spec = FONT_LIB[name][1];
+      const l = document.createElement('link');
+      l.rel = 'stylesheet';
+      l.href = `https://fonts.googleapis.com/css2?family=${name.replace(/ /g, '+')}${spec ? ':' + spec : ''}&display=swap`;
+      document.head.appendChild(l);
+    }
+    const fontStack = n => `'${n}', ${FONT_LIB[n][0] === 'Serif' ? 'Georgia, serif' : FONT_LIB[n][0] === 'Mono' ? 'ui-monospace, monospace' : '-apple-system, sans-serif'}`;
+    state.fonts = Object.fromEntries(Object.entries(ROLES).map(([k, r]) => [k, r.cur]));
+    document.querySelectorAll('.font-field').forEach(ff => {
+      const role = ROLES[ff.dataset.role];
+      const hasCats = new Set(role.list.map(n => FONT_LIB[n][0])).size > 1;
+      ff.innerHTML = `<button class="ff-current"><span class="ff-name"></span><span class="ff-cat"></span></button>
+        <div class="ff-pop"><div class="ff-tools"><input type="search" placeholder="Search ${role.list.length} fonts" aria-label="Search fonts">
+        ${hasCats ? '<div class="chip-group"><button class="chip active" data-cat="">All</button><button class="chip" data-cat="Serif">Serif</button><button class="chip" data-cat="Sans">Sans</button></div>' : '<span></span>'}</div>
+        <div class="ff-list">${role.list.map(n => `<button class="ff-item" data-font="${n}"><span class="ff-name" style="font-family:${fontStack(n).replace(/'/g, '&quot;')}">${n}</span><span class="ff-cat">${FONT_LIB[n][0]}</span></button>`).join('')}</div></div>`;
+      const cur = ff.querySelector('.ff-current'), list = ff.querySelector('.ff-list'), search = ff.querySelector('input');
+      let cat = '';
+      const paint = () => {
+        const n = role.cur;
+        cur.querySelector('.ff-name').textContent = n;
+        cur.querySelector('.ff-name').style.fontFamily = fontStack(n);
+        cur.querySelector('.ff-cat').textContent = FONT_LIB[n][0];
+        list.querySelectorAll('.ff-item').forEach(it => it.classList.toggle('active', it.dataset.font === n));
+      };
+      const filter = () => {
+        const q = search.value.trim().toLowerCase();
+        list.querySelectorAll('.ff-item').forEach(it => { it.hidden = (q && !it.dataset.font.toLowerCase().includes(q)) || (cat && FONT_LIB[it.dataset.font][0] !== cat); });
+      };
+      cur.addEventListener('click', () => {
+        const open = !ff.classList.contains('open');
+        document.querySelectorAll('.font-field.open').forEach(o => o.classList.remove('open'));
+        ff.classList.toggle('open', open);
+        if (open) role.list.forEach(loadFont);
+      });
+      search.addEventListener('input', filter);
+      ff.querySelectorAll('.ff-tools .chip').forEach(c => c.addEventListener('click', () => {
+        ff.querySelectorAll('.ff-tools .chip').forEach(x => x.classList.toggle('active', x === c));
+        cat = c.dataset.cat; filter();
+      }));
+      list.addEventListener('mouseover', e => { const it = e.target.closest('.ff-item'); if (it) root.style.setProperty(role.v, fontStack(it.dataset.font)); });
+      list.addEventListener('mouseleave', () => root.style.setProperty(role.v, fontStack(role.cur)));
+      list.addEventListener('click', e => {
+        const it = e.target.closest('.ff-item'); if (!it) return;
+        role.cur = it.dataset.font; state.fonts[ff.dataset.role] = role.cur;
+        root.style.setProperty(role.v, fontStack(role.cur));
+        paint(); ff.classList.remove('open');
+      });
+      paint();
+    });
+    renderPaletteCSS();
+
+    // Fleet Bento Hover Mode (controlled from Tweak Studio -> Layouts)
+    const fleetBento = document.getElementById('fleetBento');
+    const fleetBentoFixed = document.getElementById('fleetBentoFixed');
+    const fleetGrids = [fleetBento, fleetBentoFixed];
+    function chipSelect(groupId, btn) {
+      document.querySelectorAll(`#${groupId} .chip`).forEach(b => b.classList.toggle('active', b === btn));
+    }
+    document.querySelectorAll('#tBentoHover .chip').forEach(btn => {
+      btn.addEventListener('click', () => {
+        chipSelect('tBentoHover', btn);
+        fleetGrids.forEach(g => { g.classList.remove('mode-lift', 'mode-crossfade', 'mode-video'); g.classList.add(btn.dataset.bmode); });
+        state.bentoHover = btn.dataset.bmode;
+      });
+    });
+
+    // Fleet: one combined section vs. rotary + fixed-wing sections
+    state.fleetSplit = 'two';
+    state.fleetLayout = 'layout-asym';
+    state.fleetHead = 'ledger';
+    const fixedSection = document.getElementById('fleet-fixed');
+    const fixedTiles = [...fleetBento.querySelectorAll('.fb-tile[data-group="fixed"]')];
+    const rotaryLedger = document.querySelector('#fleet .fleet-ledger');
+    function applyFleet() {
+      const two = state.fleetSplit === 'two' && state.fleet === 'bento';
+      fixedTiles.forEach(t => (two ? fleetBentoFixed : fleetBento).appendChild(t));
+      fixedSection.hidden = !two;
+      fleetBento.classList.remove('set-rotary', 'set-all');
+      fleetBento.classList.add(two ? 'set-rotary' : 'set-all');
+      fleetGrids.forEach(g => { g.classList.remove('layout-asym', 'layout-even'); g.classList.add(state.fleetLayout); });
+      document.querySelectorAll('.fleet-frame').forEach(f => f.classList.toggle('head-spine', state.fleetHead === 'spine'));
+      const k = two ? 'two' : 'one';
+      rotaryLedger.querySelector('.fl-title').innerHTML = rotaryLedger.dataset[`${k}Title`];
+      rotaryLedger.querySelector('.fl-meta').innerHTML = rotaryLedger.dataset[`${k}Meta`];
+      document.querySelectorAll('[data-secnum-base]').forEach(e => { e.textContent = String(+e.dataset.secnumBase + (two ? 1 : 0)).padStart(2, '0'); });
+      // Renumber later sections when the fixed-wing section is shown
+      document.querySelectorAll('.eyebrow[data-secbase]').forEach(e => {
+        const n = +e.dataset.secbase + (two ? 1 : 0);
+        e.textContent = e.textContent.replace(/^\d+/, String(n).padStart(2, '0'));
+      });
+      applyPalette();
+      if (window.ScrollTrigger) ScrollTrigger.refresh();
+    }
+    document.querySelectorAll('#tFleetSplit .chip').forEach(btn => btn.addEventListener('click', () => { chipSelect('tFleetSplit', btn); state.fleetSplit = btn.dataset.split; applyFleet(); }));
+    document.querySelectorAll('#tFleetLayout .chip').forEach(btn => btn.addEventListener('click', () => { chipSelect('tFleetLayout', btn); state.fleetLayout = btn.dataset.layout; applyFleet(); }));
+    document.querySelectorAll('#tFleetHead .chip').forEach(btn => btn.addEventListener('click', () => { chipSelect('tFleetHead', btn); state.fleetHead = btn.dataset.head; applyFleet(); }));
+    document.querySelectorAll('.chip-group[data-sync="fleet"] .chip').forEach(btn => btn.addEventListener('click', applyFleet));
+    document.querySelectorAll('.eyebrow').forEach(e => { const m = e.textContent.match(/^(\d+) \//); if (m && +m[1] >= 3) e.dataset.secbase = m[1]; });
+    applyFleet();
+    // Option A (Timed Arrival Specs) + Option B (Click for Full Luxury Dossier Modal)
+    const DOSSIERS = {
+      aw109: {
+        reg: 'VT-HGX · VT-HAX · IN SERVICE (2 AIRFRAMES)',
+        title: 'Leonardo AW109S Grand',
+        img1: 'media/aw109-hgx.jpg',
+        img2: 'assets/vt-hgx/vt-hgx-interior.jpg',
+        seating: 'assets/vt-hgx/vt-hgx-seating.png',
+        desc: 'Twin-engine performance meets executive cabin versatility. SkyPulse owns and leases registered Agusta A109S Grand helicopters featuring diamond-quilted cream leather club seating, dual-engine safety redundancy, and quiet corporate-grade acoustics.',
+        pillars: [
+          ['Configuration', '06 Pax · 02 Crew'],
+          ['Powerplant', 'Twin-Engine Turbine'],
+          ['Cabin', 'VIP Club 3+3 Leather'],
+          ['Safety', 'Enhanced Dual-Engine']
+        ],
+        specs: [
+          ['Registrations', 'VT-HGX · VT-HAX'],
+          ['Category', 'Twin-Engine Rotary'],
+          ['Lease Structures', 'Dry & Operating · Short / Long'],
+          ['Missions', 'VIP / UHNWI · Corporate · HEMS · SAR']
+        ]
+      },
+      h130: {
+        reg: 'VT-SES · VT-SDS · VT-HFX · VT-HEX · IN SERVICE (4 AIRFRAMES)',
+        title: 'Airbus H130',
+        img1: 'media/ses-golden.jpg',
+        img2: 'media/cockpit.jpg',
+        seating: '',
+        desc: 'Four registered single-engine helicopters flying with Indian operators today — prized for panoramic flat-floor cabin visibility, low-noise Fenestron tail-rotor acoustics, and proven Himalayan high-altitude capability.',
+        pillars: [
+          ['Active Fleet', '4 Registered Airframes'],
+          ['Capacity', 'Up to 7 Passengers'],
+          ['Tail System', 'Fenestron Quiet Rotor'],
+          ['Mission Range', 'High-Altitude & Urban']
+        ],
+        specs: [
+          ['Registrations', 'VT-SES · VT-SDS · VT-HFX · VT-HEX'],
+          ['Category', 'Single-Engine Rotary'],
+          ['Lease Structures', 'Dry & Operating Leases'],
+          ['Missions', 'Pilgrimage · VIP · EMS · Megapolis Shuttle']
+        ]
+      },
+      kingair: {
+        reg: 'VT-ACD · IN SERVICE (FIXED-WING)',
+        title: 'Beechcraft King Air',
+        img1: 'assets/kingair-acd.jpg',
+        img2: 'media/cabin.jpg',
+        seating: '',
+        desc: 'Pressurised twin-turboprop engineered for India’s regional airports and shorter runways — delivering dependable corporate mobility, regional charters via licensed operators, and fixed-wing medevac.',
+        pillars: [
+          ['Registration', 'VT-ACD'],
+          ['Runway Access', 'Short-Field Capable'],
+          ['Cabin', 'Pressurised Executive'],
+          ['Lease Terms', 'Dry & Operating']
+        ],
+        specs: [
+          ['Registration', 'VT-ACD'],
+          ['Category', 'Twin-Turboprop Fixed-Wing'],
+          ['Missions', 'Regional · Medevac · Corporate VIP']
+        ]
+      },
+      hawker: {
+        reg: 'VT-HBX · IN SERVICE (FIXED-WING)',
+        title: 'Hawker 400',
+        img1: 'assets/hawker400-hbx.jpg',
+        img2: 'media/cabin-2.jpg',
+        seating: '',
+        desc: 'Executive light business jet offering flat-floor cabin comfort and high cruise speeds, leased exclusively to licensed Indian aviation operators serving corporate principals and family offices.',
+        pillars: [
+          ['Registration', 'VT-HBX'],
+          ['Aircraft Class', 'Light Business Jet'],
+          ['Cabin', 'Executive Flat-Floor'],
+          ['Lease Terms', 'Dry & Operating']
+        ],
+        specs: [
+          ['Registration', 'VT-HBX'],
+          ['Category', 'Twin-Jet Fixed-Wing'],
+          ['Missions', 'UHNWI · Corporate · Long-Range Medevac']
+        ]
+      },
+      pipeline: {
+        reg: 'ARRIVING PIPELINE · 2026–2027',
+        title: 'Tecnam P2010 · R44 · H125',
+        img1: 'assets/tecnam-p2010.jpg',
+        img2: 'media/cockpit.jpg',
+        seating: '',
+        desc: 'SkyPulse’s expanding fleet pipeline anchored by 25 planned glass-cockpit Tecnam P2010 training aircraft alongside Robinson R44 and Airbus H125 helicopters for India’s growing FTO and utility ecosystem.',
+        pillars: [
+          ['Trainers', '25× Tecnam P2010'],
+          ['Rotary', 'R44 & Airbus H125'],
+          ['Avionics', 'Modern Glass Cockpit'],
+          ['Lessees', 'FTOs & Operators']
+        ],
+        specs: [
+          ['Status', 'Scheduled Arrivals'],
+          ['Lease Structures', 'Operating Leases for FTO Fleet Scaling'],
+          ['Missions', 'Pilot Training · High-Altitude Utility']
+        ]
+      }
+    };
+
+    const dModal = document.getElementById('dossierModal');
+    function openDossier(key) {
+      const d = DOSSIERS[key];
+      if (!d) return;
+      document.getElementById('dsReg').textContent = d.reg;
+      document.getElementById('dsTitle').textContent = d.title;
+      document.getElementById('dsImg1').src = d.img1;
+      document.getElementById('dsImg2').src = d.img2;
+      const seatWrap = document.getElementById('dsSeatingWrap');
+      if (d.seating) {
+        seatWrap.style.display = 'flex';
+        document.getElementById('dsSeating').src = d.seating;
+      } else {
+        seatWrap.style.display = 'none';
+      }
+      document.getElementById('dsDesc').textContent = d.desc;
+      document.getElementById('dsPillars').innerHTML = d.pillars.map(([k, v]) => `<div class="ds-pillar"><span>${k}</span><strong>${v}</strong></div>`).join('');
+      document.getElementById('dsSpecs').innerHTML = d.specs.map(([k, v]) => `<div class="ds-spec-row"><span>${k}</span><span>${v}</span></div>`).join('');
+      dModal.classList.add('open');
+    }
+    document.getElementById('dsClose').addEventListener('click', () => dModal.classList.remove('open'));
+    dModal.addEventListener('click', e => { if (e.target === dModal) dModal.classList.remove('open'); });
+    window.addEventListener('keydown', e => { if (e.key === 'Escape') dModal.classList.remove('open'); });
+
+    document.querySelectorAll('.fleet-bento .fb-tile').forEach(tile => {
+      const vid = tile.querySelector('video');
+      const isTimed = tile.dataset.timed === 'true';
+      if (vid) {
+        vid.playbackRate = 0.78;
+        vid.addEventListener('loadedmetadata', () => {
+          vid.currentTime = 0.01;
+          vid.playbackRate = 0.78;
+        }, { once: true });
+        if (isTimed) {
+          // Option A: Reveal cabin seating & specs softly once camera enters the interior (~5.8s)
+          vid.addEventListener('timeupdate', () => {
+            if (vid.currentTime >= 5.8) tile.classList.add('cabin-arrived');
+          });
+          vid.addEventListener('ended', () => tile.classList.add('cabin-arrived'));
+        }
+      }
+      tile.addEventListener('mouseenter', () => {
+        if (tile.closest('.fleet-bento').classList.contains('mode-video') && vid) {
+          vid.playbackRate = 0.78;
+          if (vid.ended || vid.currentTime > 0.2) vid.currentTime = 0.01;
+          tile.classList.remove('cabin-arrived');
+          vid.play().catch(() => {});
+        }
+      });
+      tile.addEventListener('mouseleave', () => {
+        if (vid) {
+          vid.pause();
+          vid.currentTime = 0.01;
+        }
+        tile.classList.remove('cabin-arrived');
+      });
+      tile.addEventListener('click', () => {
+        if (tile.dataset.dossier) openDossier(tile.dataset.dossier);
+      });
+    });
+
+    // Carousels Arrow Controls
+    function wireCarousel(trackId, prevId, nextId) {
+      const tr = document.getElementById(trackId);
+      document.getElementById(prevId)?.addEventListener('click', () => tr.scrollBy({ left: -420, behavior: 'smooth' }));
+      document.getElementById(nextId)?.addEventListener('click', () => tr.scrollBy({ left: 420, behavior: 'smooth' }));
+    }
+    wireCarousel('fleetCarousel', 'fleetPrev', 'fleetNext');
+    wireCarousel('missionCarousel', 'missionPrev', 'missionNext');
+
+    // Interactive Fleet Register Rows
+    const regRows = document.querySelectorAll('#regList .reg-row');
+    const regImg = document.getElementById('regImg');
+    const regCap = document.getElementById('regCap');
+    regRows.forEach(r => {
+      const act = () => {
+        regRows.forEach(x => x.classList.remove('active'));
+        r.classList.add('active');
+        regImg.style.opacity = '0.25';
+        setTimeout(() => { regImg.src = r.dataset.img; regCap.textContent = r.dataset.cap; regImg.style.opacity = '1'; }, 120);
+      };
+      r.addEventListener('mouseenter', act);
+      r.addEventListener('click', act);
+    });
+
+    // About: crossfading photo slideshow (Ken Burns push on each slide)
+    (() => {
+      const slides = [...document.querySelectorAll('.ab-slides img')];
+      const HOLD = 7000; let k = 0, timer;
+      document.querySelector('.ab-photo').style.setProperty('--ab-hold', HOLD / 1000 + 's');
+      const show = n => {
+        slides.forEach((im, i) => { im.classList.toggle('is-on', i === n); im.classList.toggle('is-off', i === k && i !== n); });
+        setTimeout(() => slides.forEach(im => im.classList.remove('is-off')), 1900);
+        k = n;
+      };
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) { document.querySelector('.ab-photo').classList.add('is-in'); return; }
+      const start = () => { clearInterval(timer); timer = setInterval(() => show((k + 1) % slides.length), HOLD); };
+      // Only cycle while the section is on screen
+      new IntersectionObserver(([e]) => { if (e.isIntersecting) { e.target.classList.add('is-in'); show(k); start(); } else clearInterval(timer); }, { threshold: 0.15 })
+        .observe(document.querySelector('.ab-photo'));
+    })();
+
+    // About: flowing "Why choose us" carousel + GIFT City count-up numbers
+    (() => {
+      const why = document.getElementById('whyChoose');
+      const track = why.querySelector('.why-track');
+      const vp = why.querySelector('.why-viewport');
+      // Second copy makes the -50% loop seamless; hidden from AT and keyboard
+      [...track.children].forEach(li => {
+        const c = li.cloneNode(true);
+        c.dataset.clone = ''; c.setAttribute('aria-hidden', 'true'); c.inert = true;
+        track.appendChild(c);
+      });
+      const setChips = (id, v) => document.querySelectorAll(`#${id} .chip`).forEach(c => c.classList.toggle('active', c.dataset.val === v));
+      const setMode = m => { why.dataset.mode = m; state.about.why = m; setChips('tWhyMode', m); vp.scrollLeft = 0; };
+      document.querySelectorAll('#tWhyMode .chip').forEach(b => b.addEventListener('click', () => setMode(b.dataset.val)));
+      const sp = document.getElementById('tWhySpeed');
+      sp.addEventListener('input', () => {
+        why.style.setProperty('--why-speed', sp.value + 's');
+        document.getElementById('vWhySpeed').textContent = sp.value + 's / loop';
+        state.about.speed = +sp.value;
+      });
+
+      // Count-up when the numbers scroll into view
+      const nums = [...document.querySelectorAll('.ab-stat [data-count]')];
+      const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      // Counts up every time the numbers scroll into view; resets once fully off screen
+      let runId = 0, armed = true;
+      const run = () => {
+        if (state.about.numbers !== 'count' || reduce) return;
+        const id = ++runId, t0 = performance.now(), dur = 1800;
+        const tick = now => {
+          if (id !== runId) return;
+          const k = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - k, 4);
+          nums.forEach(n => n.textContent = Math.round(+n.dataset.count * e));
+          if (k < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      };
+      new IntersectionObserver(ents => {
+        const e = ents[ents.length - 1];
+        if (!e.isIntersecting) {
+          armed = true; runId++;
+          if (state.about.numbers === 'count' && !reduce) nums.forEach(n => n.textContent = '0');
+        } else if (armed && e.intersectionRatio >= 0.4) { armed = false; run(); }
+      }, { threshold: [0, 0.4] }).observe(document.querySelector('.ab-stats'));
+      document.querySelectorAll('#tStatAnim .chip').forEach(b => b.addEventListener('click', () => {
+        state.about.numbers = b.dataset.val; setChips('tStatAnim', b.dataset.val);
+        if (b.dataset.val === 'count') run(); else nums.forEach(n => n.textContent = n.dataset.count);
+      }));
+    })();
+
+    // Expanding Mission Panes
+    const panes = document.querySelectorAll('.pane');
+    panes.forEach(p => {
+      const spine = document.createElement('div');
+      spine.className = 'pane-spine'; spine.setAttribute('aria-hidden', 'true');
+      spine.innerHTML = `<span class="pane-num">${p.querySelector('.pane-num').textContent}</span><span class="ps-text">${p.querySelector('h3').innerHTML}</span>`;
+      p.appendChild(spine);
+      const sheen = document.createElement('div');
+      sheen.className = 'pane-sheen'; sheen.setAttribute('aria-hidden', 'true');
+      p.insertBefore(sheen, p.querySelector('.pane-inner'));
+      // Mouse parallax: the open pane's photo drifts toward the cursor
+      p.addEventListener('mousemove', e => {
+        if (!p.classList.contains('active')) return;
+        const r = p.getBoundingClientRect();
+        p.style.setProperty('--px', `${((e.clientX - r.left) / r.width - 0.5) * -28}px`);
+        p.style.setProperty('--py', `${((e.clientY - r.top) / r.height - 0.5) * -18}px`);
+      });
+      p.addEventListener('mouseleave', () => { p.style.setProperty('--px', '0px'); p.style.setProperty('--py', '0px'); });
+    });
+    // Scroll-in: panes wipe up in sequence the first time the section is seen
+    const panesEl = document.querySelector('.panes');
+    if (panesEl && 'IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      panesEl.classList.add('reveal-ready');
+      new IntersectionObserver((entries, obs) => entries.forEach(en => {
+        if (!en.isIntersecting) return;
+        panesEl.classList.add('in-view');
+        setTimeout(() => panesEl.classList.add('revealed'), 1700);
+        obs.disconnect();
+      }), { threshold: 0.25 }).observe(panesEl);
+    }
+    panes.forEach(p => {
+      const act = () => { panes.forEach(x => x.classList.remove('active')); p.classList.add('active'); };
+      p.addEventListener('mouseenter', act);
+      p.addEventListener('click', act);
+    });
+
+    // Latest news: clicking a thumbnail swaps it with the lead story
+    (() => {
+      const lead = document.getElementById('newsLead'); if (!lead) return;
+      const $ = id => document.getElementById(id);
+      const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const read = () => ({ cat: lead.dataset.cat, date: lead.dataset.date, title: $('nwTitle').innerHTML, blurb: $('nwBlurb').textContent, img: $('nwImg').getAttribute('src'), url: $('nwLink2').href });
+      Object.assign(lead.dataset, { cat: $('nwMeta').textContent.split(' · ')[0], date: $('nwMeta').textContent.split(' · ')[1] });
+      const paintLead = d => {
+        Object.assign(lead.dataset, { cat: d.cat, date: d.date });
+        $('nwMeta').textContent = d.cat + ' · ' + d.date;
+        $('nwTitle').innerHTML = d.title; $('nwBlurb').textContent = d.blurb;
+        $('nwImg').src = d.img; $('nwLink1').href = $('nwLink2').href = d.url;
+      };
+      const paintThumb = (t, d) => {
+        Object.assign(t.dataset, d);
+        t.querySelector('img').src = d.img;
+        t.querySelector('.nw-thumb-meta').textContent = d.cat + ' · ' + d.date;
+        t.querySelector('.nw-thumb-title').innerHTML = d.title;
+      };
+      const rail = $('newsRail'), list = $('newsThumbs');
+      const originals = [...list.children];
+      originals.forEach(li => {
+        const c = li.cloneNode(true);
+        c.dataset.clone = ''; c.setAttribute('aria-hidden', 'true');
+        c.querySelector('button').tabIndex = -1;
+        list.appendChild(c);
+      });
+      const fit = () => {
+        const cols = parseInt(getComputedStyle(rail).getPropertyValue('--nw-cols')) || 4;
+        const moving = originals.length > cols;
+        rail.toggleAttribute('data-moving', moving);
+        rail.style.setProperty('--nw-speed', (originals.length * 9) + 's');
+      };
+      fit(); addEventListener('resize', fit);
+      let busy = false;
+      list.querySelectorAll('.nw-thumb').forEach(t => t.addEventListener('click', () => {
+        if (busy) return;
+        const next = { cat: t.dataset.cat, date: t.dataset.date, title: t.dataset.title, blurb: t.dataset.blurb, img: t.dataset.img, url: t.dataset.url };
+        const prev = read();
+        const twins = list.querySelectorAll(`.nw-thumb[data-slot="${t.dataset.slot}"]`);
+        const swap = () => { paintLead(next); twins.forEach(x => paintThumb(x, { ...prev, slot: t.dataset.slot })); };
+        if (reduce) return swap();
+        busy = true;
+        const pre = new Image(); pre.src = next.img;
+        lead.classList.add('is-swapping'); twins.forEach(x => x.classList.add('is-swapping'));
+        setTimeout(() => {
+          swap();
+          const done = () => requestAnimationFrame(() => { lead.classList.remove('is-swapping'); twins.forEach(x => x.classList.remove('is-swapping')); busy = false; });
+          pre.complete ? done() : (pre.onload = pre.onerror = done);
+        }, 450);
+        const top = lead.getBoundingClientRect().top;
+        if (top < 0 || top > innerHeight * 0.5) lead.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }));
+    })();
+
+    // Header Adaptive Tone
+    const header = document.getElementById('header');
+    const themed = document.querySelectorAll('[data-theme]');
+    let lastY = window.scrollY;
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      header.classList.toggle('scrolled', y > 60);
+      // Headroom: hide on scroll down, reveal on any small scroll up; always shown near the top
+      if (y < 90) header.classList.remove('nav-hidden');
+      else if (y - lastY > 8) header.classList.add('nav-hidden');
+      else if (lastY - y > 8) header.classList.remove('nav-hidden');
+      if (Math.abs(y - lastY) > 8 || y < 90) lastY = y;
+      let dark = true;
+      themed.forEach(sec => {
+        const rect = sec.getBoundingClientRect();
+        if (rect.top <= 72 && rect.bottom > 72) dark = sec.dataset.theme === 'dark';
+      });
+      header.classList.toggle('on-dark', dark);
+    }, { passive: true });
+
+    // Opening Veil & GSAP Choreography
+    function playVeil() {
+      if (!window.gsap) return;
+      gsap.set('#veil', { yPercent: 0, display: 'grid' });
+      gsap.set('.veil-inner', { opacity: 1, y: 0 });
+      gsap.timeline()
+        .to('.veil-inner', { opacity: 0, y: -12, duration: 0.42, delay: 0.35, ease: 'power2.in' })
+        .to('#veil', { yPercent: -100, duration: 0.9, ease: 'power4.inOut' })
+        .from('#heroTitle', { y: 30, opacity: 0, duration: 0.9, ease: 'power3.out' }, '-=0.42')
+        .from('.hero-kicker, .hero-sub', { y: 15, opacity: 0, duration: 0.7, stagger: 0.08, ease: 'power2.out' }, '-=0.58');
+    }
+    document.getElementById('tReplayVeil').addEventListener('click', playVeil);
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!reduced && window.gsap) {
+      gsap.registerPlugin(ScrollTrigger);
+      playVeil();
+      gsap.to('#heroPhoto', {
+        scale: 1, yPercent: 10, ease: 'none',
+        scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
+      });
+      gsap.utils.toArray('.reveal').forEach(el => {
+        gsap.from(el, {
+          opacity: 0, y: 26, duration: 0.8, ease: 'power3.out',
+          scrollTrigger: { trigger: el, start: 'top 86%' }
+        });
+      });
+    } else {
+      document.getElementById('veil')?.remove();
+    }
+
+    // ============================================================
+    // SAVE AS DEFAULT — snapshot every Tweak control into localStorage;
+    // replayed on load, so "Reset" returns to the last saved look.
+    // ============================================================
+    (() => {
+      const KEY = 'skypulse-maison-tweaks-v1';
+      const tp = document.getElementById('tweakPanel');
+      const chipGroups = () => [...tp.querySelectorAll('.chip-group[id], .chip-group[data-sync]')];
+      const gKey = g => g.id || 'sync:' + g.dataset.sync;
+      const fields = () => [...tp.querySelectorAll('input[id], select[id], textarea[id]')];
+      function snapshot() {
+        return {
+          chips: Object.fromEntries(chipGroups().map(g => [gKey(g), [...g.querySelectorAll('.chip')].findIndex(c => c.classList.contains('active'))])),
+          fields: Object.fromEntries(fields().map(f => [f.id, f.value])),
+          pal: JSON.parse(JSON.stringify(PAL)),
+          sec: JSON.parse(JSON.stringify(secState)),
+          fonts: Object.fromEntries(Object.entries(ROLES).map(([k, r]) => [k, r.cur]))
+        };
+      }
+      function restore(s) {
+        Object.assign(PAL.navy, s.pal.navy); Object.assign(PAL.grey, s.pal.grey);
+        renderPaletteCSS(); paletteRows.forEach(r => r.sync());
+        Object.entries(s.sec).forEach(([id, v]) => { if (secState[id]) Object.assign(secState[id], v); });
+        Object.entries(s.fonts).forEach(([role, name]) => {
+          const ff = tp.querySelector(`.font-field[data-role="${role}"]`);
+          const it = ff && ff.querySelector(`.ff-item[data-font="${CSS.escape(name)}"]`);
+          if (it && ROLES[role].cur !== name) { loadFont(name); it.click(); }
+        });
+        fields().forEach(f => {
+          if (!(f.id in s.fields) || f.value === s.fields[f.id]) return;
+          f.value = s.fields[f.id];
+          f.dispatchEvent(new Event('input', { bubbles: true }));
+          f.dispatchEvent(new Event('change', { bubbles: true }));
+        });
+        chipGroups().forEach(g => {
+          const i = s.chips[gKey(g)], c = g.querySelectorAll('.chip')[i];
+          if (c && !c.classList.contains('active')) c.click();
+        });
+        applyPalette();
+        surfCtrls.forEach(({ rows }) => [...rows.children].forEach(r => r.sync && r.sync()));
+      }
+      const read = () => { try { return JSON.parse(localStorage.getItem(KEY)); } catch { return null; } };
+      const saveBtn = document.getElementById('tSave'), status = document.getElementById('tSaveStatus');
+      const paintStatus = saved => {
+        status.innerHTML = saved
+          ? `Saved default · ${new Date(saved.at).toLocaleString([], { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })} <button type="button" id="tClearSaved">Clear</button>`
+          : 'Using the original design';
+        document.getElementById('tClearSaved')?.addEventListener('click', () => {
+          if (!confirm('Forget the saved default and go back to the original design?')) return;
+          try { localStorage.removeItem(KEY); } catch {}
+          location.reload();
+        });
+      };
+      let baseline;
+      const checkDirty = () => setTimeout(() => saveBtn.classList.toggle('dirty', JSON.stringify(snapshot()) !== baseline), 30);
+      const saved = read();
+      if (saved) { try { restore(saved.data); } catch (err) { console.warn('Could not restore saved tweaks', err); } }
+      baseline = JSON.stringify(snapshot());
+      paintStatus(saved);
+      saveBtn.addEventListener('click', () => {
+        const rec = { at: Date.now(), data: snapshot() };
+        try { localStorage.setItem(KEY, JSON.stringify(rec)); }
+        catch { saveBtn.textContent = 'Could not save'; return; }
+        baseline = JSON.stringify(rec.data);
+        saveBtn.classList.remove('dirty');
+        saveBtn.textContent = 'Saved ✓';
+        setTimeout(() => saveBtn.textContent = 'Save as default', 1400);
+        paintStatus(rec);
+      });
+      tp.addEventListener('click', checkDirty);
+      tp.addEventListener('input', checkDirty);
+      tp.addEventListener('change', checkDirty);
+    })();
+  </script>
+</body>
+</html>
