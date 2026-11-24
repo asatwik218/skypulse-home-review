@@ -724,29 +724,37 @@
     .st-rows p span:first-child { font-family: var(--label); font-size: 0.56rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--st-muted); padding-top: 0.2rem; }
     .st-more { margin: auto 0 0 !important; padding-top: 0.5rem; align-self: flex-start; color: var(--st-accent) !important; }
 
-    /* Cabin layout card on the photo; click opens the full drawing */
+    /* Gallery switch, like a product page: the small card swaps places with the main view */
+    .st-plan {
+      position: absolute; inset: 0; display: grid; place-items: center; padding: clamp(1rem, 3vw, 2.5rem);
+      background: #fff; opacity: 0; transform: scale(0.97);
+      transition: opacity 0.5s ease, transform 0.7s var(--st-ease);
+    }
+    .st-plan img { max-width: 100%; max-height: 100%; width: auto; height: auto; }
+    .st-media { transition: opacity 0.5s ease, transform 0.7s var(--st-ease); }
+    .fb-stage.show-plan .st-plan { opacity: 1; transform: none; }
+    .fb-stage.show-plan .st-media { opacity: 0; transform: scale(1.03); }
     .st-seat {
-      all: unset; box-sizing: border-box; cursor: zoom-in;
+      all: unset; box-sizing: border-box; cursor: pointer;
       position: absolute; left: 1.1rem; bottom: 1.1rem; z-index: 2;
-      padding: 0.5rem 0.6rem 0.45rem; background: rgba(5, 10, 48, 0.6); border: 1px solid rgba(198, 161, 91, 0.32);
+      padding: 0.45rem 0.45rem 0.4rem; background: rgba(5, 10, 48, 0.6); border: 1px solid rgba(198, 161, 91, 0.32);
       backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
       opacity: 0; transform: translateY(8px); transition: opacity 0.45s ease, transform 0.55s var(--ease), border-color 0.25s ease;
     }
     .fb-stage.is-in .st-seat { opacity: 1; transform: none; transition-delay: 0.6s, 0.6s, 0s; }
     .st-seat:hover, .st-seat:focus-visible { border-color: var(--gold); }
-    .st-seat img { display: block; height: 46px; width: auto; background: #fff; }
-    .st-seat span { display: flex; justify-content: space-between; gap: 0.75rem; margin-top: 0.35rem; font-family: var(--label); font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
-    .st-seat span i { font-style: normal; color: rgba(245,246,251,0.7); }
-    .st-zoom {
-      position: fixed; inset: 0; z-index: 160; display: grid; place-items: center; padding: clamp(1rem, 5vw, 4rem);
-      background: rgba(3, 6, 24, 0.86); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-      opacity: 0; pointer-events: none; transition: opacity 0.4s ease; cursor: zoom-out;
-    }
-    .st-zoom.open { opacity: 1; pointer-events: auto; }
-    .st-zoom figure { margin: 0; display: grid; gap: 0.9rem; justify-items: center; }
-    .st-zoom img { max-width: min(1100px, 100%); max-height: 78vh; width: auto; height: auto; background: #fff; transform-origin: 0 0; transition: transform 0.6s var(--st-ease, ease); }
-    .st-zoom figcaption { font-family: var(--label); font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); opacity: 0; transition: opacity 0.3s ease 0.3s; }
-    .st-zoom.open figcaption { opacity: 1; }
+    .st-thumb { position: relative; display: block; width: 96px; height: 54px; overflow: hidden; background: var(--navy-2); }
+    .st-thumb > * { position: absolute; inset: 0; width: 100%; height: 100%; transition: opacity 0.45s ease, transform 0.6s var(--st-ease); }
+    .st-thumb .tb-plan { object-fit: contain; background: #fff; }
+    .st-thumb .tb-photo { object-fit: cover; }
+    .st-thumb .tb-pending { display: grid; place-items: center; }
+    .st-thumb .tb-pending svg { width: 70%; fill: none; stroke: rgba(198,161,91,0.7); stroke-width: 1.2; }
+    .st-thumb .tb-photo, .st-thumb .tb-pending { opacity: 0; transform: scale(1.08); }
+    .fb-stage.show-plan .st-thumb .tb-plan { opacity: 0; transform: scale(1.08); }
+    .fb-stage.show-plan .st-thumb :is(.tb-photo, .tb-pending) { opacity: 1; transform: none; }
+    .st-seat > span:last-child { display: flex; justify-content: space-between; gap: 0.6rem; margin-top: 0.35rem; font-family: var(--label); font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
+    .st-seat i { font-style: normal; color: rgba(245,246,251,0.7); }
+    .st-plan-note { position: absolute; right: 1.1rem; top: 1rem; font-family: var(--label); font-size: 0.52rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(5,10,48,0.55); }
 
     /* the grid underneath fades away while a tile is open */
     .fleet-bento .fb-tile { transition: transform 0.65s var(--ease), border-color 0.45s ease, opacity 0.45s ease, filter 0.5s ease, box-shadow 0.65s var(--ease); }
@@ -760,10 +768,10 @@
       .fb-stage.is-in::before { opacity: 1; }
       .st-panel { top: 42%; left: 0; width: auto; border-left: 0; border-top: 1px solid color-mix(in srgb, var(--st-accent) 35%, transparent); transform: translateY(32px); }
       .st-seat { left: 0.9rem; bottom: 0.9rem; }
-      .st-seat img { height: 36px; }
+      .st-thumb { width: 80px; height: 45px; }
     }
     @media (prefers-reduced-motion: reduce) {
-      .fb-stage *, .st-zoom, .st-zoom img { transition: none !important; }
+      .fb-stage * { transition: none !important; }
     }
 
     /* Option B: Click-to-Open Full Luxury Aircraft Dossier Modal */
@@ -2818,7 +2826,8 @@
     const STAGE_HTML = `
       <div class="st-media-wrap">
         <div class="st-media"></div>
-        <button type="button" class="st-seat" aria-label="Open the cabin layout"><img alt="" /><span>Cabin layout <i></i></span></button>
+        <div class="st-plan" aria-hidden="true"><img alt="Cabin layout" /><span class="st-plan-note"></span></div>
+        <button type="button" class="st-seat" aria-pressed="false"><span class="st-thumb"></span><span><b class="st-seat-label">Cabin layout</b> <i></i></span></button>
       </div>
       <aside class="st-panel">
         <button type="button" class="st-close" aria-label="Close">&times;</button>
@@ -2834,14 +2843,14 @@
     const stageReduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
     const isPhone = () => matchMedia('(max-width: 980px)').matches;
     const MOVE = stageReduce ? 0 : 750;
-    let stage = null, stageGrid = null, stageTile = null, stageBusy = false, zoom = null;
+    let stage = null, stageGrid = null, stageTile = null, stageBusy = false;
     function ensureStage() {
       if (stage) return stage;
       stage = document.createElement('div');
       stage.className = 'fb-stage'; stage.setAttribute('role', 'dialog'); stage.setAttribute('aria-label', 'Aircraft details');
       stage.innerHTML = STAGE_HTML;
       stage.querySelector('.st-close').addEventListener('click', closeStage);
-      stage.querySelector('.st-seat').addEventListener('click', openZoom);
+      stage.querySelector('.st-seat').addEventListener('click', togglePlan);
       return stage;
     }
     function placeStage() {
@@ -2889,10 +2898,14 @@
       q('.st-desc').textContent = d.desc || '';
       q('.st-pillars').innerHTML = (d.pillars || []).map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('');
       q('.st-rows').innerHTML = (d.specs || []).filter(([k]) => /Mission|Lease/.test(k)).map(([k, v]) => `<p><span>${k}</span><span>${v}</span></p>`).join('');
-      const seat = q('.st-seat'), own = !!d.seating;
-      seat.querySelector('img').src = own ? d.seating : SEAT_TEMPLATE;
-      seat.querySelector('i').textContent = own ? '' : 'Sample';
-      seat.dataset.caption = (q('.st-title').textContent + ' · cabin layout' + (own ? '' : ' (sample until the real drawing arrives)'));
+      const own = !!d.seating, plan = own ? d.seating : SEAT_TEMPLATE;
+      q('.st-plan img').src = plan;
+      q('.st-plan-note').textContent = own ? '' : 'Sample layout · real drawing to follow';
+      const photo = ti ? `<img class="tb-photo" src="${ti.getAttribute('src')}" alt="" style="object-position:${ti.style.objectPosition || 'center'}" />`
+                       : `<span class="tb-pending">${tile.querySelector('.fb-media-pending svg')?.outerHTML || ''}</span>`;
+      q('.st-thumb').innerHTML = `<img class="tb-plan" src="${plan}" alt="" />` + photo;
+      q('.st-seat i').textContent = own ? '' : 'Sample';
+      setPlan(false);
       q('.st-more').href = '#aircraft-' + (tile.dataset.dossier || '');
       q('.st-body').scrollTop = 0;
     }
@@ -2936,36 +2949,21 @@
         stageBusy = false; stageTile.focus({ preventScroll: true });
       }, MOVE);
     }
-    // Cabin layout lightbox: the drawing grows from the small card to full size
-    function openZoom() {
-      const seat = stage.querySelector('.st-seat'), small = seat.querySelector('img');
-      if (!zoom) {
-        zoom = document.createElement('div'); zoom.className = 'st-zoom'; zoom.setAttribute('role', 'dialog'); zoom.setAttribute('aria-label', 'Cabin layout');
-        zoom.innerHTML = '<figure><img alt="Cabin layout" /><figcaption></figcaption></figure>';
-        zoom.addEventListener('click', closeZoom);
-        document.body.appendChild(zoom);
-      }
-      const big = zoom.querySelector('img');
-      big.src = small.src; zoom.querySelector('figcaption').textContent = seat.dataset.caption || '';
-      const go = () => {
-        big.style.transition = 'none'; big.style.transform = '';
-        zoom.classList.add('open');
-        const a = small.getBoundingClientRect(), b = big.getBoundingClientRect();
-        big.style.transform = `translate(${a.left - b.left}px, ${a.top - b.top}px) scale(${a.width / b.width}, ${a.height / b.height})`;
-        big.offsetWidth; big.style.transition = ''; big.style.transform = '';
-      };
-      big.complete ? go() : (big.onload = go);
+    // Gallery switch: the card and the main view trade places (layout drawing <-> photo / video)
+    function setPlan(on) {
+      stage.classList.toggle('show-plan', on);
+      const seat = stage.querySelector('.st-seat');
+      seat.setAttribute('aria-pressed', on);
+      seat.setAttribute('aria-label', on ? 'Show the photo' : 'Show the cabin layout');
+      seat.querySelector('.st-seat-label').textContent = on ? (stageTile?.classList.contains('fb-pending') ? 'Overview' : 'Photo') : 'Cabin layout';
+      seat.querySelector('i').style.visibility = on ? 'hidden' : '';
+      const v = stage.querySelector('.st-media video');
+      if (v) on ? v.pause() : v.play().catch(() => {});
     }
-    function closeZoom() {
-      if (!zoom?.classList.contains('open')) return;
-      const small = stage.querySelector('.st-seat img'), big = zoom.querySelector('img');
-      const a = small.getBoundingClientRect(), b = big.getBoundingClientRect();
-      big.style.transform = `translate(${a.left - b.left}px, ${a.top - b.top}px) scale(${a.width / b.width}, ${a.height / b.height})`;
-      zoom.classList.remove('open');
-    }
+    const togglePlan = () => setPlan(!stage.classList.contains('show-plan'));
     window.addEventListener('keydown', e => {
       if (e.key !== 'Escape') return;
-      if (zoom?.classList.contains('open')) closeZoom(); else closeStage();
+      closeStage();
     });
     window.addEventListener('resize', () => { if (stage?.classList.contains('is-open') && !stageBusy) { placeStage(); stage.classList.add('no-anim'); setBox(finalBox()); stage.offsetWidth; stage.classList.remove('no-anim'); } });
     // Close when the visitor scrolls well away from the open grid
