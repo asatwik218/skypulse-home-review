@@ -665,6 +665,91 @@
       flex-shrink: 0;
     }
 
+    /* ---------- Aircraft detail: tile expands to fill its bento grid ---------- */
+    .fb-stage {
+      position: absolute; z-index: 6; overflow: hidden; display: grid;
+      grid-template-columns: minmax(0, 1fr) 0fr;
+      background: var(--navy); color: var(--on-navy);
+      clip-path: inset(var(--st-clip, 0px)); visibility: hidden;
+      transition: clip-path 0.7s var(--ease), grid-template-columns 0.6s var(--ease);
+    }
+    .fb-stage.is-open { visibility: visible; }
+    .fb-stage.is-split { grid-template-columns: minmax(0, 1.62fr) minmax(0, 1fr); }
+    .st-media-wrap { position: relative; min-width: 0; min-height: 0; }
+    .st-media { position: absolute; inset: 0; overflow: hidden; background: var(--navy-2); }
+    .st-seat {
+      position: absolute; left: 1.25rem; bottom: 1.25rem; z-index: 2; margin: 0;
+      padding: 0.6rem 0.8rem 0.5rem; background: rgba(5, 10, 48, 0.6); border: 1px solid rgba(198, 161, 91, 0.32);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      opacity: 0; transform: translateY(8px); transition: opacity 0.5s ease 0.25s, transform 0.6s var(--ease) 0.25s;
+    }
+    .fb-stage.is-ready .st-seat { opacity: 1; transform: none; }
+    .st-seat img { display: block; height: 46px; width: auto; }
+    .st-seat figcaption { margin-top: 0.35rem; font-family: var(--label); font-size: 0.52rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
+    .st-media :is(img, video) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity 0.45s ease; }
+    .st-media img { filter: brightness(0.92) contrast(1.03); }
+    .fb-stage.is-split .st-media img { animation: stDrift 14s ease-out both; }
+    @keyframes stDrift { from { transform: scale(1.06); } to { transform: scale(1); } }
+    .st-media::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, transparent 70%, rgba(5,10,48,0.35)); }
+    .st-media .st-pending { position: absolute; inset: 0; display: grid; place-items: center; }
+    .st-media .st-pending svg { width: 46%; max-width: 360px; fill: none; stroke: rgba(198,161,91,0.55); stroke-width: 0.8; }
+    .st-panel {
+      min-width: 0; display: flex; flex-direction: column; overflow: hidden;
+      border-left: 1px solid rgba(198, 161, 91, 0.28);
+    }
+    .st-bar {
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+      padding: 0.8rem clamp(1.25rem, 2.2vw, 2rem); border-bottom: 1px solid var(--rule-navy);
+    }
+    .st-count { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.18em; color: var(--on-navy-muted); }
+    .st-nav { display: flex; gap: 0.5rem; }
+    .st-nav button {
+      width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--rule-navy); color: var(--on-navy);
+      display: grid; place-items: center; font-size: 0.95rem; transition: border-color 0.25s ease, color 0.25s ease;
+    }
+    .st-nav button:hover, .st-nav button:focus-visible { border-color: var(--gold); color: var(--gold); outline: none; }
+    .st-body {
+      flex: 1; min-height: 0; overflow-y: auto; scrollbar-width: thin;
+      display: flex; flex-direction: column; gap: 0.85rem;
+      padding: clamp(1.1rem, 1.9vw, 1.75rem) clamp(1.25rem, 2.2vw, 2rem);
+    }
+    .st-body > * { opacity: 0; transform: translateY(12px); transition: opacity 0.5s ease, transform 0.6s var(--ease); }
+    .fb-stage.is-ready .st-body > * { opacity: 1; transform: none; }
+    .fb-stage.is-ready .st-body > :nth-child(2) { transition-delay: 0.05s; }
+    .fb-stage.is-ready .st-body > :nth-child(3) { transition-delay: 0.1s; }
+    .fb-stage.is-ready .st-body > :nth-child(4) { transition-delay: 0.15s; }
+    .fb-stage.is-ready .st-body > :nth-child(n+5) { transition-delay: 0.2s; }
+    .st-reg { font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); line-height: 1.6; }
+    .st-title { font-family: var(--serif); font-weight: 400; font-size: clamp(1.7rem, 2.3vw, 2.3rem); line-height: 1.02; letter-spacing: var(--display-track); margin-top: -0.4rem; }
+    .st-desc { font-size: 0.84rem; line-height: 1.65; font-weight: 300; color: var(--on-navy-muted); }
+    .st-pillars { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--rule-navy); }
+    .st-pillars div { padding: 0.6rem 0; border-bottom: 1px solid var(--rule-navy); }
+    .st-pillars div:nth-child(odd) { padding-right: 1rem; }
+    .st-pillars div:nth-child(even) { padding-left: 1rem; border-left: 1px solid var(--rule-navy); }
+    .st-pillars dt { font-family: var(--label); font-size: 0.56rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--on-navy-muted); }
+    .st-pillars dd { font-family: var(--serif); font-size: 1.08rem; line-height: 1.2; margin-top: 0.3rem; }
+    .st-rows { display: grid; gap: 0.45rem; }
+    .st-rows p { display: grid; grid-template-columns: 9rem 1fr; gap: 0.75rem; font-size: 0.78rem; line-height: 1.5; color: var(--on-navy); }
+    .st-rows p span:first-child { font-family: var(--label); font-size: 0.56rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--on-navy-muted); padding-top: 0.2rem; }
+    .st-seat[hidden] { display: none; }
+    .st-more { margin: auto 0 0 !important; padding-top: 0.5rem; align-self: flex-start; color: var(--gold); }
+    .fb-stage.is-swapping .st-media :is(img, video), .fb-stage.is-swapping .st-body > * { opacity: 0; transition-delay: 0s; }
+    /* the grid underneath recedes while a tile is open */
+    .fleet-bento.has-stage .fb-tile { opacity: 0.2; filter: saturate(0.5); pointer-events: none; transition-delay: 0s; }
+    .fb-tile:focus-visible { outline: 1px solid var(--gold); outline-offset: 3px; }
+    @media (max-width: 980px) {
+      .fb-stage { position: fixed; inset: 0 !important; width: auto !important; height: auto !important; z-index: 135; grid-template-columns: 1fr; grid-template-rows: 1fr 0fr; transition: clip-path 0.6s var(--ease), grid-template-rows 0.55s var(--ease); }
+      .fb-stage.is-split { grid-template-columns: 1fr; grid-template-rows: minmax(0, 0.42fr) minmax(0, 0.58fr); }
+      .st-panel { border-left: 0; border-top: 1px solid rgba(198, 161, 91, 0.28); }
+      .st-media::after { background: linear-gradient(180deg, transparent 70%, rgba(5,10,48,0.35)); }
+      .st-seat { left: 0.9rem; bottom: 0.9rem; }
+      .st-seat img { height: 36px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .fb-stage, .st-body > * { transition: none !important; }
+      .fb-stage.is-split .st-media img { animation: none; }
+    }
+
     /* Option B: Click-to-Open Full Luxury Aircraft Dossier Modal */
     .dossier-modal {
       position: fixed; inset: 0; z-index: 130;
@@ -2028,6 +2113,13 @@
                 <button class="chip" data-bmode="mode-crossfade">Cabin reveal</button>
               </div>
             </div>
+            <div class="ctrl">
+              <label>Clicking an aircraft</label>
+              <div class="chip-group" id="tFleetDetail">
+                <button class="chip active" data-val="expand">Expands in the grid</button>
+                <button class="chip" data-val="modal">Pop-up sheet</button>
+              </div>
+            </div>
             <div class="tp-sub">Rotary colours</div>
             <div class="surf-ctrl" data-sec="fleet"></div>
             <div class="tp-sub">Fixed-wing colours</div>
@@ -2688,10 +2780,171 @@
         }
         tile.classList.remove('cabin-arrived');
       });
-      tile.addEventListener('click', () => {
-        if (tile.dataset.dossier) openDossier(tile.dataset.dossier);
-      });
+      tile.setAttribute('role', 'button'); tile.tabIndex = 0;
+      const activate = () => {
+        if (!tile.dataset.dossier) return;
+        if (state.fleetDetail === 'modal') openDossier(tile.dataset.dossier);
+        else openStage(tile);
+      };
+      tile.addEventListener('click', activate);
+      tile.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activate(); } });
     });
+
+
+    // ---------- Aircraft detail: the clicked tile grows to fill its bento grid, details slide in alongside ----------
+    state.fleetDetail = 'expand';
+    document.querySelectorAll('#tFleetDetail .chip').forEach(b => b.addEventListener('click', () => {
+      document.querySelectorAll('#tFleetDetail .chip').forEach(c => c.classList.toggle('active', c === b));
+      state.fleetDetail = b.dataset.val;
+    }));
+    const STAGE_HTML = `
+      <div class="st-media-wrap"><div class="st-media"></div><figure class="st-seat" hidden><img alt="Cabin seating layout" /><figcaption>Cabin layout</figcaption></figure></div>
+      <aside class="st-panel">
+        <div class="st-bar">
+          <span class="st-count"></span>
+          <div class="st-nav">
+            <button type="button" data-st="prev" aria-label="Previous aircraft">&larr;</button>
+            <button type="button" data-st="next" aria-label="Next aircraft">&rarr;</button>
+            <button type="button" data-st="close" aria-label="Close">&times;</button>
+          </div>
+        </div>
+        <div class="st-body">
+          <span class="st-reg"></span>
+          <h3 class="st-title"></h3>
+          <p class="st-desc"></p>
+          <dl class="st-pillars"></dl>
+          <div class="st-rows"></div>
+          <a class="fl-link st-more" href="#full-fleet" title="Aircraft page — to be designed">Full dossier <span aria-hidden="true">&rarr;</span></a>
+        </div>
+      </aside>`;
+    const stageReduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isPhone = () => matchMedia('(max-width: 980px)').matches;
+    let stage = null, stageGrid = null, stageTile = null, stageBusy = false;
+    const stageTiles = () => [...stageGrid.querySelectorAll('.fb-tile[data-dossier]')];
+    function ensureStage() {
+      if (stage) return stage;
+      stage = document.createElement('div');
+      stage.className = 'fb-stage'; stage.setAttribute('role', 'dialog'); stage.setAttribute('aria-label', 'Aircraft details');
+      stage.innerHTML = STAGE_HTML;
+      stage.addEventListener('click', e => {
+        const a = e.target.closest('[data-st]')?.dataset.st;
+        if (a === 'close') closeStage(); else if (a === 'prev') stepStage(-1); else if (a === 'next') stepStage(1);
+      });
+      return stage;
+    }
+    function placeStage() {
+      // Sits exactly over the grid (desktop) or the whole screen (phone, via CSS)
+      if (isPhone()) return;
+      const g = stageGrid;
+      Object.assign(stage.style, { top: g.offsetTop + 'px', left: g.offsetLeft + 'px', width: g.offsetWidth + 'px', height: g.offsetHeight + 'px' });
+    }
+    function clipTo(tile) {
+      const s = stage.getBoundingClientRect(), t = tile.getBoundingClientRect();
+      return `${t.top - s.top}px ${s.right - t.right}px ${s.bottom - t.bottom}px ${t.left - s.left}px`;
+    }
+    function fillStage(tile) {
+      const d = DOSSIERS[tile.dataset.dossier] || {};
+      const media = stage.querySelector('.st-media');
+      const tv = tile.querySelector('video source'), ti = tile.querySelector('img.img-ext');
+      const pending = tile.classList.contains('fb-pending');
+      media.innerHTML = '';
+      if (pending) {
+        media.innerHTML = '<div class="st-pending">' + (tile.querySelector('.fb-media-pending svg')?.outerHTML || '') + '</div>';
+      } else if (tv && !stageReduce) {
+        const v = document.createElement('video');
+        v.muted = true; v.playsInline = true; v.autoplay = true; v.preload = 'auto';
+        v.loop = tile.dataset.timed !== 'true';   // the cabin tour plays once and rests inside the cabin
+        const tvStyle = tile.querySelector('video').getAttribute('style') || '';
+        v.style.cssText = /scale/.test(tvStyle) ? tvStyle.replace(/scale\([^)]*\)/, 'scale(1.22)') : tvStyle;
+        v.src = tv.getAttribute('src'); v.playbackRate = 0.85;
+        if (ti) v.poster = ti.getAttribute('src');
+        media.appendChild(v); v.play().catch(() => {});
+      } else if (ti) {
+        const im = document.createElement('img');
+        im.src = ti.getAttribute('src'); im.alt = ti.alt; im.style.objectPosition = ti.style.objectPosition || '';
+        media.appendChild(im);
+      }
+      const q = c => stage.querySelector(c);
+      const reg = tile.querySelector('.fb-reg')?.textContent.trim() || '';
+      const status = tile.querySelector('.fb-status')?.textContent.trim() || '';
+      q('.st-reg').textContent = [reg, status].filter(Boolean).join(' · ');
+      q('.st-title').textContent = tile.querySelector('.fb-caption h3')?.textContent.trim() || d.title || '';
+      q('.st-desc').textContent = d.desc || '';
+      q('.st-pillars').innerHTML = (d.pillars || []).map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('');
+      q('.st-rows').innerHTML = (d.specs || []).filter(([k]) => /Mission|Lease/.test(k)).map(([k, v]) => `<p><span>${k}</span><span>${v}</span></p>`).join('');
+      const seat = q('.st-seat'); seat.hidden = !d.seating; if (d.seating) seat.querySelector('img').src = d.seating;
+      const list = stageTiles(), i = list.indexOf(tile);
+      q('.st-count').textContent = String(i + 1).padStart(2, '0') + ' / ' + String(list.length).padStart(2, '0');
+      q('.st-more').href = '#aircraft-' + (tile.dataset.dossier || '');
+      q('.st-body').scrollTop = 0;
+    }
+    function openStage(tile) {
+      if (stageBusy) return;
+      stageGrid = tile.closest('.fleet-bento'); stageTile = tile;
+      const host = stageGrid.parentElement;
+      if (getComputedStyle(host).position === 'static') host.style.position = 'relative';
+      ensureStage(); host.appendChild(stage);
+      tile.querySelector('video')?.pause();
+      placeStage(); fillStage(tile);
+      stage.classList.remove('is-split', 'is-ready');
+      stage.style.transition = 'none';
+      stage.style.setProperty('--st-clip', clipTo(tile));
+      stage.classList.add('is-open');
+      stageGrid.classList.add('has-stage');
+      if (isPhone()) document.documentElement.style.overflow = 'hidden';
+      else {
+        const r = stageGrid.getBoundingClientRect();
+        if (r.top < 70 || r.bottom > innerHeight) window.scrollBy({ top: r.top - Math.max(90, (innerHeight - r.height) / 2), behavior: 'smooth' });
+      }
+      stage.offsetWidth;            // commit the start state
+      stage.style.transition = '';
+      stageBusy = true;
+      const grow = stageReduce ? 0 : 680;
+      requestAnimationFrame(() => stage.style.setProperty('--st-clip', '0px'));
+      setTimeout(() => {
+        stage.classList.add('is-split');
+        setTimeout(() => { stage.classList.add('is-ready'); stageBusy = false; stage.querySelector('[data-st="close"]').focus({ preventScroll: true }); }, stageReduce ? 0 : 380);
+      }, grow);
+    }
+    function closeStage() {
+      if (!stage || !stage.classList.contains('is-open') || stageBusy) return;
+      stageBusy = true;
+      stage.classList.remove('is-ready', 'is-split');
+      const shrink = () => {
+        stage.style.setProperty('--st-clip', clipTo(stageTile));
+        stageGrid.classList.remove('has-stage');
+        setTimeout(() => {
+          stage.classList.remove('is-open');
+          stage.querySelector('.st-media').innerHTML = '';
+          document.documentElement.style.overflow = '';
+          stageBusy = false; stageTile.focus({ preventScroll: true });
+        }, stageReduce ? 0 : 700);
+      };
+      stageReduce ? shrink() : setTimeout(shrink, 450);
+    }
+    function stepStage(dir) {
+      if (stageBusy) return;
+      const list = stageTiles(); if (list.length < 2) return;
+      const next = list[(list.indexOf(stageTile) + dir + list.length) % list.length];
+      stageBusy = true; stage.classList.add('is-swapping');
+      setTimeout(() => {
+        stageTile = next; fillStage(next);
+        requestAnimationFrame(() => { stage.classList.remove('is-swapping'); stageBusy = false; });
+      }, stageReduce ? 0 : 320);
+    }
+    window.addEventListener('keydown', e => {
+      if (!stage?.classList.contains('is-open')) return;
+      if (e.key === 'Escape') closeStage();
+      else if (e.key === 'ArrowRight') stepStage(1);
+      else if (e.key === 'ArrowLeft') stepStage(-1);
+    });
+    window.addEventListener('resize', () => { if (stage?.classList.contains('is-open')) placeStage(); });
+    // Close when the visitor scrolls well away from the open grid
+    window.addEventListener('scroll', () => {
+      if (!stage?.classList.contains('is-open') || stageBusy || isPhone()) return;
+      const r = stageGrid.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > innerHeight) closeStage();
+    }, { passive: true });
 
     // Carousels Arrow Controls
     function wireCarousel(trackId, prevId, nextId) {
