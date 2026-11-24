@@ -210,9 +210,13 @@
     .jr-pick button { width: 22px; height: 22px; border-radius: 50%; color: var(--surf-muted); font-size: 14px; line-height: 1; }
     .jr-pick button:hover { background: rgba(245,246,251,0.1); color: var(--surf-fg); }
     .jr-picks .ct-select { padding-top: 0.5rem; padding-bottom: 0.5rem; }
-    .jr-quickrow { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.9rem; padding-top: 1rem; border-top: 1px solid var(--surf-rule); }
+    .jr-ctl-foot { align-items: flex-end; padding-top: 1.1rem; border-top: 1px solid var(--surf-rule); }
+    .jr-dir { display: inline-flex; align-items: center; gap: 0.7rem; height: 34px; padding: 0 0.9rem 0 1rem; border: 1px solid var(--surf-rule); border-radius: 999px; font-family: var(--label); font-size: 0.58rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--surf-fg); transition: border-color 0.2s; }
+    .jr-dir i { font-style: normal; font-size: 0.9rem; color: var(--gold-deep); }
+    .jr-dir:hover { border-color: var(--gold-deep); }
+    .jr-flown p { font-family: var(--serif); font-size: 1.15rem; line-height: 34px; white-space: nowrap; }
     .jr-quick { display: flex; flex-wrap: wrap; gap: 0.35rem; }
-    .jr-quick button { padding: 0.42rem 0.75rem; border: 1px solid var(--surf-rule); border-radius: 999px; font-family: var(--label); font-size: 0.52rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--surf-muted); transition: color 0.2s, border-color 0.2s, background 0.2s; }
+    .jr-quick button { padding: 0.5rem 0.85rem; border: 1px solid var(--surf-rule); border-radius: 999px; font-family: var(--label); font-size: 0.54rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--surf-muted); transition: color 0.2s, border-color 0.2s, background 0.2s; }
     .jr-quick button:hover { color: var(--surf-fg); border-color: rgba(245,246,251,0.4); }
     .jr-quick button[aria-pressed="true"] { background: var(--gold); border-color: var(--gold); color: var(--navy); }
     .jr-body { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr); gap: clamp(1.5rem, 3vw, 3rem); margin-top: clamp(1.8rem, 4vh, 2.6rem); align-items: start; }
@@ -239,7 +243,7 @@
     .jr-itin li { display: grid; grid-template-rows: 1.35rem 16px auto; min-width: 0; }
     .jr-n { flex: 0 0 auto; text-align: center; max-width: 34%; }
     .jr-n:first-child { text-align: left; } .jr-n:last-child { text-align: right; }
-    .jr-n b { font-family: var(--mono); font-size: 0.8rem; font-weight: 500; }
+    .jr-n i { grid-row: 2; } .jr-n div { grid-row: 3; }
     .jr-n i { position: relative; align-self: center; justify-self: center; width: 9px; height: 9px; border-radius: 50%; background: var(--surf-fg); box-shadow: 0 0 0 4px var(--panel); }
     .jr-n:first-child i { justify-self: start; } .jr-n:last-child i { justify-self: end; }
     .jr-n.is-stop i { background: var(--panel); border: 1.5px solid var(--gold-deep); }
@@ -254,8 +258,8 @@
     .jr-fact > span { display: block; font-family: var(--label); font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--surf-muted); }
     .jr-fact b { display: block; margin-top: 0.4rem; font-family: var(--serif); font-weight: 400; font-size: 1.35rem; line-height: 1.1; }
     .jr-fact em { display: block; margin-top: 0.25rem; font-style: normal; font-size: 0.76rem; line-height: 1.4; color: var(--surf-muted); }
-    .jr-fact.is-ok em { color: #7FC49B; }
-    .jr-fact.is-warn em { color: #E59A8C; }
+    .jr-fact.is-ok em { color: var(--surf-fg); }
+    .jr-fact.is-warn em { color: var(--gold-deep); }
     .jr-card.is-na { opacity: 0.6; padding-bottom: 1.2rem; }
     .jr-na { margin-top: 1rem; padding-top: 0.9rem; border-top: 1px dashed var(--surf-rule); font-size: 0.86rem; color: var(--surf-muted); }
     .jr-map { position: sticky; top: calc(var(--bar-top, 0px) + 1.2rem); transition: top 0.45s var(--ease); background: var(--panel); border: 1px solid rgba(245,246,251,0.08); color: var(--on-navy); padding: 1.1rem 1.1rem 1.2rem; }
@@ -276,6 +280,26 @@
     .jr-legend { display: flex; flex-wrap: wrap; gap: 0.7rem 1.3rem; margin-top: 0.8rem; }
     .jr-legend span { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--label); font-size: 0.5rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--on-navy-muted); }
     .jr-legend svg { width: 28px; height: 6px; }
+
+    /* Colour options for the section (Tweak Studio) */
+    .cmp[data-tone="open"] { --panel: #050A30; }
+    .cmp[data-tone="open"] .cmp-panel { background: transparent; border: 0; }
+    .cmp[data-tone="open"] .jr-ctl { padding: 0 0 1.5rem; border-bottom: 1px solid var(--surf-rule); }
+    .cmp[data-tone="open"] #jrRows { border-bottom: 1px solid var(--surf-rule); }
+    .cmp[data-tone="open"] .jr-route { margin-bottom: 1.1rem; }
+    .cmp[data-tone="open"] .jr-card { margin-top: 0; padding: 1.6rem 0 0.4rem; border-top: 1px solid var(--surf-rule); }
+    .cmp[data-tone="open"] .jr-card::before { top: -1px; bottom: auto; right: 0; width: auto; height: 2px; transform: scaleX(0); transform-origin: left; }
+    .cmp[data-tone="open"] .jr-card.is-active::before { transform: none; }
+    .cmp[data-tone="open"] .jr-map { background: transparent; border: 1px solid var(--surf-rule); }
+    .cmp[data-tone="open"] .sbs-card { padding: 0 0 0.3rem; }
+    .cmp[data-tone="ivory"] .cmp-panel { --surf-bg: #F5F6FB; --surf-fg: #050A30; --surf-muted: #4A5172; --surf-rule: rgba(5, 10, 48, 0.12); --gold-deep: #85652A; --panel: #F5F6FB;
+      background: var(--panel); color: var(--surf-fg); border: 0; }
+    .cmp[data-tone="ivory"] .cmp-panel .ct-select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23050A30' stroke-width='1.2'/%3E%3C/svg%3E"); }
+    .cmp[data-tone="ivory"] .cmp-panel .jr-pax button:hover, .cmp[data-tone="ivory"] .cmp-panel .sbs-rm:hover { background: rgba(5, 10, 48, 0.07); }
+    .cmp[data-tone="ivory"] .cmp-panel .jr-quick button:hover { border-color: rgba(5, 10, 48, 0.35); }
+    .cmp[data-tone="ivory"] .jr-quick button[aria-pressed="true"] { background: var(--navy); border-color: var(--navy); color: #F5F6FB; }
+    .cmp[data-tone="ivory"] .sbs-stage img { filter: none; }
+    .cmp[data-tone="ivory"] .sbs-stage::after { background: radial-gradient(closest-side, rgba(5, 10, 48, 0.16), transparent); }
 
     /* ---------- Responsive ---------- */
     @media (max-width: 1180px) { .ct-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .ct-hint { display: none; } }
@@ -301,7 +325,7 @@
       .ct-go { padding: 0 0.9rem; }
       .sbs-swipe { display: block; }
       .jr-ctl { padding: 1rem; }
-      .jr-field, .jr-od { width: 100%; }
+      .jr-flown p { white-space: normal; line-height: 1.4; }
       .jr-od { min-width: 0; }
       .jr-od .ct-select { min-width: 0; flex: 1; }
       .jr-card { padding: 1rem 1rem 0.2rem; }
@@ -309,12 +333,12 @@
       .jr-total { grid-column: 1 / -1; text-align: left; display: flex; align-items: baseline; gap: 0.8rem; }
       .jr-total span { margin-top: 0; }
       .jr-itin { flex-direction: column; }
-      .jr-itin::before { left: calc(3.4rem + 0.7rem + 7.5px); right: auto; top: 0.6rem; bottom: 0.6rem; width: 1px; height: auto; }
-      .jr-itin li { grid-template-rows: none; grid-template-columns: 3.4rem 16px minmax(0, 1fr); column-gap: 0.7rem; align-items: center; text-align: left !important; max-width: none; }
-      .jr-n i { justify-self: center !important; }
+      .jr-itin::before { left: 7.5px; right: auto; top: 0.6rem; bottom: 0.6rem; width: 1px; height: auto; }
+      .jr-itin li { grid-template-rows: none; grid-template-columns: 16px minmax(0, 1fr); column-gap: 0.8rem; align-items: center; text-align: left !important; max-width: none; }
+      .jr-n i { justify-self: center !important; grid-row: auto; } .jr-n div { grid-row: auto; }
       .jr-n div span { margin-top: 0; }
       .jr-s { min-height: 2.2rem; }
-      .jr-s span { grid-column: 3; align-self: center; padding: 0; }
+      .jr-s span { grid-column: 2; align-self: center; padding: 0; }
       .jr-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .jr-fact:nth-child(3) { padding-left: 0; border-left: 0; }
       .jr-fact:nth-child(n + 3) { border-top: 1px solid var(--surf-rule); }
@@ -567,7 +591,7 @@
     </div>
 
     <!-- 3. Compare: one view at a time (switch in Tweak Studio) -->
-    <section class="cmp surf-navy" id="compare" data-theme="dark">
+    <section class="cmp surf-navy" id="compare" data-theme="dark" data-tone="open">
       <div class="wrap">
         <div class="cmp-head">
           <p class="ct-kicker">Compare</p>
@@ -587,21 +611,14 @@
 
         <div class="cmp-view jr" id="viewJr">
           <div class="jr-ctl cmp-panel">
-            <div class="jr-ctl-row">
-              <div class="jr-field"><span class="cmp-label">Route</span>
-                <div class="jr-od">
-                  <select class="ct-select" id="jrFrom" aria-label="From"></select>
-                  <button type="button" class="jr-swap" id="jrSwap" aria-label="Swap origin and destination">⇄</button>
-                  <select class="ct-select" id="jrTo" aria-label="To"></select>
-                </div>
-              </div>
-              <div class="jr-field"><span class="cmp-label">Depart</span><select class="ct-select" id="jrDep" aria-label="Departure time"></select></div>
+            <div class="jr-field"><span class="cmp-label">Sector</span><div class="jr-quick" id="jrQuick"></div></div>
+            <div class="jr-ctl-row jr-ctl-foot">
+              <div class="jr-field"><span class="cmp-label">Direction</span><button type="button" class="jr-dir" id="jrSwap" aria-label="Reverse the direction"><span id="jrDir"></span><i aria-hidden="true">⇄</i></button></div>
               <div class="jr-field"><span class="cmp-label">Passengers</span>
                 <div class="jr-pax"><button type="button" data-d="-1" aria-label="Fewer passengers">−</button><output id="jrPax" aria-live="polite">4</output><button type="button" data-d="1" aria-label="More passengers">+</button></div>
               </div>
-              <div class="jr-field"><span class="cmp-label">Aircraft</span><div class="jr-picks" id="jrPicks"></div></div>
+              <div class="jr-field jr-flown"><span class="cmp-label">Flown on this sector</span><p id="jrFlown"></p></div>
             </div>
-            <div class="jr-quickrow"><span class="cmp-label">Popular routes</span><div class="jr-quick" id="jrQuick"></div></div>
           </div>
           <div class="jr-body">
             <div>
@@ -614,7 +631,7 @@
               <div class="jr-legend" id="jrLegend"></div>
             </aside>
           </div>
-          <p class="cmp-note">Indicative only. Straight-line distance at typical cruise speed, plus 15 minutes for each take-off and landing and 30 minutes on the ground at each fuel stop. Each leg stays within 80% of the aircraft's maximum range to keep a reserve; fuel stops are picked from the airports shown on the map. Kedarnath is a helipad, so only helicopters fly there. The map shows city positions only, not borders.</p>
+          <p class="cmp-note">Indicative only. Straight-line distance at typical cruise speed, plus 15 minutes for each take-off and landing and 30 minutes on the ground at each fuel stop. Each leg stays within 80% of the aircraft's maximum range to keep a reserve; fuel stops are picked from the airports shown on the map. The sectors and the aircraft on each are examples for this concept. The map shows city positions only, not borders.</p>
         </div>
       </div>
     </section>
@@ -769,7 +786,7 @@
     const views = { sbs: document.getElementById('viewSbs'), jr: document.getElementById('viewJr') };
     const COPY = {
       sbs: ['Compare <em>the fleet</em>', 'Up to three aircraft, figure by figure. Change any of them from the menu on its card, or remove one with ×.'],
-      jr: ['On a <em>real route</em>', 'Choose a route, a departure time and how many people are flying. Each aircraft shows when it would land, where it would refuel, and whether everyone fits.']
+      jr: ['On a <em>real route</em>', 'Pick a sector and how many people are flying. You see the aircraft we fly on that sector, how long each takes, where it would refuel and whether everyone fits.']
     };
     let view = 'jr';
     function setView(v) {
@@ -876,8 +893,19 @@
       ['lko', 'Lucknow', 26.76, 80.88], ['bbi', 'Bhubaneswar', 20.24, 85.82], ['vtz', 'Visakhapatnam', 17.72, 83.22, 'l'], ['ixc', 'Chandigarh', 30.67, 76.79, 'l'], ['ixr', 'Ranchi', 23.31, 85.32]
     ].map(([k, n, lat, lon, side = 'r', heli = false]) => ({ k, n, lat, lon, side, heli }));
     const C = Object.fromEntries(CITIES.map(c => [c.k, c]));
-    const QUICK = [['bom', 'del'], ['amd', 'bom'], ['ded', 'ked'], ['bom', 'goi'], ['del', 'sxr'], ['blr', 'maa'], ['del', 'ccu']];
-    let route = ['bom', 'del'], dep = 9 * 60, pax = 4, active = null;
+    // Sectors we fly, and the aircraft that fly each one (examples for the concept)
+    const SECTORS = [
+      ['bom', 'del', ['kingair', 'hawker']],
+      ['bom', 'pnq', ['aw109', 'h130']],
+      ['amd', 'bom', ['aw109', 'kingair', 'hawker']],
+      ['ded', 'ked', ['h130', 'h125']],
+      ['del', 'jai', ['aw109', 'kingair']],
+      ['bom', 'goi', ['kingair', 'hawker']],
+      ['blr', 'maa', ['aw109', 'kingair']],
+      ['del', 'sxr', ['kingair', 'hawker']],
+      ['del', 'ccu', ['kingair', 'hawker']]
+    ].map(([f, t, fleet]) => ({ f, t, fleet }));
+    let sector = 0, rev = false, pax = 4, active = null;
     const hav = (a, b) => {
       const R = 6371, r = d => d * Math.PI / 180;
       const dLat = r(b.lat - a.lat), dLon = r(b.lon - a.lon);
@@ -913,7 +941,7 @@
         path = [d]; while (path[0] !== o) path.unshift(prev.get(path[0].k));
       }
       const legs = path.slice(1).map((c, i) => ({ from: path[i], to: c, km: hav(path[i], c) }));
-      let t = dep;
+      let t = 0;
       const times = [{ c: o, dep: t }];
       legs.forEach((l, i) => {
         l.min = l.km / a.cruise * 60 + TAXI;
@@ -923,21 +951,12 @@
         if (!last) t += GROUND;
       });
       const km = legs.reduce((s, l) => s + l.km, 0);
-      return { legs, times, path, stops: legs.length - 1, km, direct, total: t - dep, spare: reach - Math.max(...legs.map(l => l.km)) };
+      return { legs, times, path, stops: legs.length - 1, km, direct, total: t, spare: reach - Math.max(...legs.map(l => l.km)) };
     }
-    const fromSel = document.getElementById('jrFrom'), toSel = document.getElementById('jrTo'), depSel = document.getElementById('jrDep');
-    const cityOpts = cur => [...CITIES].sort((x, y) => x.n.localeCompare(y.n)).map(c => `<option value="${c.k}" ${c.k === cur ? 'selected' : ''}>${c.n}</option>`).join('');
-    depSel.innerHTML = Array.from({ length: 29 }, (_, i) => 6 * 60 + i * 30).map(m => `<option value="${m}" ${m === dep ? 'selected' : ''}>${clock(m)}</option>`).join('');
-    depSel.addEventListener('change', () => { dep = +depSel.value; renderJr(); });
     document.querySelector('.jr-pax').addEventListener('click', e => { const b = e.target.closest('[data-d]'); if (!b) return; pax = Math.min(14, Math.max(1, pax + +b.dataset.d)); renderJr(); });
-    document.getElementById('jrQuick').innerHTML = QUICK.map(([f, t]) => `<button type="button" data-r="${f},${t}" aria-pressed="false">${C[f].n} → ${C[t].n}</button>`).join('');
-    document.getElementById('jrQuick').addEventListener('click', e => { const b = e.target.closest('[data-r]'); if (b) { route = b.dataset.r.split(','); active = null; renderJr(); } });
-    fromSel.addEventListener('change', () => { route = [fromSel.value, route[1]]; if (route[0] === route[1]) route[1] = route[0] === 'del' ? 'bom' : 'del'; active = null; renderJr(); });
-    toSel.addEventListener('change', () => { route = [route[0], toSel.value]; if (route[0] === route[1]) route[0] = route[1] === 'bom' ? 'del' : 'bom'; active = null; renderJr(); });
-    document.getElementById('jrSwap').addEventListener('click', () => { route = [route[1], route[0]]; active = null; renderJr(); });
-    const picks = document.getElementById('jrPicks');
-    picks.addEventListener('click', e => { const b = e.target.closest('[data-rm]'); if (b) replaceAt(+b.dataset.rm, ''); });
-    picks.addEventListener('change', e => { if (e.target.matches('select')) replaceAt(shown().length, e.target.value); });
+    document.getElementById('jrQuick').innerHTML = SECTORS.map((x, i) => `<button type="button" data-s="${i}" aria-pressed="false">${C[x.f].n} – ${C[x.t].n}</button>`).join('');
+    document.getElementById('jrQuick').addEventListener('click', e => { const b = e.target.closest('[data-s]'); if (b) { sector = +b.dataset.s; rev = false; active = null; renderJr(); } });
+    document.getElementById('jrSwap').addEventListener('click', () => { rev = !rev; active = null; renderJr(); });
 
     // Map: equirectangular plane in km (city positions only, no borders), fitted to a 560-wide box
     const LAT0 = 22, KX = 111.32 * Math.cos(LAT0 * Math.PI / 180), KY = 110.57;
@@ -948,7 +967,7 @@
     let jr = { cols: [], plans: [] };
 
     function itinerary(p) {
-      const node = (t, cls, when, place, note) => `<li class="jr-n ${cls}"><b>${when}</b><i></i><div><span>${place}</span><em>${note}</em></div></li>`;
+      const node = (t, cls, when, place, note) => `<li class="jr-n ${cls}"><i></i><div><span>${place}</span><em>${note}</em></div></li>`;
       const seg = (txt, grow) => `<li class="jr-s" style="flex-grow:${grow.toFixed(1)}"><span>${txt}</span></li>`;
       const first = p.times[0], last = p.times[p.times.length - 1];
       let html = node(first, '', clock(first.dep), first.c.n, 'Depart');
@@ -966,18 +985,20 @@
     }
 
     function renderJr() {
-      fromSel.innerHTML = cityOpts(route[0]); toSel.innerHTML = cityOpts(route[1]);
+      const sec = SECTORS[sector], route = rev ? [sec.t, sec.f] : [sec.f, sec.t];
       document.getElementById('jrPax').textContent = pax;
-      document.querySelectorAll('#jrQuick button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.r === route.join(','))));
-      const ks = shown(), cols = ks.map(k => byKey[k]);
-      picks.innerHTML = cols.map((a, i) => `<span class="jr-pick">${a.cut ? `<img src="${a.cut}" alt="" />` : ''}<span>${a.name}</span>${cols.length > 1 ? `<button type="button" data-rm="${i}" aria-label="Remove ${a.name}">×</button>` : ''}</span>`).join('') +
-        (cols.length < 3 ? `<select class="ct-select" aria-label="Add an aircraft">${opts('+ Add', ks)}</select>` : '');
+      document.querySelectorAll('#jrQuick button').forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.s === sector)));
+      const ks = sec.fleet, cols = ks.map(k => byKey[k]);
+      document.getElementById('jrDir').textContent = `${C[route[0]].n} → ${C[route[1]].n}`;
+      document.getElementById('jrFlown').textContent = cols.map(a => a.name).join(' · ');
 
       const o = C[route[0]], d = C[route[1]], km = Math.round(hav(o, d));
-      document.getElementById('jrRoute').innerHTML = `<b>${o.n} <i>to</i> ${d.n}</b><span>${fmt(km)} km straight line · ${pax} passenger${pax > 1 ? 's' : ''} · depart ${clock(dep)}</span>`;
+      document.getElementById('jrRoute').innerHTML = `<b>${o.n} <i>to</i> ${d.n}</b><span>${fmt(km)} km straight line · ${pax} passenger${pax > 1 ? 's' : ''} · ${cols.length} aircraft fly this sector</span>`;
       const plans = cols.map(a => plan(a, o, d));
       const ok = plans.filter(p => p && !p.out);
-      const best = ok.length > 1 ? Math.min(...ok.map(p => p.total)) : null;
+      // "Quickest" only when one aircraft is ahead by at least a minute
+      const mins = ok.map(p => Math.round(p.total)), fastest = Math.min(...mins);
+      const best = ok.length > 1 && mins.filter(m => m === fastest).length === 1 ? ok[mins.indexOf(fastest)].total : null;
       if (!active || !ks.includes(active) || !plans[ks.indexOf(active)] || plans[ks.indexOf(active)].out) {
         const bi = plans.findIndex(p => p && !p.out && (best === null || p.total === best));
         active = bi >= 0 ? ks[bi] : null;
@@ -1078,8 +1099,16 @@
     <div class="tp-group">
       <h4>Compare<small>One view at a time in the Compare section.</small></h4>
       <div class="hero-cards" data-k="cmp">
-        <button type="button" class="chip" data-val="jr"><b>Journeys</b><span>Pick a route, time and party size. Arrival times, fuel stops, seats and range for each aircraft.</span></button>
+        <button type="button" class="chip" data-val="jr"><b>Journeys</b><span>Pick a sector and party size. Only the aircraft that fly that sector, with journey time, fuel stops, seats and range.</span></button>
         <button type="button" class="chip" data-val="sbs"><b>Side by side</b><span>Big headline figures, then a plain table with ticks for missions.</span></button>
+      </div>
+    </div>
+    <div class="tp-group">
+      <h4>Compare colours<small>The section stays navy; this changes the boxes inside it.</small></h4>
+      <div class="hero-cards" data-k="cmpTone">
+        <button type="button" class="chip" data-val="open"><b>Open navy</b><span>No boxes. Thin lines on navy, like the first version.</span></button>
+        <button type="button" class="chip" data-val="panels"><b>Navy panels</b><span>Each card in a slightly lighter navy box.</span></button>
+        <button type="button" class="chip" data-val="ivory"><b>Ivory cards</b><span>Light cards with navy type on the navy section; the map stays navy.</span></button>
       </div>
     </div>
     <div class="tp-group" data-for="a">
@@ -1112,7 +1141,7 @@
 
     /* ---------- settings (per browser, plus ?hero= in the link) ---------- */
     const KEY = 'skypulse-fleet-hero-v1';
-    const DEF = { hero: 'a', speed: 1, handoff: 'on', autoOpen: 'off', bMode: 'scrub', cmp: 'jr', word: 'FLEET', film: 'h130' };
+    const DEF = { hero: 'a', speed: 1, handoff: 'on', autoOpen: 'off', bMode: 'scrub', cmp: 'jr', cmpTone: 'open', word: 'FLEET', film: 'h130' };
     let saved = {}; try { saved = JSON.parse(localStorage.getItem(KEY)) || {}; } catch {}
     const S = { ...DEF, ...saved };
     const qh = new URLSearchParams(location.search).get('hero');
@@ -1121,6 +1150,8 @@
     if (['scrub', 'play', 'photo'].includes(qb)) S.bMode = qb;
     const qc = new URLSearchParams(location.search).get('cmp');
     if (['jr', 'sbs'].includes(qc)) S.cmp = qc;
+    const qt = new URLSearchParams(location.search).get('tone');
+    if (['open', 'panels', 'ivory'].includes(qt)) S.cmpTone = qt;
     const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch {} };
 
     /* ================= A · Flypast ================= */
@@ -1365,7 +1396,8 @@
       panel.querySelectorAll('[data-only]').forEach(g => g.hidden = g.dataset.only !== S.bMode);
       if (changed === undefined || changed === 'hero' || changed === 'bMode') setFilmB();
       if (changed === undefined || changed === 'cmp') window.SKY_CMP && window.SKY_CMP.setView(S.cmp);
-      if (changed === 'cmp') document.getElementById('compare').scrollIntoView({ behavior: reduced ? 'auto' : 'smooth' });
+      document.getElementById('compare').dataset.tone = S.cmpTone;
+      if (changed === 'cmp' || changed === 'cmpTone') document.getElementById('compare').scrollIntoView({ behavior: reduced ? 'auto' : 'smooth' });
       const isA = S.hero === 'a';
       layers.back.hidden = layers.front.hidden = !isA;
       if (!isA) document.body.classList.remove('hxa-landing');
@@ -1373,7 +1405,7 @@
       if (S.hero === 'c') { setFilm(); layoutC(); vid.play().catch(() => {}); } else vid.pause();
       if (changed === 'hero') { bAutoStart = null; scrollTo({ top: 0, behavior: 'auto' }); }
       if (changed === 'autoOpen') bAutoStart = null;
-      const q = new URLSearchParams(location.search); q.set('hero', S.hero); q.set('cmp', S.cmp);
+      const q = new URLSearchParams(location.search); q.set('hero', S.hero); q.set('cmp', S.cmp); q.set('tone', S.cmpTone);
       history.replaceState(null, '', location.pathname + '?' + q + location.hash);
       save();
     }
