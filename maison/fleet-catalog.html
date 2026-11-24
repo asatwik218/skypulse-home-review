@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="robots" content="noindex, nofollow" />
+<meta name="robots" content="noindex, nofollow" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Fleet (Catalogue) — SkyPulse Solutions IFSC</title>
@@ -124,115 +124,167 @@
     .ct-go { padding: 0 1.2rem; height: 52px; background: var(--gold); color: var(--navy); font-family: var(--label); font-size: 0.6rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; white-space: nowrap; transition: opacity 0.3s; }
     .ct-go[disabled] { opacity: 0.35; cursor: not-allowed; }
 
-    /* ---------- 4. Compare ---------- */
-    .cmp { padding: var(--sec-pad) var(--gutter); scroll-margin-top: 0; }
-    .cmp-head { display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 1.2rem; margin-bottom: clamp(1.8rem, 4vh, 2.8rem); }
-    .cmp-head h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(2.2rem, 4vw, 3.6rem); line-height: 1; }
-    .cmp-head h2 em { font-style: italic; color: var(--gold); }
-    .cmp-head p { margin-top: 0.8rem; font-size: 0.95rem; line-height: 1.7; font-weight: 300; color: var(--on-navy-muted); max-width: 52ch; }
-    .cmp-switch { display: inline-flex; gap: 0.2rem; padding: 0.25rem; border: 1px solid var(--rule-navy); border-radius: 999px; }
-    .cmp-switch button { padding: 0.6rem 1.15rem; border-radius: 999px; font-family: var(--label); font-size: 0.6rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--on-navy-muted); transition: background 0.25s, color 0.25s; }
-    .cmp-switch button[aria-pressed="true"] { background: var(--gold); color: var(--navy); }
+    /* ---------- 4. Compare (light surface so the figures read clearly) ---------- */
+    .cmp { --surf-bg: #F5F6FB; --surf-fg: #050A30; --surf-muted: #4A5172; --surf-accent: #85652A; --surf-rule: rgba(5, 10, 48, 0.12);
+      background: var(--surf-bg); color: var(--surf-fg); padding: var(--sec-pad) var(--gutter); scroll-margin-top: 0; }
+    .cmp-head { margin-bottom: clamp(2rem, 5vh, 3rem); }
+    .cmp-head .ct-kicker { color: var(--gold-deep); }
+    .cmp-head h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(2.4rem, 4.4vw, 4rem); line-height: 1; letter-spacing: var(--display-track); }
+    .cmp-head h2 em { font-style: italic; color: var(--gold-deep); }
+    .cmp-head p { margin-top: 0.9rem; font-size: 1rem; line-height: 1.7; font-weight: 300; color: var(--surf-muted); max-width: 60ch; }
     .cmp-view[hidden] { display: none; }
-    .sbs-swipe { display: none; font-family: var(--label); font-size: 0.56rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--on-navy-muted); margin-bottom: 0.6rem; }
+    .cmp-label { font-family: var(--label); font-size: 0.54rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--surf-muted); }
+    .cmp .ct-select { background-color: #fff; }
+    .cmp-note { margin-top: 2rem; font-family: var(--mono); font-size: 0.66rem; line-height: 1.7; color: var(--surf-muted); max-width: 92ch; }
+    .cmp-panel { background: #fff; box-shadow: 0 1px 0 rgba(5,10,48,0.05), 0 26px 48px -36px rgba(5,10,48,0.55); }
+    .sbs-swipe { display: none; font-family: var(--label); font-size: 0.56rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--surf-muted); margin-bottom: 0.8rem; }
 
-    /* Direction 1: side by side */
-    .sbs { --cols: 220px repeat(3, minmax(0, 1fr)); }
-    .sbs-heads { display: grid; grid-template-columns: var(--cols); gap: 0 clamp(0.8rem, 1.6vw, 1.4rem); padding: 0.8rem 0 1rem; }
-    .sbs-tools { display: flex; flex-direction: column; justify-content: flex-end; gap: 0.8rem; padding-bottom: 0.4rem; }
-    .sbs-tools label { display: inline-flex; align-items: center; gap: 0.6rem; cursor: pointer; font-family: var(--label); font-size: 0.56rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--on-navy-muted); }
-    .sbs-tools input { appearance: none; -webkit-appearance: none; width: 28px; height: 16px; border-radius: 999px; background: rgba(245,246,251,0.18); position: relative; cursor: pointer; transition: background 0.25s; }
-    .sbs-tools input::after { content: ''; position: absolute; top: 2px; left: 2px; width: 12px; height: 12px; border-radius: 50%; background: var(--on-navy); transition: transform 0.25s var(--ease); }
-    .sbs-tools input:checked { background: var(--gold); }
-    .sbs-tools input:checked::after { transform: translateX(12px); }
-    .sbs-col { display: flex; flex-direction: column; gap: 0.7rem; min-width: 0; }
-    .sbs-stage { position: relative; aspect-ratio: 16 / 8; background: var(--card); display: grid; place-items: center; overflow: hidden; }
-    .sbs-stage img { max-width: 86%; max-height: 82%; object-fit: contain; }
-    .sbs-stage svg { width: 62%; fill: none; stroke: var(--gold-deep); stroke-width: 0.9; }
-    .sbs-stage button { position: absolute; top: 0.5rem; right: 0.5rem; width: 24px; height: 24px; border-radius: 50%; color: var(--card-muted); font-size: 16px; line-height: 1; }
-    .sbs-stage button:hover { background: rgba(5,10,48,0.08); color: var(--navy); }
-    .sbs-pickrow { display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; }
-    .sbs-col .ct-select { color: var(--on-navy); border-color: var(--rule-navy); width: 100%; font-size: 0.58rem;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23F5F6FB' stroke-width='1.2'/%3E%3C/svg%3E"); }
-    .sbs-col .ct-select option { color: #050A30; }
-    .sbs-name { font-family: var(--serif); font-size: clamp(1.5rem, 2.2vw, 2rem); line-height: 1; }
-    .sbs-name small { display: block; font-family: var(--label); font-size: 0.54rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--on-navy-muted); margin-bottom: 0.35rem; }
-    .sbs-empty { aspect-ratio: 16 / 8; border: 1px dashed var(--rule-navy); display: grid; place-items: center; text-align: center; color: var(--on-navy-muted); font-family: var(--label); font-size: 0.56rem; letter-spacing: 0.2em; text-transform: uppercase; }
-    .sbs-group { margin-top: 1.6rem; }
-    .sbs-group h3 { font-family: var(--label); font-size: 0.58rem; font-weight: 500; letter-spacing: 0.26em; text-transform: uppercase; color: var(--gold); padding-bottom: 0.7rem; border-bottom: 1px solid color-mix(in srgb, var(--gold) 45%, transparent); }
-    .sbs-row { display: grid; grid-template-columns: var(--cols); gap: 0 clamp(0.8rem, 1.6vw, 1.4rem); border-bottom: 1px solid var(--rule-navy); transition: background 0.2s; }
-    .sbs-row:hover { background: rgba(245,246,251,0.03); }
+    /* Side by side: cards on top, a plain table below, big figures first, ticks for missions */
+    .sbs { --cols: 190px repeat(3, minmax(0, 1fr)); --gap: clamp(0.8rem, 1.6vw, 1.4rem); position: relative; }
+    .sbs-heads, .sbs-row, .sbs-sticky-in { display: grid; grid-template-columns: var(--cols); gap: 0 var(--gap); }
+    .sbs-tools { display: flex; flex-direction: column; justify-content: flex-end; padding-bottom: 0.6rem; }
+    .sbs-tools label { display: inline-flex; align-items: center; gap: 0.6rem; cursor: pointer; font-family: var(--label); font-size: 0.56rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--surf-muted); }
+    .sbs-tools input { appearance: none; -webkit-appearance: none; flex: 0 0 auto; width: 30px; height: 17px; border-radius: 999px; background: rgba(5,10,48,0.18); position: relative; cursor: pointer; transition: background 0.25s; }
+    .sbs-tools input::after { content: ''; position: absolute; top: 2px; left: 2px; width: 13px; height: 13px; border-radius: 50%; background: #fff; transition: transform 0.25s var(--ease); }
+    .sbs-tools input:checked { background: var(--navy); }
+    .sbs-tools input:checked::after { transform: translateX(13px); }
+    .sbs-card { position: relative; display: flex; flex-direction: column; gap: 0.8rem; padding: 1rem 1.15rem 1.1rem; min-width: 0; }
+    .sbs-stage { position: relative; aspect-ratio: 16 / 9; display: grid; place-items: center; }
+    .sbs-stage img { position: relative; z-index: 1; max-width: 94%; max-height: 88%; object-fit: contain; }
+    .sbs-stage::after { content: ''; position: absolute; left: 18%; right: 18%; bottom: 7%; height: 12px; border-radius: 50%; background: radial-gradient(closest-side, rgba(5,10,48,0.16), transparent); }
+    .sbs-stage svg { width: 66%; fill: none; stroke: var(--gold-deep); stroke-width: 0.9; }
+    .sbs-rm { position: absolute; top: 0.55rem; right: 0.55rem; z-index: 2; width: 26px; height: 26px; border-radius: 50%; color: var(--surf-muted); font-size: 17px; line-height: 1; }
+    .sbs-rm:hover { background: rgba(5,10,48,0.07); color: var(--surf-fg); }
+    .sbs-name { font-family: var(--serif); font-size: clamp(1.6rem, 2.3vw, 2.15rem); line-height: 1; }
+    .sbs-name small { display: block; font-family: var(--label); font-size: 0.54rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--surf-muted); margin-bottom: 0.4rem; }
+    .sbs-card .status-dot { font-size: 0.52rem; }
+    .sbs-meta { display: flex; justify-content: space-between; align-items: center; gap: 0.6rem; margin-top: auto; padding-top: 0.8rem; border-top: 1px solid var(--surf-rule); }
+    .sbs-meta .ct-select { padding: 0.42rem 1.7rem 0.42rem 0.8rem; font-size: 0.52rem; }
+    .sbs-meta .ct-more { color: var(--gold-deep); }
+    .sbs-empty { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.9rem; padding: 1.5rem; text-align: center; border: 1px dashed rgba(5,10,48,0.25); }
+    .sbs-empty b { font-family: var(--serif); font-weight: 400; font-size: 1.45rem; }
+    .sbs-sticky { position: sticky; top: var(--bar-top, 0px); z-index: 5; height: 0; transition: top 0.45s var(--ease); }
+    .sbs-sticky-in { position: absolute; left: calc(-1 * var(--gutter)); right: calc(-1 * var(--gutter)); top: 0; padding: 0.7rem var(--gutter);
+      background: rgba(245,246,251,0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--surf-rule);
+      opacity: 0; transform: translateY(-6px); pointer-events: none; transition: opacity 0.3s, transform 0.3s var(--ease); }
+    .sbs-sticky.is-on .sbs-sticky-in { opacity: 1; transform: none; }
+    .sbs-sticky b { display: flex; align-items: center; gap: 0.6rem; min-width: 0; font-family: var(--serif); font-weight: 400; font-size: 1.2rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .sbs-sticky b img { width: 48px; height: 26px; object-fit: contain; flex: 0 0 auto; }
+    .sbs-group { margin-top: 2.6rem; }
+    .sbs-group[hidden] { display: none; }
+    .sbs-group h3 { font-family: var(--label); font-size: 0.6rem; font-weight: 600; letter-spacing: 0.26em; text-transform: uppercase; color: var(--surf-fg); padding-bottom: 0.8rem; border-bottom: 1px solid var(--surf-fg); }
+    .sbs-row { border-bottom: 1px solid var(--surf-rule); }
     .sbs-row[hidden] { display: none; }
-    .sbs-row > div { padding: 1rem 0; min-width: 0; }
-    .sbs-k { font-family: var(--label); font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--on-navy-muted); padding-top: 1.25rem !important; }
-    .sbs-v { font-family: var(--serif); font-size: 1.3rem; line-height: 1.25; color: var(--on-navy); }
-    .sbs-v.txt { font-family: var(--sans); font-size: 0.88rem; line-height: 1.6; font-weight: 300; }
-    .sbs-v small { font-family: var(--label); font-size: 0.56rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--on-navy-muted); margin-left: 0.3rem; }
-    .sbs-bar { display: block; height: 3px; margin-top: 0.65rem; background: rgba(245,246,251,0.1); position: relative; }
-    .sbs-bar i { position: absolute; left: 0; top: 0; bottom: 0; background: var(--on-navy-muted); border-radius: 0 3px 3px 0; transition: width 0.7s var(--ease); }
-    .sbs-v.is-best .sbs-bar i { background: var(--gold); }
-    .sbs-best { display: inline-block; margin-left: 0.5rem; vertical-align: 0.25em; font-family: var(--label); font-size: 0.5rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--navy); background: var(--gold); padding: 0.2rem 0.4rem; }
-    .sbs-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; }
-    .sbs-tags span { font-family: var(--label); font-size: 0.54rem; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.3rem 0.5rem; border: 1px solid var(--rule-navy); color: var(--on-navy); }
+    .sbs-row > div { padding: 1.05rem 0; min-width: 0; }
+    .sbs-k { font-family: var(--label); font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--surf-muted); padding-top: 1.25rem !important; }
+    .sbs-v { font-size: 0.95rem; line-height: 1.55; color: var(--surf-fg); }
+    .sbs-row.is-key > div { padding: 1.5rem 0 1.3rem; }
+    .sbs-row.is-key .sbs-k { padding-top: 1.9rem !important; }
+    .sbs-row.is-key .sbs-v { font-family: var(--serif); font-size: clamp(2.3rem, 3.6vw, 3.4rem); line-height: 1; }
+    .sbs-v small { font-family: var(--label); font-size: 0.56rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--surf-muted); margin-left: 0.4rem; }
+    .sbs-lead { display: block; margin-top: 0.6rem; font-family: var(--label); font-size: 0.54rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-deep); }
+    .sbs-lead::before { content: ''; display: inline-block; width: 6px; height: 6px; margin-right: 0.5rem; vertical-align: 0.1em; background: var(--gold); transform: rotate(45deg); }
+    .sbs-check { width: 20px; height: 20px; fill: none; stroke: var(--gold-deep); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .sbs-no { color: rgba(5,10,48,0.3); }
+    .sbs-row.is-mission > div { padding: 0.7rem 0; }
+    .sbs-row.is-mission .sbs-k { padding-top: 0.85rem !important; }
 
-    /* Direction 2: journeys */
-    .jr-ctl { display: flex; flex-wrap: wrap; align-items: center; gap: 0.8rem 1.2rem; padding-bottom: 1.4rem; border-bottom: 1px solid var(--rule-navy); }
-    .jr-od { display: flex; align-items: center; gap: 0.6rem; }
-    .jr-od .ct-select { color: var(--on-navy); border-color: var(--rule-navy); min-width: 160px;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23F5F6FB' stroke-width='1.2'/%3E%3C/svg%3E"); }
-    .jr-od .ct-select option { color: #050A30; }
-    .jr-swap { width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--rule-navy); color: var(--on-navy); font-size: 0.9rem; }
-    .jr-swap:hover { border-color: var(--gold); color: var(--gold); }
+    /* Journeys: route controls, one card per aircraft with an itinerary, map on the side */
+    .jr-ctl { padding: 1.2rem 1.3rem; display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.1rem; }
+    .jr-ctl-row { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 1rem 1.8rem; }
+    .jr-field { display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; min-width: 0; max-width: 100%; }
+    .jr-od { display: flex; align-items: center; gap: 0.5rem; }
+    .jr-od .ct-select { min-width: 160px; }
+    .jr-swap { width: 34px; height: 34px; flex: 0 0 auto; border-radius: 50%; border: 1px solid var(--surf-rule); color: var(--surf-fg); font-size: 0.9rem; }
+    .jr-swap:hover { border-color: var(--gold-deep); color: var(--gold-deep); }
+    .jr-pax { align-self: flex-start; display: inline-flex; align-items: center; height: 34px; border: 1px solid var(--surf-rule); border-radius: 999px; }
+    .jr-pax button { width: 34px; height: 100%; font-size: 1rem; color: var(--surf-fg); border-radius: 999px; }
+    .jr-pax button:hover { background: rgba(5,10,48,0.06); }
+    .jr-pax output { min-width: 2.4rem; text-align: center; font-family: var(--mono); font-size: 0.82rem; }
+    .jr-picks { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem; }
+    .jr-pick { display: inline-flex; align-items: center; gap: 0.5rem; height: 34px; padding: 0 0.3rem 0 0.35rem; border: 1px solid var(--surf-rule); border-radius: 999px; background: var(--surf-bg); }
+    .jr-pick img { width: 40px; height: 22px; object-fit: contain; }
+    .jr-pick span { font-family: var(--serif); font-size: 1.02rem; white-space: nowrap; }
+    .jr-pick button { width: 22px; height: 22px; border-radius: 50%; color: var(--surf-muted); font-size: 14px; line-height: 1; }
+    .jr-pick button:hover { background: rgba(5,10,48,0.08); color: var(--surf-fg); }
+    .jr-picks .ct-select { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+    .jr-quickrow { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.9rem; padding-top: 1rem; border-top: 1px solid var(--surf-rule); }
     .jr-quick { display: flex; flex-wrap: wrap; gap: 0.35rem; }
-    .jr-quick button { padding: 0.45rem 0.75rem; border: 1px solid var(--rule-navy); font-family: var(--label); font-size: 0.54rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--on-navy-muted); transition: color 0.2s, border-color 0.2s; }
-    .jr-quick button:hover, .jr-quick button[aria-pressed="true"] { color: var(--on-navy); border-color: var(--gold); }
-    .jr-body { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 4rem); padding-top: 1.8rem; align-items: start; }
-    .jr-route { display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.6rem; }
-    .jr-route b { font-family: var(--serif); font-weight: 400; font-size: clamp(1.8rem, 3vw, 2.6rem); line-height: 1; }
-    .jr-route b i { font-style: italic; color: var(--gold); padding: 0 0.3rem; }
-    .jr-route span { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.08em; color: var(--on-navy-muted); }
-    .jr-row { display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 1.1rem; align-items: center; padding: 1.15rem 0; border-top: 1px solid var(--rule-navy); }
-    .jr-row:last-child { border-bottom: 1px solid var(--rule-navy); }
-    .jr-thumb { height: 52px; background: var(--card); display: grid; place-items: center; }
-    .jr-thumb img { max-width: 86%; max-height: 80%; object-fit: contain; }
-    .jr-thumb svg { width: 70%; fill: none; stroke: var(--gold-deep); stroke-width: 1.1; }
-    .jr-top { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; margin-bottom: 0.65rem; }
-    .jr-top strong { font-family: var(--serif); font-weight: 400; font-size: 1.35rem; }
-    .jr-top strong small { font-family: var(--label); font-size: 0.52rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--on-navy-muted); margin-left: 0.5rem; }
-    .jr-time { font-family: var(--serif); font-size: 1.9rem; line-height: 1; white-space: nowrap; }
-    .jr-time.is-best { color: var(--gold); }
-    .jr-row.is-na { opacity: 0.55; }
-    .jr-row.is-na .jr-line { border-top: 1px dashed var(--rule-navy); height: 0; margin: 0.6rem 0; }
-    .jr-line { position: relative; height: 10px; display: flex; align-items: center; }
-    .jr-leg { height: 3px; background: var(--on-navy-muted); border-radius: 0 3px 3px 0; transition: width 0.7s var(--ease); }
-    .jr-row.is-best .jr-leg { background: var(--gold); }
-    .jr-stop { width: 22px; flex: 0 0 auto; display: grid; place-items: center; }
-    .jr-stop::before { content: ''; width: 7px; height: 7px; border-radius: 50%; border: 1px solid var(--on-navy); }
-    .jr-note { margin-top: 0.55rem; font-family: var(--label); font-size: 0.54rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--on-navy-muted); }
-    .jr-map { position: relative; }
-    .jr-map svg { width: 100%; height: auto; display: block; }
+    .jr-quick button { padding: 0.42rem 0.75rem; border: 1px solid var(--surf-rule); border-radius: 999px; font-family: var(--label); font-size: 0.52rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--surf-muted); transition: color 0.2s, border-color 0.2s, background 0.2s; }
+    .jr-quick button:hover { color: var(--surf-fg); border-color: rgba(5,10,48,0.35); }
+    .jr-quick button[aria-pressed="true"] { background: var(--navy); border-color: var(--navy); color: #F5F6FB; }
+    .jr-body { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr); gap: clamp(1.5rem, 3vw, 3rem); margin-top: clamp(1.8rem, 4vh, 2.6rem); align-items: start; }
+    .jr-route { display: flex; align-items: baseline; justify-content: space-between; gap: 0.6rem 1.4rem; flex-wrap: wrap; margin-bottom: 0.4rem; }
+    .jr-route b { font-family: var(--serif); font-weight: 400; font-size: clamp(2rem, 3.2vw, 2.8rem); line-height: 1; }
+    .jr-route b i { font-style: italic; color: var(--gold-deep); }
+    .jr-route span { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.04em; color: var(--surf-muted); }
+    .jr-card { margin-top: 1rem; padding: 1.25rem 1.4rem 0.3rem; position: relative; transition: box-shadow 0.3s ease; }
+    .jr-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--gold); transform: scaleY(0); transform-origin: top; transition: transform 0.4s var(--ease); }
+    .jr-card.is-active::before { transform: none; }
+    .jr-card-top { display: grid; grid-template-columns: 110px minmax(0, 1fr) auto; gap: 1.1rem; align-items: center; }
+    .jr-thumb { height: 58px; display: grid; place-items: center; }
+    .jr-thumb img { max-width: 100%; max-height: 100%; object-fit: contain; }
+    .jr-thumb svg { width: 80%; fill: none; stroke: var(--gold-deep); stroke-width: 1.1; }
+    .jr-id strong { display: block; font-family: var(--serif); font-weight: 400; font-size: 1.55rem; line-height: 1.05; }
+    .jr-id span { display: block; margin-top: 0.35rem; font-family: var(--label); font-size: 0.52rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--surf-muted); }
+    .jr-id .is-arriving { color: var(--gold-deep); }
+    .jr-total { text-align: right; }
+    .jr-total b { display: block; font-family: var(--serif); font-weight: 400; font-size: clamp(2rem, 3vw, 2.6rem); line-height: 1; white-space: nowrap; }
+    .jr-total span { display: block; margin-top: 0.4rem; font-family: var(--label); font-size: 0.52rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--surf-muted); }
+    .jr-total .is-best { color: var(--gold-deep); font-weight: 600; }
+    .jr-itin { position: relative; display: flex; margin-top: 1.3rem; list-style: none; }
+    .jr-itin::before { content: ''; position: absolute; left: 4px; right: 4px; top: calc(1.35rem + 8px); height: 1px; background: var(--surf-fg); }
+    .jr-itin li { display: grid; grid-template-rows: 1.35rem 16px auto; min-width: 0; }
+    .jr-n { flex: 0 0 auto; text-align: center; max-width: 34%; }
+    .jr-n:first-child { text-align: left; } .jr-n:last-child { text-align: right; }
+    .jr-n b { font-family: var(--mono); font-size: 0.8rem; font-weight: 500; }
+    .jr-n i { position: relative; align-self: center; justify-self: center; width: 9px; height: 9px; border-radius: 50%; background: var(--surf-fg); box-shadow: 0 0 0 4px #fff; }
+    .jr-n:first-child i { justify-self: start; } .jr-n:last-child i { justify-self: end; }
+    .jr-n.is-stop i { background: #fff; border: 1.5px solid var(--gold-deep); }
+    .jr-n div span { display: block; margin-top: 0.3rem; font-family: var(--serif); font-size: 1.1rem; line-height: 1.15; }
+    .jr-n div em { display: block; margin-top: 0.15rem; font-style: normal; font-family: var(--label); font-size: 0.5rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--surf-muted); }
+    .jr-n.is-stop div em { color: var(--gold-deep); }
+    .jr-s { flex: 1 1 0; min-width: 2.5rem; text-align: center; }
+    .jr-s span { align-self: end; padding: 0 0.5rem; font-family: var(--mono); font-size: 0.64rem; color: var(--surf-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .jr-facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 1.2rem; border-top: 1px solid var(--surf-rule); }
+    .jr-fact { padding: 0.9rem 0.9rem 1rem 0; min-width: 0; }
+    .jr-fact + .jr-fact { padding-left: 0.9rem; border-left: 1px solid var(--surf-rule); }
+    .jr-fact > span { display: block; font-family: var(--label); font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--surf-muted); }
+    .jr-fact b { display: block; margin-top: 0.4rem; font-family: var(--serif); font-weight: 400; font-size: 1.35rem; line-height: 1.1; }
+    .jr-fact em { display: block; margin-top: 0.25rem; font-style: normal; font-size: 0.76rem; line-height: 1.4; color: var(--surf-muted); }
+    .jr-fact.is-ok em { color: #2E6B4A; }
+    .jr-fact.is-warn em { color: #9A3B2E; }
+    .jr-card.is-na { opacity: 0.6; padding-bottom: 1.2rem; }
+    .jr-na { margin-top: 1rem; padding-top: 0.9rem; border-top: 1px dashed var(--surf-rule); font-size: 0.86rem; color: var(--surf-muted); }
+    .jr-map { position: sticky; top: calc(var(--bar-top, 0px) + 1.2rem); transition: top 0.45s var(--ease); background: var(--navy); color: var(--on-navy); padding: 1.1rem 1.1rem 1.2rem; }
+    .jr-map .cmp-label { color: var(--on-navy-muted); }
+    .jr-map svg { width: 100%; height: auto; display: block; margin-top: 0.6rem; }
     .jr-map .city circle { fill: rgba(245,246,251,0.4); }
     .jr-map .city text { font-family: var(--label); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; fill: rgba(245,246,251,0.5); }
     .jr-map .city.is-od circle { fill: var(--gold); }
-    .jr-map .city.is-od text { fill: var(--on-navy); font-size: 11px; }
-    .jr-map .ring { fill: none; stroke: var(--gold); stroke-width: 1.2; opacity: 0.85; }
-    .jr-map .ring-label { font-family: var(--mono); font-size: 10px; fill: var(--gold); paint-order: stroke; stroke: var(--navy); stroke-width: 4px; }
-    .jr-map .route { stroke: var(--on-navy); stroke-width: 1.4; fill: none; }
+    .jr-map .city.is-od text, .jr-map .city.is-stop text { fill: var(--on-navy); font-size: 11px; }
+    .jr-map .city.is-stop circle { fill: var(--navy); stroke: var(--gold); stroke-width: 1.5; }
+    .jr-map .ring { fill: none; stroke: rgba(198,161,91,0.45); stroke-width: 1.1; transition: stroke 0.3s; }
+    .jr-map .ring.is-active { stroke: var(--gold); stroke-width: 1.4; }
+    .jr-map .ring-label { font-family: var(--mono); font-size: 10px; fill: rgba(198,161,91,0.75); paint-order: stroke; stroke: var(--navy); stroke-width: 4px; }
+    .jr-map .ring-label.is-active { fill: var(--gold); }
+    .jr-map .path { stroke: rgba(245,246,251,0.35); stroke-width: 1.2; fill: none; }
+    .jr-map .path.is-active { stroke: var(--on-navy); stroke-width: 2; }
     .jr-map .graticule { stroke: rgba(245,246,251,0.06); stroke-width: 1; }
-    .jr-legend { display: flex; flex-wrap: wrap; gap: 0.8rem 1.4rem; margin-top: 0.8rem; }
-    .jr-legend span { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--label); font-size: 0.54rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--on-navy-muted); }
+    .jr-legend { display: flex; flex-wrap: wrap; gap: 0.7rem 1.3rem; margin-top: 0.8rem; }
+    .jr-legend span { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--label); font-size: 0.5rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--on-navy-muted); }
     .jr-legend svg { width: 28px; height: 6px; }
-    .cmp-note { margin-top: 1.6rem; font-family: var(--mono); font-size: 0.64rem; line-height: 1.7; color: var(--on-navy-muted); max-width: 90ch; }
 
     /* ---------- Responsive ---------- */
     @media (max-width: 1180px) { .ct-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .ct-hint { display: none; } }
     @media (max-width: 980px) {
       .ct-intro-in, .jr-body { grid-template-columns: minmax(0, 1fr); }
       .ct-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .sbs { --cols: 120px repeat(3, minmax(150px, 1fr)); }
-      .sbs-scroll { overflow-x: auto; }
-      .sbs-inner { min-width: 640px; }
-      .sbs-heads { position: static; }
+      .sbs { --cols: 110px repeat(3, minmax(170px, 1fr)); }
+      .sbs-scroll { overflow-x: auto; padding-bottom: 0.5rem; }
+      .sbs-inner { min-width: 660px; }
+      .sbs-sticky { display: none; }
+      .jr-map { position: static; }
     }
     @media (max-width: 620px) {
       .ct-grid { grid-template-columns: minmax(0, 1fr); }
@@ -245,16 +297,28 @@
       .ct-slot { width: 52px; padding: 0 0.3rem; }
       .ct-slot span, .ct-slot em { display: none; }
       .ct-go { padding: 0 0.9rem; }
-      .jr-od { width: 100%; }
-      .jr-od .ct-select { min-width: 0; flex: 1; }
-      .jr-row { grid-template-columns: 64px minmax(0, 1fr); gap: 0.8rem; }
-      .jr-top strong { font-size: 1.15rem; }
-      .jr-top strong small { display: none; }
-      .jr-time { font-size: 1.5rem; }
-      .jr-map .city text { font-size: 15px; }
-      .jr-map .city.is-od text { font-size: 16px; }
-      .jr-map .ring-label { font-size: 14px; }
       .sbs-swipe { display: block; }
+      .jr-ctl { padding: 1rem; }
+      .jr-field, .jr-od { width: 100%; }
+      .jr-od { min-width: 0; }
+      .jr-od .ct-select { min-width: 0; flex: 1; }
+      .jr-card { padding: 1rem 1rem 0.2rem; }
+      .jr-card-top { grid-template-columns: 72px minmax(0, 1fr); }
+      .jr-total { grid-column: 1 / -1; text-align: left; display: flex; align-items: baseline; gap: 0.8rem; }
+      .jr-total span { margin-top: 0; }
+      .jr-itin { flex-direction: column; }
+      .jr-itin::before { left: calc(3.4rem + 0.7rem + 7.5px); right: auto; top: 0.6rem; bottom: 0.6rem; width: 1px; height: auto; }
+      .jr-itin li { grid-template-rows: none; grid-template-columns: 3.4rem 16px minmax(0, 1fr); column-gap: 0.7rem; align-items: center; text-align: left !important; max-width: none; }
+      .jr-n i { justify-self: center !important; }
+      .jr-n div span { margin-top: 0; }
+      .jr-s { min-height: 2.2rem; }
+      .jr-s span { grid-column: 3; align-self: center; padding: 0; }
+      .jr-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .jr-fact:nth-child(3) { padding-left: 0; border-left: 0; }
+      .jr-fact:nth-child(n + 3) { border-top: 1px solid var(--surf-rule); }
+      .jr-map .city text { font-size: 15px; }
+      .jr-map .city.is-od text, .jr-map .city.is-stop text { font-size: 16px; }
+      .jr-map .ring-label { font-size: 14px; }
     }
 
     /* ================= HERO — three directions (switch in Tweak Studio) ================= */
@@ -358,8 +422,8 @@
     .tweak-fab .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); }
     .tweak-panel { --tp-line: rgba(255,255,255,0.1); --tp-dim: #8F94AB; position: fixed; top: 1rem; right: 1rem; width: min(360px, calc(100vw - 2rem)); max-height: calc(100vh - 2rem); z-index: 110;
       background: rgba(7, 12, 42, 0.97); color: #EEF0F7; border: 1px solid rgba(198, 161, 91, 0.3); border-radius: 14px; backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
-      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45); overflow-y: auto; transform: translateX(calc(100% + 2rem)); transition: transform 0.4s var(--ease); font-family: 'Inter', sans-serif; font-size: 13px; }
-    .tweak-panel.open { transform: none; }
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45); overflow-y: auto; transform: translateX(calc(100% + 2rem)); visibility: hidden; transition: transform 0.4s var(--ease), visibility 0s linear 0.4s; font-family: 'Inter', sans-serif; font-size: 13px; }
+    .tweak-panel.open { transform: none; visibility: visible; transition: transform 0.4s var(--ease), visibility 0s; }
     .tp-head { display: flex; justify-content: space-between; align-items: center; padding: 0.9rem 1.1rem; border-bottom: 1px solid var(--tp-line); }
     .tp-head strong { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); font-weight: 500; }
     .tp-close { font-size: 1.15rem; color: var(--tp-dim); padding: 0.15rem 0.45rem; border-radius: 6px; }
@@ -500,49 +564,55 @@
     </section>
     </div>
 
-    <!-- 3. Compare -->
-    <section class="cmp surf-navy" id="compare" data-theme="dark">
+    <!-- 3. Compare: one view at a time (switch in Tweak Studio) -->
+    <section class="cmp" id="compare" data-theme="light">
       <div class="wrap">
         <div class="cmp-head">
-          <div>
-            <p class="ct-kicker">Compare</p>
-            <h2>Compare <em>the fleet</em></h2>
-            <p id="cmpLead">Up to three aircraft, side by side. Change any of them from the menu above each column.</p>
-          </div>
-          <div class="cmp-switch" role="group" aria-label="Compare view">
-            <button type="button" data-view="sbs" aria-pressed="true">Side by side</button>
-            <button type="button" data-view="jr" aria-pressed="false">Journeys</button>
-          </div>
+          <p class="ct-kicker">Compare</p>
+          <h2 id="cmpTitle">On a <em>real route</em></h2>
+          <p id="cmpLead"></p>
         </div>
 
-        <div class="cmp-view sbs" id="viewSbs">
+        <div class="cmp-view sbs" id="viewSbs" hidden>
           <p class="sbs-swipe" aria-hidden="true">Swipe to see every column →</p>
           <div class="sbs-scroll"><div class="sbs-inner">
             <div class="sbs-heads" id="sbsHeads"></div>
+            <div class="sbs-sticky" id="sbsSticky" aria-hidden="true"></div>
             <div id="sbsRows"></div>
           </div></div>
+          <p class="cmp-note">Indicative manufacturer figures for each type. Exact numbers depend on the individual airframe, its cabin layout and the mission.</p>
         </div>
 
-        <div class="cmp-view jr" id="viewJr" hidden>
-          <div class="jr-ctl">
-            <div class="jr-od">
-              <select class="ct-select" id="jrFrom" aria-label="From"></select>
-              <button type="button" class="jr-swap" id="jrSwap" aria-label="Swap origin and destination">⇄</button>
-              <select class="ct-select" id="jrTo" aria-label="To"></select>
+        <div class="cmp-view jr" id="viewJr">
+          <div class="jr-ctl cmp-panel">
+            <div class="jr-ctl-row">
+              <div class="jr-field"><span class="cmp-label">Route</span>
+                <div class="jr-od">
+                  <select class="ct-select" id="jrFrom" aria-label="From"></select>
+                  <button type="button" class="jr-swap" id="jrSwap" aria-label="Swap origin and destination">⇄</button>
+                  <select class="ct-select" id="jrTo" aria-label="To"></select>
+                </div>
+              </div>
+              <div class="jr-field"><span class="cmp-label">Depart</span><select class="ct-select" id="jrDep" aria-label="Departure time"></select></div>
+              <div class="jr-field"><span class="cmp-label">Passengers</span>
+                <div class="jr-pax"><button type="button" data-d="-1" aria-label="Fewer passengers">−</button><output id="jrPax" aria-live="polite">4</output><button type="button" data-d="1" aria-label="More passengers">+</button></div>
+              </div>
+              <div class="jr-field"><span class="cmp-label">Aircraft</span><div class="jr-picks" id="jrPicks"></div></div>
             </div>
-            <div class="jr-quick" id="jrQuick"></div>
+            <div class="jr-quickrow"><span class="cmp-label">Popular routes</span><div class="jr-quick" id="jrQuick"></div></div>
           </div>
           <div class="jr-body">
             <div>
               <div class="jr-route" id="jrRoute"></div>
               <div id="jrRows"></div>
             </div>
-            <div class="jr-map">
-              <svg id="jrMap" role="img" aria-label="Map of the route with how far each aircraft can fly non-stop"></svg>
+            <aside class="jr-map">
+              <p class="cmp-label">The route, and how far each aircraft reaches non-stop</p>
+              <svg id="jrMap" role="img" aria-label="Map of the route, fuel stops and how far each aircraft can fly non-stop"></svg>
               <div class="jr-legend" id="jrLegend"></div>
-            </div>
+            </aside>
           </div>
-          <p class="cmp-note">Indicative only: straight-line distance at typical cruise speed, plus 15 minutes for take-off and landing and 30 minutes for each fuel stop. Non-stop range uses 80% of the maximum to keep a reserve. The map shows city positions only, not borders.</p>
+          <p class="cmp-note">Indicative only. Straight-line distance at typical cruise speed, plus 15 minutes for each take-off and landing and 30 minutes on the ground at each fuel stop. Each leg stays within 80% of the aircraft's maximum range to keep a reserve; fuel stops are picked from the airports shown on the map. Kedarnath is a helipad, so only helicopters fly there. The map shows city positions only, not borders.</p>
         </div>
       </div>
     </section>
@@ -692,22 +762,24 @@
     window.addEventListener('scroll', syncTray, { passive: true });
 
     /* ================= Compare: shared ================= */
-    // With nothing ticked yet, show a sensible default pair so the section is never empty
-    const shown = () => sel.length ? sel : ['aw109', 'kingair'];
+    // With nothing ticked yet, show a sensible default trio so the section is never empty
+    const shown = () => sel.length ? sel : ['aw109', 'kingair', 'hawker'];
     const views = { sbs: document.getElementById('viewSbs'), jr: document.getElementById('viewJr') };
-    const lead = document.getElementById('cmpLead');
-    let view = 'sbs';
-    document.querySelector('.cmp-switch').addEventListener('click', e => {
-      const b = e.target.closest('button'); if (!b) return;
-      view = b.dataset.view;
-      document.querySelectorAll('.cmp-switch button').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+    const COPY = {
+      sbs: ['Compare <em>the fleet</em>', 'Up to three aircraft, figure by figure. Change any of them from the menu on its card, or remove one with ×.'],
+      jr: ['On a <em>real route</em>', 'Choose a route, a departure time and how many people are flying. Each aircraft shows when it would land, where it would refuel, and whether everyone fits.']
+    };
+    let view = 'jr';
+    function setView(v) {
+      view = v === 'sbs' ? 'sbs' : 'jr';
       views.sbs.hidden = view !== 'sbs'; views.jr.hidden = view !== 'jr';
-      lead.textContent = view === 'sbs' ? 'Up to three aircraft, side by side. Change any of them from the menu above each column.'
-                                        : 'Pick a route and see how long each aircraft takes, how many fuel stops it needs, and how far it reaches non-stop.';
+      document.getElementById('cmpTitle').innerHTML = COPY[view][0];
+      document.getElementById('cmpLead').textContent = COPY[view][1];
       renderCompare();
-    });
+    }
+    window.SKY_CMP = { setView };
     function renderCompare() { view === 'sbs' ? renderSbs() : renderJr(); }
-    // Picking from a compare menu writes back to the shared selection
+    // Picking from a compare menu writes back to the shared selection (and the tray)
     function replaceAt(i, k) {
       const cur = [...shown()];
       if (!k) cur.splice(i, 1);
@@ -715,168 +787,264 @@
       else cur[i] = k;
       setSel(cur.filter(Boolean));
     }
-    const opts = (cur, taken) => `<option value="">${cur ? 'Remove' : 'Add an aircraft'}</option>` + list.map(a => `<option value="${a.key}" ${a.key === cur ? 'selected' : ''}>${a.name.startsWith(a.maker) ? a.name : a.maker + ' ' + a.name}${taken.includes(a.key) && a.key !== cur ? ' (in compare)' : ''}</option>`).join('');
+    const fullName = a => a.name.startsWith(a.maker) ? a.name : a.maker + ' ' + a.name;
+    const opts = (placeholder, taken) => `<option value="" selected disabled hidden>${placeholder}</option>` +
+      list.map(a => `<option value="${a.key}" ${taken.includes(a.key) ? 'disabled' : ''}>${fullName(a)}</option>`).join('');
 
-    /* ================= Direction 1: side by side ================= */
+    /* ================= View 1: side by side ================= */
     let diffOnly = false;
+    const CHECK = '<svg class="sbs-check" viewBox="0 0 20 20" role="img" aria-label="Yes"><path d="M4 10.5l4 3.8L16 6"/></svg>';
+    const NO = '<span class="sbs-no" aria-label="No">—</span>';
+    // [label, number used to find the leader, how to show it, leader label, big figure?]
     const ROWS = [
-      ['Capacity', [
-        ['Passengers', a => a.seats, a => `${pad(a.seats)}`, 'Most seats'],
-        ['Crew', a => a.crew, a => `${pad(a.crew)}`, null],
+      ['At a glance', [
+        ['Passengers', a => a.seats, a => pad(a.seats), 'Most seats', true],
+        ['Range', a => a.range, a => `${fmt(a.range)}<small>km</small>`, 'Furthest', true],
+        ['Cruise speed', a => a.cruise, a => `${a.cruise}<small>km/h</small>`, 'Fastest', true]
       ]],
-      ['Performance', [
-        ['Cruise speed', a => a.cruise, a => `${a.cruise}<small>km/h</small>`, 'Fastest'],
-        ['Range', a => a.range, a => `${fmt(a.range)}<small>km</small>`, 'Furthest'],
-        ['Max take-off weight', a => mtow(a), a => mtow(a) ? `${fmt(mtow(a))}<small>kg</small>` : '—', null],
-        ['Engines', null, a => a.engines, null],
+      ['The aircraft', [
+        ['Category', null, a => `${catLabel(a.cat)} · ${a.klass}`],
+        ['Engines', null, a => a.engines],
+        ['Max take-off weight', null, a => mtow(a) ? `${fmt(mtow(a))} kg` : '—'],
+        ['Crew', null, a => a.crew > 1 ? 'Two pilots' : 'One pilot'],
+        ['Cabin', null, a => specOf(a, 'cabin') || specOf(a, 'avionics') || '—']
       ]],
-      ['Role', [
-        ['Category', null, a => `${catLabel(a.cat)} · ${a.klass}`, null],
-        ['Missions', null, a => `<span class="sbs-tags">${MISSIONS.filter(m => a.missions.includes(m.key)).map(m => `<span>${m.label}</span>`).join('')}</span>`, null],
-      ]],
+      ['Missions', MISSIONS.map(m => [m.label, null, a => a.missions.includes(m.key) ? CHECK : NO, null, false, true])],
       ['In the fleet', [
-        ['Status', null, a => a.status === 'service' ? (a.regs.length > 1 ? `${pad(a.regs.length)} in service` : 'In service') : `Arriving ${a.when}${a.count ? ' · ' + a.count + ' aircraft' : ''}`, null],
-        ['Registrations', null, a => a.regs.length ? a.regs.map(r => r.reg).join(' · ') : '—', null],
+        ['Status', null, a => a.status === 'service' ? (a.regs.length > 1 ? `${pad(a.regs.length)} in service` : 'In service') : `Arriving ${a.when}${a.count ? ' · ' + a.count + ' aircraft' : ''}`],
+        ['Registrations', null, a => a.regs.length ? a.regs.map(r => r.reg).join(' · ') : '—'],
+        ['Lease structures', null, a => specOf(a, 'lease') || 'Dry & operating']
       ]]
     ];
-    const fleetMax = { 'Passengers': Math.max(...list.map(a => a.seats)), 'Crew': 2, 'Cruise speed': Math.max(...list.map(a => a.cruise)), 'Range': Math.max(...list.map(a => a.range)), 'Max take-off weight': Math.max(...list.map(a => mtow(a) || 0)) };
+    const sbsHeads = document.getElementById('sbsHeads'), sbsSticky = document.getElementById('sbsSticky'), sbsRows = document.getElementById('sbsRows');
     function renderSbs() {
       const ks = shown(), cols = ks.map(k => byKey[k]);
-      const heads = document.getElementById('sbsHeads');
-      heads.innerHTML = `<div class="sbs-tools"><label><input type="checkbox" id="sbsDiff" ${diffOnly ? 'checked' : ''} /> Differences only</label></div>` +
+      sbsHeads.innerHTML = `<div class="sbs-tools"><label><input type="checkbox" id="sbsDiff" ${diffOnly ? 'checked' : ''} /> Differences only</label></div>` +
         [0, 1, 2].map(i => {
           const a = cols[i];
-          if (!a) return `<div class="sbs-col"><div class="sbs-empty">${i === cols.length ? 'Add a third aircraft' : ''}</div>${i === cols.length ? `<select class="ct-select" data-i="${i}" aria-label="Add an aircraft">${opts('', ks)}</select>` : ''}</div>`;
-          return `<div class="sbs-col">
-            <div class="sbs-stage">${art(a)}${cols.length > 1 ? `<button type="button" data-rm-i="${i}" aria-label="Remove ${a.name}">×</button>` : ''}</div>
-            <select class="ct-select" data-i="${i}" aria-label="Aircraft ${i + 1}">${opts(a.key, ks)}</select>
-            <div class="sbs-pickrow"><span class="sbs-name"><small>${a.maker}</small>${a.name}</span><a class="ct-more" href="${PAGE}${a.key}" style="color:var(--gold)">Explore <span aria-hidden="true">→</span></a></div>
+          if (!a) return i === cols.length ? `<div class="sbs-empty"><b>Add an aircraft</b><select class="ct-select" data-i="${i}" aria-label="Add an aircraft">${opts('Choose', ks)}</select></div>` : '<div></div>';
+          return `<div class="sbs-card cmp-panel">
+            ${cols.length > 1 ? `<button type="button" class="sbs-rm" data-rm-i="${i}" aria-label="Remove ${a.name}">×</button>` : ''}
+            <div class="sbs-stage">${art(a)}</div>
+            <div class="sbs-name"><small>${a.maker}</small>${a.name}</div>
+            <span class="status-dot ${a.status === 'arriving' ? 'arriving' : ''}">${statusText(a)}</span>
+            <div class="sbs-meta"><select class="ct-select" data-i="${i}" aria-label="Change ${a.name}">${opts('Change', ks)}</select><a class="ct-more" href="${PAGE}${a.key}">Explore <span aria-hidden="true">→</span></a></div>
           </div>`;
         }).join('');
-      heads.querySelectorAll('select[data-i]').forEach(s => s.addEventListener('change', () => replaceAt(+s.dataset.i, s.value)));
-      heads.querySelectorAll('[data-rm-i]').forEach(b => b.addEventListener('click', () => replaceAt(+b.dataset.rmI, '')));
-      heads.querySelector('#sbsDiff').addEventListener('change', e => { diffOnly = e.target.checked; renderSbs(); });
+      sbsHeads.querySelectorAll('select[data-i]').forEach(s => s.addEventListener('change', () => replaceAt(+s.dataset.i, s.value)));
+      sbsHeads.querySelectorAll('[data-rm-i]').forEach(b => b.addEventListener('click', () => replaceAt(+b.dataset.rmI, '')));
+      sbsHeads.querySelector('#sbsDiff').addEventListener('change', e => { diffOnly = e.target.checked; renderSbs(); });
+      sbsSticky.innerHTML = `<div class="sbs-sticky-in"><span></span>${[0, 1, 2].map(i => cols[i] ? `<b>${cols[i].cut ? `<img src="${cols[i].cut}" alt="" />` : ''}${cols[i].name}</b>` : '<span></span>').join('')}</div>`;
 
-      document.getElementById('sbsRows').innerHTML = ROWS.map(([group, rows]) => `
-        <div class="sbs-group"><h3>${group}</h3>${rows.map(([label, num, show, bestLabel]) => {
+      sbsRows.innerHTML = ROWS.map(([group, rows]) => {
+        let visible = 0;
+        const body = rows.map(([label, num, show, leadLabel, big, mission]) => {
           const vals = cols.map(show);
-          const same = vals.every(v => v === vals[0]);
+          const same = cols.length > 1 && vals.every(v => v === vals[0]);
           const nums = num ? cols.map(num) : [];
-          const best = num && cols.length > 1 ? Math.max(...nums) : null;
-          const bestCount = nums.filter(n => n === best).length;
-          return `<div class="sbs-row" ${diffOnly && same && cols.length > 1 ? 'hidden' : ''}>
+          const top = num ? Math.max(...nums) : null;
+          const lead = num && leadLabel && cols.length > 1 && nums.filter(n => n === top).length === 1 ? nums.indexOf(top) : -1;
+          const hide = diffOnly && same;
+          if (!hide) visible++;
+          return `<div class="sbs-row ${big ? 'is-key' : ''} ${mission ? 'is-mission' : ''}" ${hide ? 'hidden' : ''}>
             <div class="sbs-k">${label}</div>
-            ${[0, 1, 2].map(i => {
-              const a = cols[i]; if (!a) return '<div></div>';
-              const isBest = num && best != null && nums[i] === best && bestCount === 1 && bestLabel;
-              const bar = num && fleetMax[label] ? `<span class="sbs-bar"><i style="width:${(nums[i] / fleetMax[label] * 100).toFixed(1)}%"></i></span>` : '';
-              return `<div class="sbs-v ${num ? '' : 'txt'} ${isBest ? 'is-best' : ''}">${vals[i]}${isBest ? `<span class="sbs-best">${bestLabel}</span>` : ''}${bar}</div>`;
-            }).join('')}
+            ${[0, 1, 2].map(i => cols[i] ? `<div class="sbs-v">${vals[i]}${i === lead ? `<span class="sbs-lead">${leadLabel}</span>` : ''}</div>` : '<div></div>').join('')}
           </div>`;
-        }).join('')}</div>`).join('');
+        }).join('');
+        return `<div class="sbs-group" ${visible ? '' : 'hidden'}><h3>${group}</h3>${body}</div>`;
+      }).join('');
+      syncSticky();
     }
+    // Aircraft names follow you down the table once the cards scroll away
+    function syncSticky() {
+      if (view !== 'sbs') return;
+      const top = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--bar-top')) || 0;
+      const h = sbsHeads.getBoundingClientRect(), r = sbsRows.getBoundingClientRect();
+      sbsSticky.classList.toggle('is-on', h.bottom < top + 40 && r.bottom > top + 120);
+    }
+    window.addEventListener('scroll', syncSticky, { passive: true });
 
-    /* ================= Direction 2: journeys ================= */
+    /* ================= View 2: journeys ================= */
     const CITIES = [
       ['amd', 'Ahmedabad', 23.07, 72.63], ['bom', 'Mumbai', 19.09, 72.87, 'l'], ['del', 'Delhi', 28.56, 77.10], ['blr', 'Bengaluru', 13.20, 77.71, 'l'],
       ['maa', 'Chennai', 12.99, 80.17], ['ccu', 'Kolkata', 22.65, 88.45], ['hyd', 'Hyderabad', 17.24, 78.43], ['goi', 'Goa', 15.38, 73.83],
       ['jai', 'Jaipur', 26.82, 75.81], ['sxr', 'Srinagar', 33.99, 74.77, 'l'], ['ded', 'Dehradun', 30.19, 78.18, 'l'], ['ked', 'Kedarnath', 30.73, 79.07, 'r', true],
       ['vns', 'Varanasi', 25.45, 82.86], ['pnq', 'Pune', 18.58, 73.92], ['udr', 'Udaipur', 24.62, 73.90], ['ixl', 'Leh', 34.13, 77.55],
-      ['cok', 'Kochi', 10.15, 76.40], ['gau', 'Guwahati', 26.11, 91.59]
+      ['cok', 'Kochi', 10.15, 76.40], ['gau', 'Guwahati', 26.11, 91.59], ['nag', 'Nagpur', 21.09, 79.05], ['bho', 'Bhopal', 23.29, 77.34],
+      ['lko', 'Lucknow', 26.76, 80.88], ['bbi', 'Bhubaneswar', 20.24, 85.82], ['vtz', 'Visakhapatnam', 17.72, 83.22, 'l'], ['ixc', 'Chandigarh', 30.67, 76.79, 'l'], ['ixr', 'Ranchi', 23.31, 85.32]
     ].map(([k, n, lat, lon, side = 'r', heli = false]) => ({ k, n, lat, lon, side, heli }));
     const C = Object.fromEntries(CITIES.map(c => [c.k, c]));
     const QUICK = [['bom', 'del'], ['amd', 'bom'], ['ded', 'ked'], ['bom', 'goi'], ['del', 'sxr'], ['blr', 'maa'], ['del', 'ccu']];
-    let route = ['bom', 'del'];
+    let route = ['bom', 'del'], dep = 9 * 60, pax = 4, active = null;
     const hav = (a, b) => {
       const R = 6371, r = d => d * Math.PI / 180;
       const dLat = r(b.lat - a.lat), dLon = r(b.lon - a.lon);
       const h = Math.sin(dLat / 2) ** 2 + Math.cos(r(a.lat)) * Math.cos(r(b.lat)) * Math.sin(dLon / 2) ** 2;
       return 2 * R * Math.asin(Math.sqrt(h));
     };
-    const hm = h => { const t = Math.round(h * 60); return t < 60 ? `${t} min` : `${Math.floor(t / 60)} h ${pad(t % 60)} m`; };
-    function trip(a, km) {
-      const usable = a.range * 0.8;
-      const stops = Math.max(0, Math.ceil(km / usable) - 1);
-      const fly = km / a.cruise;
-      return { stops, fly, total: fly + 0.25 + stops * 0.5 };
+    const dur = m => { m = Math.round(m); return m < 60 ? `${m} min` : `${Math.floor(m / 60)} h ${pad(m % 60)} m`; };
+    const clock = m => { m = Math.round(m); const d = Math.floor(m / 1440), t = m % 1440; return `${pad(Math.floor(t / 60))}:${pad(t % 60)}${d ? ` <sup>+${d}</sup>` : ''}`; };
+    const TAXI = 15, GROUND = 30; // minutes per take-off/landing, and on the ground at a fuel stop
+    // Fewest, shortest hops between airports, each within 80% of range. Helipad-only places can't be fuel stops.
+    function plan(a, o, d) {
+      if ((o.heli || d.heli) && a.cat === 'fixed') return null;
+      const reach = a.range * 0.8, direct = hav(o, d);
+      let path;
+      if (direct <= reach) path = [o, d];
+      else {
+        const nodes = CITIES.filter(c => !c.heli || c === o || c === d);
+        const cost = new Map(nodes.map(c => [c.k, Infinity])), prev = new Map(), done = new Set();
+        cost.set(o.k, 0);
+        while (true) {
+          let u = null;
+          nodes.forEach(c => { if (!done.has(c.k) && cost.get(c.k) < Infinity && (!u || cost.get(c.k) < cost.get(u.k))) u = c; });
+          if (!u || u === d) break;
+          done.add(u.k);
+          nodes.forEach(v => {
+            if (done.has(v.k) || v === u) return;
+            const km = hav(u, v); if (km > reach) return;
+            const c2 = cost.get(u.k) + km + 180; // each extra landing costs the same as 180 km of flying
+            if (c2 < cost.get(v.k)) { cost.set(v.k, c2); prev.set(v.k, u); }
+          });
+        }
+        if (cost.get(d.k) === Infinity) return { out: true };
+        path = [d]; while (path[0] !== o) path.unshift(prev.get(path[0].k));
+      }
+      const legs = path.slice(1).map((c, i) => ({ from: path[i], to: c, km: hav(path[i], c) }));
+      let t = dep;
+      const times = [{ c: o, dep: t }];
+      legs.forEach((l, i) => {
+        l.min = l.km / a.cruise * 60 + TAXI;
+        t += l.min;
+        const last = i === legs.length - 1;
+        times.push({ c: l.to, arr: t, dep: last ? null : t + GROUND });
+        if (!last) t += GROUND;
+      });
+      const km = legs.reduce((s, l) => s + l.km, 0);
+      return { legs, times, path, stops: legs.length - 1, km, direct, total: t - dep, spare: reach - Math.max(...legs.map(l => l.km)) };
     }
-    const fromSel = document.getElementById('jrFrom'), toSel = document.getElementById('jrTo');
+    const fromSel = document.getElementById('jrFrom'), toSel = document.getElementById('jrTo'), depSel = document.getElementById('jrDep');
     const cityOpts = cur => [...CITIES].sort((x, y) => x.n.localeCompare(y.n)).map(c => `<option value="${c.k}" ${c.k === cur ? 'selected' : ''}>${c.n}</option>`).join('');
+    depSel.innerHTML = Array.from({ length: 29 }, (_, i) => 6 * 60 + i * 30).map(m => `<option value="${m}" ${m === dep ? 'selected' : ''}>${clock(m)}</option>`).join('');
+    depSel.addEventListener('change', () => { dep = +depSel.value; renderJr(); });
+    document.querySelector('.jr-pax').addEventListener('click', e => { const b = e.target.closest('[data-d]'); if (!b) return; pax = Math.min(14, Math.max(1, pax + +b.dataset.d)); renderJr(); });
     document.getElementById('jrQuick').innerHTML = QUICK.map(([f, t]) => `<button type="button" data-r="${f},${t}" aria-pressed="false">${C[f].n} → ${C[t].n}</button>`).join('');
-    document.getElementById('jrQuick').addEventListener('click', e => { const b = e.target.closest('[data-r]'); if (b) { route = b.dataset.r.split(','); renderJr(); } });
-    fromSel.addEventListener('change', () => { route = [fromSel.value, route[1]]; if (route[0] === route[1]) route[1] = route[0] === 'del' ? 'bom' : 'del'; renderJr(); });
-    toSel.addEventListener('change', () => { route = [route[0], toSel.value]; if (route[0] === route[1]) route[0] = route[1] === 'bom' ? 'del' : 'bom'; renderJr(); });
-    document.getElementById('jrSwap').addEventListener('click', () => { route = [route[1], route[0]]; renderJr(); });
+    document.getElementById('jrQuick').addEventListener('click', e => { const b = e.target.closest('[data-r]'); if (b) { route = b.dataset.r.split(','); active = null; renderJr(); } });
+    fromSel.addEventListener('change', () => { route = [fromSel.value, route[1]]; if (route[0] === route[1]) route[1] = route[0] === 'del' ? 'bom' : 'del'; active = null; renderJr(); });
+    toSel.addEventListener('change', () => { route = [route[0], toSel.value]; if (route[0] === route[1]) route[0] = route[1] === 'bom' ? 'del' : 'bom'; active = null; renderJr(); });
+    document.getElementById('jrSwap').addEventListener('click', () => { route = [route[1], route[0]]; active = null; renderJr(); });
+    const picks = document.getElementById('jrPicks');
+    picks.addEventListener('click', e => { const b = e.target.closest('[data-rm]'); if (b) replaceAt(+b.dataset.rm, ''); });
+    picks.addEventListener('change', e => { if (e.target.matches('select')) replaceAt(shown().length, e.target.value); });
 
-    // Equirectangular plane in km (no borders drawn — just city positions), fitted to a 560 × 640 box
+    // Map: equirectangular plane in km (city positions only, no borders), fitted to a 560-wide box
     const LAT0 = 22, KX = 111.32 * Math.cos(LAT0 * Math.PI / 180), KY = 110.57;
     const B = { lon0: 67.5, lon1: 93.5, lat0: 7.5, lat1: 36 };
-    const W = 560, S = W / ((B.lon1 - B.lon0) * KX), H = Math.round((B.lat1 - B.lat0) * KY * S);
-    const P = c => [(c.lon - B.lon0) * KX * S, (B.lat1 - c.lat) * KY * S];
+    const W = 560, SC = W / ((B.lon1 - B.lon0) * KX), H = Math.round((B.lat1 - B.lat0) * KY * SC);
+    const P = c => [(c.lon - B.lon0) * KX * SC, (B.lat1 - c.lat) * KY * SC];
     const DASH = ['', '9 6', '2 5'];
+    let jr = { cols: [], plans: [] };
+
+    function itinerary(p) {
+      const node = (t, cls, when, place, note) => `<li class="jr-n ${cls}"><b>${when}</b><i></i><div><span>${place}</span><em>${note}</em></div></li>`;
+      const seg = (txt, grow) => `<li class="jr-s" style="flex-grow:${grow.toFixed(1)}"><span>${txt}</span></li>`;
+      const first = p.times[0], last = p.times[p.times.length - 1];
+      let html = node(first, '', clock(first.dep), first.c.n, 'Depart');
+      if (p.stops <= 2) {
+        p.legs.forEach((l, i) => {
+          html += seg(`${fmt(Math.round(l.km))} km · ${dur(l.min)}`, l.min);
+          const t = p.times[i + 1];
+          html += i < p.legs.length - 1 ? node(t, 'is-stop', clock(t.arr), t.c.n, `Fuel stop · ${GROUND} min`) : node(t, '', clock(t.arr), t.c.n, 'Arrive');
+        });
+      } else {
+        html += seg(`${p.stops} fuel stops · via ${p.path.slice(1, -1).map(c => c.n).join(', ')}`, p.total);
+        html += node(last, '', clock(last.arr), last.c.n, 'Arrive');
+      }
+      return `<ol class="jr-itin">${html}</ol>`;
+    }
 
     function renderJr() {
       fromSel.innerHTML = cityOpts(route[0]); toSel.innerHTML = cityOpts(route[1]);
+      document.getElementById('jrPax').textContent = pax;
       document.querySelectorAll('#jrQuick button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.r === route.join(','))));
-      const o = C[route[0]], d = C[route[1]], km = Math.round(hav(o, d));
-      document.getElementById('jrRoute').innerHTML = `<b>${o.n}<i>→</i>${d.n}</b><span>${fmt(km)} km · ${fmt(Math.round(km * 0.54))} nm, straight line</span>`;
-      const cols = shown().map(k => byKey[k]);
-      const heliOnly = o.heli || d.heli;
-      const trips = cols.map(a => heliOnly && a.cat === 'fixed' ? null : trip(a, km));
-      const ok = trips.filter(Boolean);
-      const maxT = Math.max(...ok.map(t => t.total), 0.01);
-      const minT = Math.min(...ok.map(t => t.total));
-      document.getElementById('jrRows').innerHTML = cols.map((a, i) => {
-        const t = trips[i];
-        if (!t) return `<div class="jr-row is-na">
-          <div class="jr-thumb">${art(a)}</div>
-          <div>
-            <div class="jr-top"><strong>${a.name}<small>${catLabel(a.cat)}</small></strong><span class="jr-time">—</span></div>
-            <div class="jr-line" aria-hidden="true"></div>
-            <p class="jr-note">${(o.heli ? o : d).n} has a helipad only · a helicopter flies this leg</p>
-          </div>
-        </div>`;
-        const legs = t.stops + 1, best = ok.length > 1 && t.total === minT;
-        const w = (t.total / maxT) * 100;
-        const legW = `calc((${w.toFixed(2)}% - ${t.stops * 22}px) / ${legs})`;
-        return `<div class="jr-row ${best ? 'is-best' : ''}">
-          <div class="jr-thumb">${art(a)}</div>
-          <div>
-            <div class="jr-top"><strong>${a.name}<small>${catLabel(a.cat)}</small></strong><span class="jr-time ${best ? 'is-best' : ''}">${hm(t.total)}</span></div>
-            <div class="jr-line" aria-hidden="true">${Array.from({ length: legs }, (_, j) => `<span class="jr-leg" style="width:${legW}"></span>${j < t.stops ? '<span class="jr-stop"></span>' : ''}`).join('')}</div>
-            <p class="jr-note">${t.stops ? `${t.stops} fuel stop${t.stops > 1 ? 's' : ''}` : 'Non-stop'} · ${a.cruise} km/h${best ? ' · Quickest' : ''}</p>
-          </div>
-        </div>`;
-      }).join('');
+      const ks = shown(), cols = ks.map(k => byKey[k]);
+      picks.innerHTML = cols.map((a, i) => `<span class="jr-pick">${a.cut ? `<img src="${a.cut}" alt="" />` : ''}<span>${a.name}</span>${cols.length > 1 ? `<button type="button" data-rm="${i}" aria-label="Remove ${a.name}">×</button>` : ''}</span>`).join('') +
+        (cols.length < 3 ? `<select class="ct-select" aria-label="Add an aircraft">${opts('+ Add', ks)}</select>` : '');
 
-      // Map
+      const o = C[route[0]], d = C[route[1]], km = Math.round(hav(o, d));
+      document.getElementById('jrRoute').innerHTML = `<b>${o.n} <i>to</i> ${d.n}</b><span>${fmt(km)} km straight line · ${pax} passenger${pax > 1 ? 's' : ''} · depart ${clock(dep)}</span>`;
+      const plans = cols.map(a => plan(a, o, d));
+      const ok = plans.filter(p => p && !p.out);
+      const best = ok.length > 1 ? Math.min(...ok.map(p => p.total)) : null;
+      if (!active || !ks.includes(active) || !plans[ks.indexOf(active)] || plans[ks.indexOf(active)].out) {
+        const bi = plans.findIndex(p => p && !p.out && (best === null || p.total === best));
+        active = bi >= 0 ? ks[bi] : null;
+      }
+      jr = { cols, plans, o, d };
+
+      document.getElementById('jrRows').innerHTML = cols.map((a, i) => {
+        const p = plans[i];
+        const head = (right) => `<div class="jr-card-top">
+            <div class="jr-thumb">${art(a)}</div>
+            <div class="jr-id"><strong>${a.name}</strong><span>${a.maker} · ${catLabel(a.cat)} · ${a.cruise} km/h${a.status === 'arriving' ? ` · <b class="is-arriving">Arriving ${a.when}</b>` : ''}</span></div>
+            ${right}
+          </div>`;
+        if (!p || p.out) return `<article class="jr-card cmp-panel is-na" data-key="${a.key}">${head('<div class="jr-total"><b>—</b></div>')}
+            <p class="jr-na">${!p ? `${(o.heli ? o : d).n} has a helipad only, so a helicopter flies this leg.` : `Beyond this aircraft's reach with the airports on our map. It is better suited to shorter legs.`}</p></article>`;
+        const isBest = best !== null && p.total === best;
+        const need = Math.ceil(pax / a.seats);
+        const facts = [
+          ['Seats', pad(a.seats), a.seats >= pax ? `Fits all ${pax}` : `${need} aircraft for ${pax} people`, a.seats >= pax ? 'is-ok' : 'is-warn'],
+          ['Distance flown', `${fmt(Math.round(p.km))} km`, !p.stops ? 'Direct, no detour' : p.km - p.direct < 25 ? 'The fuel stop is on the way' : `+${fmt(Math.round(p.km - p.direct))} km to reach the fuel stop${p.stops > 1 ? 's' : ''}`, ''],
+          ['Range to spare', `${fmt(Math.round(p.spare))} km`, p.stops ? 'on the longest leg, after the reserve' : 'after landing, on top of the reserve', ''],
+          ['Lands at', a.cat === 'rotary' ? 'Helipad or runway' : 'Runway only', a.cat === 'rotary' ? 'Can set down close to the door' : 'Needs an airport at both ends', '']
+        ];
+        return `<article class="jr-card cmp-panel ${a.key === active ? 'is-active' : ''}" data-key="${a.key}" tabindex="0">
+          ${head(`<div class="jr-total"><b>${dur(p.total)}</b><span class="${isBest ? 'is-best' : ''}">${isBest ? 'Quickest · ' : ''}${p.stops ? `${p.stops} fuel stop${p.stops > 1 ? 's' : ''}` : 'Non-stop'}</span></div>`)}
+          ${itinerary(p)}
+          <div class="jr-facts">${facts.map(([k, v, sub, cls]) => `<div class="jr-fact ${cls}"><span>${k}</span><b>${v}</b><em>${sub}</em></div>`).join('')}</div>
+        </article>`;
+      }).join('');
+      document.querySelectorAll('#jrRows .jr-card:not(.is-na)').forEach(card => {
+        const on = () => { if (active === card.dataset.key) return; active = card.dataset.key; document.querySelectorAll('#jrRows .jr-card').forEach(c => c.classList.toggle('is-active', c === card)); drawMap(); };
+        card.addEventListener('mouseenter', on); card.addEventListener('focus', on); card.addEventListener('click', on);
+      });
+      drawMap();
+    }
+
+    function drawMap() {
+      const { cols, plans, o, d } = jr;
       const svg = document.getElementById('jrMap');
       svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
-      const [ox, oy] = P(o), [dx, dy] = P(d);
+      const [ox, oy] = P(o);
       let g = '';
-      for (let lon = 70; lon <= 92; lon += 5) { const x = (lon - B.lon0) * KX * S; g += `<line class="graticule" x1="${x}" y1="0" x2="${x}" y2="${H}"/>`; }
-      for (let lat = 10; lat <= 35; lat += 5) { const y = (B.lat1 - lat) * KY * S; g += `<line class="graticule" x1="0" y1="${y}" x2="${W}" y2="${y}"/>`; }
+      for (let lon = 70; lon <= 92; lon += 5) { const x = (lon - B.lon0) * KX * SC; g += `<line class="graticule" x1="${x}" y1="0" x2="${x}" y2="${H}"/>`; }
+      for (let lat = 10; lat <= 35; lat += 5) { const y = (B.lat1 - lat) * KY * SC; g += `<line class="graticule" x1="0" y1="${y}" x2="${W}" y2="${y}"/>`; }
       const rings = cols.map((a, i) => {
-        if (!trips[i]) return '';
-        const r = a.range * 0.8 * S;
-        // put each label where the ring is inside the box, starting at the top
-        let lx = ox, ly = oy - r, ang = -90;
+        const p = plans[i]; if (!p) return '';
+        const on = a.key === active, r = a.range * 0.8 * SC;
+        let lx = ox, ly = oy - r;
         for (let step = 0; step < 36; step++) {
           const t = (-90 + step * (i % 2 ? -10 : 10)) * Math.PI / 180;
           const x = ox + r * Math.cos(t), y = oy + r * Math.sin(t);
-          if (x > 40 && x < W - 40 && y > 14 && y < H - 8) { lx = x; ly = y; ang = t; break; }
+          if (x > 40 && x < W - 40 && y > 14 && y < H - 8) { lx = x; ly = y; break; }
         }
-        return `<circle class="ring" cx="${ox}" cy="${oy}" r="${r}" stroke-dasharray="${DASH[i]}"/>` +
-               `<text class="ring-label" x="${lx}" y="${ly - 5}" text-anchor="${lx > W * 0.72 ? 'end' : lx < W * 0.28 ? 'start' : 'middle'}">${a.name} · ${fmt(Math.round(a.range * 0.8))} km</text>`;
+        return `<circle class="ring ${on ? 'is-active' : ''}" cx="${ox}" cy="${oy}" r="${r}" stroke-dasharray="${DASH[i]}"/>` +
+               `<text class="ring-label ${on ? 'is-active' : ''}" x="${lx}" y="${ly - 5}" text-anchor="${lx > W * 0.72 ? 'end' : lx < W * 0.28 ? 'start' : 'middle'}">${a.name} · ${fmt(Math.round(a.range * 0.8))} km</text>`;
       }).join('');
+      // every aircraft's path; the active one drawn last and brightest
+      const order = cols.map((a, i) => i).sort((x, y) => (cols[x].key === active) - (cols[y].key === active));
+      const paths = order.map(i => { const p = plans[i]; if (!p || p.out) return ''; return `<polyline class="path ${cols[i].key === active ? 'is-active' : ''}" points="${p.path.map(c => P(c).join(',')).join(' ')}"/>`; }).join('');
+      const ap = plans[cols.findIndex(a => a.key === active)];
+      const stopKeys = ap && !ap.out ? ap.path.slice(1, -1).map(c => c.k) : [];
       const cities = CITIES.map(c => {
-        const [x, y] = P(c), od = c.k === o.k || c.k === d.k;
+        const [x, y] = P(c), od = c.k === o.k || c.k === d.k, st = stopKeys.includes(c.k);
         const anchor = c.side === 'l' || x > W - 90 ? 'end' : 'start', tx = anchor === 'end' ? x - 7 : x + 7;
-        return `<g class="city ${od ? 'is-od' : ''}"><circle cx="${x}" cy="${y}" r="${od ? 4.5 : 2.5}"/><text x="${tx}" y="${y + 3.5}" text-anchor="${anchor}">${c.n}</text></g>`;
+        return `<g class="city ${od ? 'is-od' : ''} ${st ? 'is-stop' : ''}"><circle cx="${x}" cy="${y}" r="${od ? 4.5 : st ? 4 : 2.5}"/><text x="${tx}" y="${y + 3.5}" text-anchor="${anchor}">${c.n}</text></g>`;
       }).join('');
-      svg.innerHTML = `<defs><clipPath id="jrClip"><rect width="${W}" height="${H}"/></clipPath></defs>${g}<g clip-path="url(#jrClip)">${rings}</g><line class="route" x1="${ox}" y1="${oy}" x2="${dx}" y2="${dy}"/>${cities}`;
-      document.getElementById('jrLegend').innerHTML = cols.map((a, i) => `<span><svg viewBox="0 0 28 6"><line x1="0" y1="3" x2="28" y2="3" stroke="var(--gold)" stroke-width="1.4" stroke-dasharray="${DASH[i]}"/></svg>${a.name} non-stop reach</span>`).join('') +
-        `<span><svg viewBox="0 0 28 6"><line x1="0" y1="3" x2="28" y2="3" stroke="var(--on-navy)" stroke-width="1.4"/></svg>Route</span>`;
+      svg.innerHTML = `<defs><clipPath id="jrClip"><rect width="${W}" height="${H}"/></clipPath></defs>${g}<g clip-path="url(#jrClip)">${rings}</g>${paths}${cities}`;
+      document.getElementById('jrLegend').innerHTML = cols.map((a, i) => `<span><svg viewBox="0 0 28 6"><line x1="0" y1="3" x2="28" y2="3" stroke="var(--gold)" stroke-width="1.4" stroke-dasharray="${DASH[i]}"/></svg>${a.name} non-stop</span>`).join('') +
+        `<span><svg viewBox="0 0 28 6"><line x1="0" y1="3" x2="28" y2="3" stroke="var(--on-navy)" stroke-width="2"/></svg>Route flown</span>`;
     }
 
     renderSel();
@@ -903,6 +1071,13 @@
         <button type="button" class="chip" data-val="a"><b>A · Flypast</b><span>The fleet crosses a dusk sky. Scroll and each aircraft flies down into its card.</span></button>
         <button type="button" class="chip" data-val="b"><b>B · Hangar</b><span>The camera walks up to the hangar, the doors part and the fleet is revealed.</span></button>
         <button type="button" class="chip" data-val="c"><b>C · Big type</b><span>A film plays inside giant letters, then scroll dives through them.</span></button>
+      </div>
+    </div>
+    <div class="tp-group">
+      <h4>Compare<small>One view at a time in the Compare section.</small></h4>
+      <div class="hero-cards" data-k="cmp">
+        <button type="button" class="chip" data-val="jr"><b>Journeys</b><span>Pick a route, time and party size. Arrival times, fuel stops, seats and range for each aircraft.</span></button>
+        <button type="button" class="chip" data-val="sbs"><b>Side by side</b><span>Big headline figures, then a plain table with ticks for missions.</span></button>
       </div>
     </div>
     <div class="tp-group" data-for="a">
@@ -935,13 +1110,15 @@
 
     /* ---------- settings (per browser, plus ?hero= in the link) ---------- */
     const KEY = 'skypulse-fleet-hero-v1';
-    const DEF = { hero: 'a', speed: 1, handoff: 'on', autoOpen: 'off', bMode: 'scrub', word: 'FLEET', film: 'h130' };
+    const DEF = { hero: 'a', speed: 1, handoff: 'on', autoOpen: 'off', bMode: 'scrub', cmp: 'jr', word: 'FLEET', film: 'h130' };
     let saved = {}; try { saved = JSON.parse(localStorage.getItem(KEY)) || {}; } catch {}
     const S = { ...DEF, ...saved };
     const qh = new URLSearchParams(location.search).get('hero');
     if (['a', 'b', 'c'].includes(qh)) S.hero = qh;
     const qb = new URLSearchParams(location.search).get('b');
     if (['scrub', 'play', 'photo'].includes(qb)) S.bMode = qb;
+    const qc = new URLSearchParams(location.search).get('cmp');
+    if (['jr', 'sbs'].includes(qc)) S.cmp = qc;
     const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch {} };
 
     /* ================= A · Flypast ================= */
@@ -1185,6 +1362,8 @@
       panel.querySelectorAll('[data-for]').forEach(g => g.hidden = g.dataset.for !== S.hero);
       panel.querySelectorAll('[data-only]').forEach(g => g.hidden = g.dataset.only !== S.bMode);
       if (changed === undefined || changed === 'hero' || changed === 'bMode') setFilmB();
+      if (changed === undefined || changed === 'cmp') window.SKY_CMP && window.SKY_CMP.setView(S.cmp);
+      if (changed === 'cmp') document.getElementById('compare').scrollIntoView({ behavior: reduced ? 'auto' : 'smooth' });
       const isA = S.hero === 'a';
       layers.back.hidden = layers.front.hidden = !isA;
       if (!isA) document.body.classList.remove('hxa-landing');
@@ -1192,7 +1371,7 @@
       if (S.hero === 'c') { setFilm(); layoutC(); vid.play().catch(() => {}); } else vid.pause();
       if (changed === 'hero') { bAutoStart = null; scrollTo({ top: 0, behavior: 'auto' }); }
       if (changed === 'autoOpen') bAutoStart = null;
-      const q = new URLSearchParams(location.search); q.set('hero', S.hero);
+      const q = new URLSearchParams(location.search); q.set('hero', S.hero); q.set('cmp', S.cmp);
       history.replaceState(null, '', location.pathname + '?' + q + location.hash);
       save();
     }
