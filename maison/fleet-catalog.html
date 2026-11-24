@@ -299,7 +299,7 @@
       background: linear-gradient(180deg, #3D6CB0 0%, #22407A 30%, #0B1440 52%, #1A2238 70%, #2A3346 100%); }
     /* the "camera": a 16:9 frame that covers the screen and is pushed in on scroll */
     .hxb-cam { position: absolute; left: 50%; top: 50%; width: max(100vw, calc(100svh * 16 / 9)); aspect-ratio: 2752 / 1536;
-      transform: translate(-50%, -50%); transform-origin: 50% 57%; will-change: transform; }
+      transform: translate(-50%, -50%); transform-origin: 50% 60%; will-change: transform; }
     .hxb-shot { position: absolute; inset: 0; width: 100%; height: 100%; }
     /* interior before the lights come on: the opening is dimmed, then the dim lifts */
     .hxb-dim { position: absolute; left: 11.63%; top: 28.9%; width: 76.7%; height: 35.9%; background: #02041A; mix-blend-mode: multiply; opacity: 0.9; }
@@ -321,6 +321,7 @@
     .hxb-copy { position: absolute; left: 0; right: 0; top: calc(var(--hdr-h) + 3vh); z-index: 3; display: flex; flex-direction: column; align-items: center; gap: 0.9rem; text-align: center; padding: 0 var(--gutter); opacity: 0; }
     .hxb-copy .hx-title { font-size: clamp(2.2rem, 4.2vw, 4rem); text-shadow: 0 4px 30px rgba(3,6,31,0.7); }
     .hxb-prompt { bottom: 2.2rem; }
+    .hxb-scrim { position: absolute; left: 0; right: 0; top: 0; height: 42%; z-index: 2; opacity: 0; pointer-events: none; background: linear-gradient(180deg, rgba(3,6,31,0.82), rgba(3,6,31,0.45) 55%, transparent); }
     @media (max-width: 760px) {
       .hxb-cam { width: 150vw; top: 52%;
         -webkit-mask-image: linear-gradient(180deg, transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(180deg, transparent, #000 12%, #000 88%, transparent); }
@@ -422,6 +423,7 @@
             </div>
             <div class="hxb-tags" id="hxbTags"></div>
           </div>
+          <div class="hxb-scrim" id="hxbScrim"></div>
           <div class="hxb-copy" id="hxbCopy">
             <p class="hx-kicker">The SkyPulse Fleet</p>
             <h1 class="hx-title">Seven aircraft types. <em>One lessor.</em></h1>
@@ -1012,7 +1014,7 @@
     const bEls = {
       cam: document.getElementById('hxbCam'), l: document.getElementById('hxbLeafL'), r: document.getElementById('hxbLeafR'),
       glow: document.getElementById('hxbGlow'), dim: document.getElementById('hxbDim'), spill: document.getElementById('hxbSpill'),
-      copy: document.getElementById('hxbCopy'), prompt: document.getElementById('hxbPrompt'), tags: [...document.querySelectorAll('.hxb-tag')]
+      copy: document.getElementById('hxbCopy'), scrim: document.getElementById('hxbScrim'), prompt: document.getElementById('hxbPrompt'), tags: [...document.querySelectorAll('.hxb-tag')]
     };
     let bAuto = 0, bAutoStart = null;
     function frameB(now) {
@@ -1024,7 +1026,7 @@
         p = Math.max(p, ease(t) * 0.6);
       }
       // 1. the camera walks up to the hangar, then on into the doorway
-      const push = 1 + 0.14 * ease(ss(0.02, 0.42, p)) + 0.08 * ease(ss(0.42, 0.86, p));
+      const push = 1 + 0.14 * ease(ss(0.02, 0.42, p)) + 0.56 * ease(ss(0.4, 0.92, p));
       bEls.cam.style.transform = `translate(-50%, -50%) scale(${push.toFixed(4)})`;
       // 2. light leaks through the seam, then the doors part
       const open = ease(ss(0.12, 0.48, p));
@@ -1040,6 +1042,7 @@
       const tv = ss(0.62, 0.76, p);
       bEls.tags.forEach((t, i) => { const v = ss(0.6 + i * 0.03, 0.72 + i * 0.03, p); t.style.opacity = v; t.style.transform = `translate(-50%, ${(1 - v) * 8}px)`; });
       bEls.copy.style.opacity = ss(0.7, 0.84, p);
+      bEls.scrim.style.opacity = ss(0.66, 0.84, p);
       bEls.copy.style.transform = `translateY(${(1 - ss(0.7, 0.84, p)) * 16}px)`;
       bEls.prompt.style.opacity = 1 - ss(0, 0.06, p);
     }
