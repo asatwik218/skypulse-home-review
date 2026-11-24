@@ -278,6 +278,8 @@
     .hxa-cloud { position: absolute; border-radius: 50%; filter: blur(38px); background: radial-gradient(closest-side, rgba(245,246,251,0.16), transparent);
       animation: hxCloud linear infinite; will-change: transform; }
     @keyframes hxCloud { from { transform: translateX(110vw); } to { transform: translateX(-60vw); } }
+    .hxa-cloud.fg { filter: blur(30px); background: radial-gradient(closest-side, rgba(172,175,190,0.2), transparent); z-index: 54; }
+    .hxa-body { height: 100%; transform-origin: 50% 45%; }
     .hxa-copy { position: absolute; inset: 0; z-index: 52; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 1.4rem; padding: 0 var(--gutter); pointer-events: none; }
     .hxa-copy .hx-title { max-width: 13ch; text-shadow: 0 4px 40px rgba(3,6,31,0.6); }
     .hxa-layer { position: fixed; inset: 0; pointer-events: none; }
@@ -291,52 +293,39 @@
     .hxa-tag small { display: block; font-family: var(--label); font-size: 0.5rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.2rem; }
     body.hxa-landing .ct-plane img.is-landing { opacity: 0; }
 
-    /* ---------- B · Hangar ---------- */
-    .hxb { position: relative; height: 270vh; }
-    .hxb-stick { position: sticky; top: 0; height: 100svh; min-height: 600px; overflow: hidden; background: #02041A; }
-    .hxb-in { position: absolute; inset: 0; transform-origin: 50% 70%; will-change: transform; }
-    .hxb-wall { position: absolute; inset: 0 0 34% 0;
-      background:
-        repeating-linear-gradient(90deg, rgba(245,246,251,0.025) 0 1px, transparent 1px 120px),
-        linear-gradient(180deg, #03051C 0%, #0A0F3A 100%); }
-    .hxb-truss { position: absolute; left: 0; right: 0; top: 0; height: 15%;
-      background: repeating-linear-gradient(60deg, transparent 0 46px, rgba(245,246,251,0.05) 46px 48px), repeating-linear-gradient(-60deg, transparent 0 46px, rgba(245,246,251,0.05) 46px 48px);
-      border-bottom: 1px solid rgba(245,246,251,0.08); }
-    .hxb-floor { position: absolute; left: 0; right: 0; bottom: 0; height: 34%;
-      background: linear-gradient(180deg, #0B1142 0%, #050A30 60%, #03061F 100%); }
-    .hxb-floor::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(90deg, transparent 0 calc(25% - 1px), rgba(198,161,91,0.12) calc(25% - 1px) 25%); opacity: 0.5;
-      transform: perspective(500px) rotateX(58deg); transform-origin: top; }
-    .hxb-lamp { position: absolute; top: 14.5%; width: 9%; height: 6px; transform: translateX(-50%); border-radius: 3px; background: #FFF3DA; box-shadow: 0 0 22px 4px rgba(255,236,200,0.65); opacity: 0.08; }
-    .hxb-cone { position: absolute; top: 15%; width: 30%; height: 72%; transform: translateX(-50%); opacity: 0;
-      background: radial-gradient(60% 100% at 50% 0%, rgba(255,238,205,0.2), transparent 70%); clip-path: polygon(38% 0, 62% 0, 100% 100%, 0 100%); }
-    .hxb-pool { position: absolute; bottom: 9%; width: 28%; height: 12%; transform: translateX(-50%); border-radius: 50%; opacity: 0;
-      background: radial-gradient(closest-side, rgba(255,238,205,0.22), transparent); }
-    .hxb-wallmark { position: absolute; left: 50%; top: 24%; transform: translateX(-50%); text-align: center; color: rgba(245,246,251,0.08); font-family: 'Cinzel', serif; font-size: clamp(1.6rem, 4.5vw, 4rem); letter-spacing: 0.4em; white-space: nowrap; }
-    .hxb-line { position: absolute; left: 3%; right: 3%; bottom: 25%; display: flex; align-items: flex-end; justify-content: center; gap: 1.6%; }
-    .hxb-craft { position: relative; flex: 0 0 auto; text-align: center; }
-    .hxb-craft img { display: block; width: 100%; height: auto; -webkit-box-reflect: below 1px linear-gradient(transparent 55%, rgba(255,255,255,0.16)); }
-    .hxb-craft span { position: absolute; left: 50%; top: calc(100% + 3.2vh); transform: translateX(-50%); white-space: nowrap;
-      font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(245,246,251,0.7); }
-    .hxb-craft span b { font-family: var(--serif); font-weight: 400; font-size: 1.3rem; letter-spacing: 0; text-transform: none; color: #F5F6FB; display: block; }
-    .hxb-copy { position: absolute; left: 0; right: 0; top: 19%; z-index: 3; display: flex; flex-direction: column; align-items: center; gap: 1rem; text-align: center; padding: 0 var(--gutter); }
-    .hxb-copy .hx-title { font-size: clamp(2.4rem, 4.8vw, 4.6rem); }
-    .hxb-more { position: absolute; left: 50%; bottom: 4.5%; transform: translateX(-50%); z-index: 3; white-space: nowrap; font-family: var(--label); font-size: 0.56rem; letter-spacing: 0.26em; text-transform: uppercase; color: rgba(245,246,251,0.55); }
-    .hxb-door { position: absolute; top: 0; bottom: 0; width: 50.5%; z-index: 5; overflow: hidden; will-change: transform;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,0.05), transparent 8%, transparent 92%, rgba(0,0,0,0.35)),
-        repeating-linear-gradient(180deg, transparent 0 calc(25% - 2px), rgba(0,0,0,0.35) calc(25% - 2px) 25%),
-        repeating-linear-gradient(90deg, #0C1347 0 14px, #121A56 14px 17px, #0A1040 17px 31px, #070D36 31px 34px); }
-    .hxb-door.l { left: 0; box-shadow: inset -10px 0 18px -8px rgba(0,0,0,0.6); }
-    .hxb-door.r { right: 0; box-shadow: inset 10px 0 18px -8px rgba(0,0,0,0.6); }
-    .hxb-paint { position: absolute; top: 0; bottom: 0; width: 100vw; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2.2vh; }
-    .hxb-door.l .hxb-paint { left: 0; }
-    .hxb-door.r .hxb-paint { right: 0; }
-    .hxb-paint img { height: clamp(48px, 9vh, 96px); filter: brightness(0) invert(1); opacity: 0.5; }
-    .hxb-paint b { font-family: 'Cinzel', serif; font-weight: 500; font-size: clamp(3rem, 12vw, 12rem); letter-spacing: 0.16em; line-height: 1; color: rgba(198,161,91,0.55); padding-left: 0.16em; }
-    .hxb-paint small { font-family: var(--mono); font-size: clamp(0.6rem, 0.9vw, 0.8rem); letter-spacing: 0.4em; text-transform: uppercase; color: rgba(245,246,251,0.45); }
-    .hxb-seam { position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; z-index: 4; transform: translateX(-50%);
-      background: linear-gradient(180deg, transparent, rgba(255,240,210,0.95) 30%, rgba(255,240,210,0.95) 70%, transparent); box-shadow: 0 0 40px 12px rgba(255,236,200,0.35); opacity: 0; }
-    .hxb-prompt { position: absolute; left: 50%; bottom: 2.2rem; transform: translateX(-50%); z-index: 6; }
+    /* ---------- B · Hangar (photographic, scroll-driven camera) ---------- */
+    .hxb { position: relative; height: 340vh; }
+    .hxb-stick { position: sticky; top: 0; height: 100svh; min-height: 560px; overflow: hidden;
+      background: linear-gradient(180deg, #3D6CB0 0%, #22407A 30%, #0B1440 52%, #1A2238 70%, #2A3346 100%); }
+    /* the "camera": a 16:9 frame that covers the screen and is pushed in on scroll */
+    .hxb-cam { position: absolute; left: 50%; top: 50%; width: max(100vw, calc(100svh * 16 / 9)); aspect-ratio: 2752 / 1536;
+      transform: translate(-50%, -50%); transform-origin: 50% 57%; will-change: transform; }
+    .hxb-shot { position: absolute; inset: 0; width: 100%; height: 100%; }
+    /* interior before the lights come on: the opening is dimmed, then the dim lifts */
+    .hxb-dim { position: absolute; left: 11.63%; top: 28.9%; width: 76.7%; height: 35.9%; background: #02041A; mix-blend-mode: multiply; opacity: 0.9; }
+    .hxb-spill { position: absolute; left: 8%; right: 8%; top: 64.6%; height: 30%; opacity: 0; pointer-events: none;
+      background: radial-gradient(60% 70% at 50% 0%, rgba(255,214,160,0.28), transparent 70%); mix-blend-mode: screen; }
+    /* door leaves are cut from the closed-doors photo and slide apart inside the opening */
+    .hxb-doors { position: absolute; left: 10.68%; top: 28.91%; width: 79.65%; height: 35.94%; overflow: hidden; }
+    .hxb-leaf { position: absolute; top: 0; bottom: 0; width: 50%; overflow: hidden; will-change: transform; }
+    .hxb-leaf.l { left: 0; } .hxb-leaf.r { right: 0; }
+    .hxb-leaf img { position: absolute; top: -80.43%; height: 278.26%; width: 251.1%; max-width: none; }
+    .hxb-leaf.l img { left: -26.82%; }
+    .hxb-leaf.r img { left: -126.82%; }
+    .hxb-leaf.l { box-shadow: 14px 0 22px -12px rgba(0,0,0,0.7); } .hxb-leaf.r { box-shadow: -14px 0 22px -12px rgba(0,0,0,0.7); }
+    .hxb-glow { position: absolute; left: 50%; top: 0; bottom: 0; width: 3px; transform: translateX(-50%); background: rgba(255,226,180,0.95); box-shadow: 0 0 26px 8px rgba(255,214,160,0.5); opacity: 0; }
+    .hxb-tags { position: absolute; inset: 0; pointer-events: none; }
+    .hxb-tag { position: absolute; transform: translateX(-50%); text-align: center; white-space: nowrap; opacity: 0;
+      font-family: var(--label); font-size: 0.42vw; letter-spacing: 0.24em; text-transform: uppercase; color: rgba(245,246,251,0.75); }
+    .hxb-tag b { display: block; font-family: var(--serif); font-weight: 400; font-size: 1.15vw; letter-spacing: 0; text-transform: none; color: #F5F6FB; margin-bottom: 0.1vw; }
+    .hxb-copy { position: absolute; left: 0; right: 0; top: calc(var(--hdr-h) + 3vh); z-index: 3; display: flex; flex-direction: column; align-items: center; gap: 0.9rem; text-align: center; padding: 0 var(--gutter); opacity: 0; }
+    .hxb-copy .hx-title { font-size: clamp(2.2rem, 4.2vw, 4rem); text-shadow: 0 4px 30px rgba(3,6,31,0.7); }
+    .hxb-prompt { bottom: 2.2rem; }
+    @media (max-width: 760px) {
+      .hxb-cam { width: 150vw; top: 52%;
+        -webkit-mask-image: linear-gradient(180deg, transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(180deg, transparent, #000 12%, #000 88%, transparent); }
+      .hxb-tag { font-size: 0.9vw; } .hxb-tag b { font-size: 2.6vw; }
+    }
 
     /* ---------- C · Big type ---------- */
     .hxc { position: relative; height: 240vh; }
@@ -383,12 +372,6 @@
     .tp-range input { flex: 1; accent-color: var(--gold); }
     @media (max-width: 620px) {
       .tweak-fab { bottom: 5.8rem; right: 0.8rem; padding: 0.55rem 0.9rem; font-size: 0.62rem; }
-      .hxb-line { flex-wrap: wrap; row-gap: 9vh; bottom: 20%; left: 6%; right: 6%; }
-      .hxb-craft { width: 44% !important; }
-      .hxb-craft span { font-size: 0.5rem; top: calc(100% + 1.4vh); }
-      .hxb-craft span b { font-size: 1.05rem; }
-      .hxb-copy { top: 15%; }
-      .hxb-more { white-space: normal; width: 88%; text-align: center; line-height: 1.8; }
       .hxc-top .hx-sub { display: none; }
     }
   </style>
@@ -425,24 +408,25 @@
         <div class="hx-cue" aria-hidden="true"><span>Scroll</span><i></i></div>
       </div>
 
-      <!-- B · Hangar: scroll slides the doors apart; the lights come up on the fleet -->
+      <!-- B · Hangar: a slow camera approach; the doors part, the lights come up on the fleet -->
       <div class="hxb" data-v="b">
-        <div class="hxb-stick">
-          <div class="hxb-in" id="hxbIn">
-            <div class="hxb-wall"><div class="hxb-truss"></div><div class="hxb-wallmark">HANGAR 01</div></div>
-            <div class="hxb-floor"></div>
-            <div id="hxbLights"></div>
-            <div class="hxb-line" id="hxbLine"></div>
-            <div class="hxb-copy" id="hxbCopy">
-              <p class="hx-kicker">The SkyPulse Fleet</p>
-              <h1 class="hx-title">Seven aircraft types. <em>One lessor.</em></h1>
+        <div class="hxb-stick" id="hxbStick">
+          <div class="hxb-cam" id="hxbCam">
+            <img class="hxb-shot" src="assets/gen/fleet-hero/h-open.jpg" alt="The SkyPulse fleet parked inside the hangar" />
+            <div class="hxb-dim" id="hxbDim"></div>
+            <div class="hxb-spill" id="hxbSpill"></div>
+            <div class="hxb-doors" id="hxbDoors">
+              <div class="hxb-leaf l" id="hxbLeafL"><img src="assets/gen/fleet-hero/h-doors.jpg" alt="" /></div>
+              <div class="hxb-leaf r" id="hxbLeafR"><img src="assets/gen/fleet-hero/h-doors.jpg" alt="" /></div>
+              <i class="hxb-glow" id="hxbGlow"></i>
             </div>
-            <p class="hxb-more" id="hxbMore">Arriving 2026–27 &nbsp;·&nbsp; Airbus H125 &nbsp;·&nbsp; Robinson R44 &nbsp;·&nbsp; 25 × Tecnam P2010</p>
+            <div class="hxb-tags" id="hxbTags"></div>
           </div>
-          <div class="hxb-seam" id="hxbSeam"></div>
-          <div class="hxb-door l" id="hxbDoorL"><div class="hxb-paint"><img src="media/mark.png" alt="" /><b>SKYPULSE</b><small>Hangar 01 &nbsp;·&nbsp; GIFT City IFSC</small></div></div>
-          <div class="hxb-door r" id="hxbDoorR"><div class="hxb-paint"><img src="media/mark.png" alt="" /><b>SKYPULSE</b><small>Hangar 01 &nbsp;·&nbsp; GIFT City IFSC</small></div></div>
-          <div class="hx-cue hxb-prompt" id="hxbPrompt" aria-hidden="true"><span>Scroll to open the hangar</span><i></i></div>
+          <div class="hxb-copy" id="hxbCopy">
+            <p class="hx-kicker">The SkyPulse Fleet</p>
+            <h1 class="hx-title">Seven aircraft types. <em>One lessor.</em></h1>
+          </div>
+          <div class="hx-cue hxb-prompt" id="hxbPrompt" aria-hidden="true"><span>Scroll to enter the hangar</span><i></i></div>
         </div>
       </div>
 
@@ -451,7 +435,6 @@
         <div class="hxc-stick" id="hxcStick">
           <div class="hxc-video" id="hxcVideo"><video muted loop playsinline preload="none" id="hxcVid"></video></div>
           <svg class="hxc-mask" id="hxcMask" aria-hidden="true"></svg>
-          <div class="hxc-craft" id="hxcCraft" aria-hidden="true"><img src="assets/cutouts/hawker.png" alt="" /></div>
           <div class="hxc-top" id="hxcTop"><span class="hx-kicker">The SkyPulse Fleet</span><span class="hx-sub">08 in service · 27 arriving</span></div>
           <div class="hxc-copy" id="hxcCopy">
             <p class="hx-kicker">The SkyPulse Fleet</p>
@@ -950,13 +933,19 @@
       const top = [8, 22, 35, 52, 64, 74, 15, 46][i], w = [38, 26, 44, 30, 50, 34, 22, 28][i], h = [12, 9, 14, 10, 16, 11, 8, 9][i];
       const dur = [140, 110, 170, 125, 190, 150, 100, 135][i];
       return `<i class="hxa-cloud" style="top:${top}%;width:${w}vw;height:${h}vh;animation-duration:${dur}s;animation-delay:-${(i * 37) % dur}s;opacity:${0.5 + (i % 3) * 0.2}"></i>`;
-    }).join('');
+    }).join('') + [70, 84, 92].map((top, i) => `<i class="hxa-cloud fg" style="top:${top}%;width:${[60, 46, 70][i]}vw;height:${[14, 10, 18][i]}vh;animation-duration:${[48, 36, 58][i]}s;animation-delay:-${[10, 24, 40][i]}s"></i>`).join('');
+    // Which image each aircraft flies as, and which way its nose points (1 = right). Generated in-flight renders replace the cut-outs when present.
+    const FLY = {
+      aw109: { src: byKey.aw109.cut, face: -1 }, hawker: { src: byKey.hawker.cut, face: -1 },
+      h130: { src: byKey.h130.cut, face: 1 }, kingair: { src: byKey.kingair.cut, face: 1 }, p2010: { src: byKey.p2010.cut, face: 1 }
+    };
+    // T = seconds to cross the screen, gap = seconds off-screen before the next pass, off = where in its cycle it starts
     const LANES = [
-      { k: 'hawker', y: 0.2, hv: 5.5, dir: -1, dur: 30, phase: 0.18, layer: 'back' },
-      { k: 'p2010', y: 0.44, hv: 8, dir: 1, dur: 38, phase: 0.22, layer: 'back' },
-      { k: 'aw109', y: 0.3, hv: 12, dir: -1, dur: 46, phase: 0.58, layer: 'front' },
-      { k: 'kingair', y: 0.69, hv: 10, dir: 1, dur: 40, phase: 0.72, layer: 'front' },
-      { k: 'h130', y: 0.81, hv: 15, dir: 1, dur: 54, phase: 0.36, layer: 'front' }
+      { k: 'hawker', y: 0.12, hv: 5, T: 16, gap: 22, off: 4, layer: 'back', haze: 0.55, tilt: 1.5, bob: 2 },
+      { k: 'p2010', y: 0.42, hv: 7, T: 26, gap: 18, off: 20, layer: 'back', haze: 0.35, tilt: 1, bob: 3 },
+      { k: 'aw109', y: 0.28, hv: 12, T: 30, gap: 14, off: 12, layer: 'front', haze: 0, tilt: 4, bob: 5, heli: true },
+      { k: 'kingair', y: 0.68, hv: 10, T: 24, gap: 20, off: 30, layer: 'front', haze: 0.1, tilt: 1.5, bob: 3 },
+      { k: 'h130', y: 0.8, hv: 15, T: 36, gap: 12, off: 0, layer: 'front', haze: 0, tilt: 4, bob: 6, heli: true }
     ];
     const layers = { back: document.createElement('div'), front: document.createElement('div') };
     Object.entries(layers).forEach(([n, el]) => { el.className = 'hxa-layer ' + n; el.setAttribute('aria-hidden', 'true'); document.body.appendChild(el); });
@@ -964,12 +953,14 @@
       const a = byKey[l.k];
       const el = document.createElement('div');
       el.className = 'hxa-craft';
-      el.innerHTML = `<img src="${a.cut}" alt="" />${l.layer === 'front' ? `<span class="hxa-tag"><small>${a.maker}</small>${a.name}</span>` : ''}`;
-      if (l.layer === 'back') el.style.filter = 'saturate(0.8) brightness(0.85)';
+      const fly = FLY[l.k];
+      el.innerHTML = `<div class="hxa-body"><img src="${fly.src}" alt="" /></div>${l.layer === 'front' ? `<span class="hxa-tag"><small>${a.maker}</small>${a.name}</span>` : ''}`;
+      // distance haze: softer, cooler, dimmer the further away
+      if (l.haze) el.querySelector('.hxa-body').style.filter = `blur(${(l.haze * 1.1).toFixed(2)}px) brightness(${(1 - l.haze * 0.35).toFixed(2)}) saturate(${(1 - l.haze * 0.5).toFixed(2)})`;
       layers[l.layer].appendChild(el);
       const target = document.querySelector(`.ct-card[data-key="${l.k}"] .ct-plane img`);
       if (target) { target.loading = 'eager'; target.classList.add('is-landing'); }
-      return { ...l, a, el, img: el.querySelector('img'), tag: el.querySelector('.hxa-tag') || { style: {} }, target, w: 0, h: 0 };
+      return { ...l, a, el, dir: fly.face, face: fly.face, body: el.querySelector('.hxa-body'), img: el.querySelector('img'), tag: el.querySelector('.hxa-tag') || { style: {} }, target, w: 0, h: 0 };
     });
     function measureA() {
       crafts.forEach(c => {
@@ -990,9 +981,14 @@
       if (p <= 0.0005 && !reduced) clock += dt * S.speed;
       crafts.forEach(c => {
         const span = W + c.w;
-        const d = (((clock / c.dur) + c.phase) % 1) * span;
-        let x = c.dir > 0 ? -c.w + d : W - d;
-        let yy = c.y * heroH - c.h / 2 - y, sc = 1, op = 1;
+        const u = Math.min(1.02, (((clock + c.off) % (c.T + c.gap)) + (c.T + c.gap)) % (c.T + c.gap) / c.T);
+        let x = c.dir > 0 ? -c.w + u * span : W - u * span;
+        const bob = Math.sin(clock * 2 * Math.PI / (c.heli ? 3.4 : 5.5) + c.off) * c.bob;
+        let yy = c.y * heroH - c.h / 2 - y + bob, sc = 1, op = 1 - c.haze * 0.3;
+        // helicopters fly nose-down; fixed-wing hold a slight climb; both breathe a little
+        const rot = c.face * (c.heli ? c.tilt : -c.tilt) + Math.sin(clock * 2 * Math.PI / (c.heli ? 4.6 : 7) + c.off * 2) * (c.heli ? 0.9 : 0.5);
+        c.body.style.transform = `rotate(${(rot * (1 - e)).toFixed(2)}deg)`;
+        if (p > 0) yy -= bob * e;
         if (handoff && p > 0 && c.target) {
           const r = c.target.getBoundingClientRect();
           if (r.width > 0) { x = lerp(x, r.left, e); yy = lerp(yy, r.top, e); sc = lerp(1, r.width / c.w, e); }
@@ -1010,45 +1006,42 @@
 
     /* ================= B · Hangar ================= */
     const hxb = hx.querySelector('.hxb');
-    const PARK = [['kingair', 13.4], ['h130', 12.6], ['aw109', 13.0], ['hawker', 14.8]];
-    const sumL = PARK.reduce((s, [, l]) => s + l, 0);
-    const lineB = document.getElementById('hxbLine');
-    lineB.innerHTML = PARK.map(([k, l]) => { const a = byKey[k]; return `<div class="hxb-craft" style="width:${(l / sumL * 86).toFixed(2)}%"><img src="${a.cut}" alt="${a.full}" loading="lazy" /><span><b>${a.name}</b>${a.maker}</span></div>`; }).join('');
-    lineB.style.maxWidth = '1240px'; lineB.style.margin = '0 auto';
-    const LAMPS = [0.2, 0.4, 0.6, 0.8];
-    document.getElementById('hxbLights').innerHTML = LAMPS.map(x => `<i class="hxb-cone" style="left:${x * 100}%"></i><i class="hxb-pool" style="left:${x * 100}%"></i><i class="hxb-lamp" style="left:${x * 100}%"></i>`).join('');
+    // aircraft positions in the photo (percent of the frame) for the name tags
+    const PARKED = [['kingair', 21.5], ['h130', 41.8], ['aw109', 59.6], ['hawker', 78.4]];
+    document.getElementById('hxbTags').innerHTML = PARKED.map(([k, x]) => { const a = byKey[k]; return `<span class="hxb-tag" style="left:${x}%;top:65.2%"><b>${a.name}</b>${a.maker}</span>`; }).join('');
     const bEls = {
-      inner: document.getElementById('hxbIn'), l: document.getElementById('hxbDoorL'), r: document.getElementById('hxbDoorR'),
-      seam: document.getElementById('hxbSeam'), copy: document.getElementById('hxbCopy'), more: document.getElementById('hxbMore'),
-      prompt: document.getElementById('hxbPrompt'), mark: document.querySelector('.hxb-wallmark'), crafts: [...lineB.querySelectorAll('img')],
-      lamps: [...document.querySelectorAll('.hxb-lamp')], cones: [...document.querySelectorAll('.hxb-cone')], pools: [...document.querySelectorAll('.hxb-pool')]
+      cam: document.getElementById('hxbCam'), l: document.getElementById('hxbLeafL'), r: document.getElementById('hxbLeafR'),
+      glow: document.getElementById('hxbGlow'), dim: document.getElementById('hxbDim'), spill: document.getElementById('hxbSpill'),
+      copy: document.getElementById('hxbCopy'), prompt: document.getElementById('hxbPrompt'), tags: [...document.querySelectorAll('.hxb-tag')]
     };
     let bAuto = 0, bAutoStart = null;
     function frameB(now) {
       const box = hxb.getBoundingClientRect();
       let p = clamp(-box.top / (box.height - innerHeight));
       if (S.autoOpen === 'on') {
-        if (bAutoStart === null) bAutoStart = now + 1200;
-        bAuto = reduced ? 0.62 : clamp((now - bAutoStart) / 3400) * 0.62;
-        p = Math.max(p, ease(bAuto / 0.62) * 0.62);
+        if (bAutoStart === null) bAutoStart = now + 900;
+        const t = reduced ? 1 : clamp((now - bAutoStart) / 5200);
+        p = Math.max(p, ease(t) * 0.6);
       }
-      const open = Math.max(0.012, ss(0.04, 0.5, p));
-      bEls.l.style.transform = `translateX(${(-open * 101).toFixed(2)}%)`;
-      bEls.r.style.transform = `translateX(${(open * 101).toFixed(2)}%)`;
-      const breathe = reduced ? 0.5 : 0.45 + 0.25 * Math.sin(now / 700);
-      bEls.seam.style.opacity = open < 0.05 ? breathe : clamp(1 - (open - 0.05) * 4) * 0.8;
-      bEls.lamps.forEach((el, i) => {
-        const v = ss(0.14 + i * 0.07, 0.3 + i * 0.07, p);
-        el.style.opacity = 0.08 + 0.92 * v; bEls.cones[i].style.opacity = v; bEls.pools[i].style.opacity = v;
-      });
-      const lit = ss(0.18, 0.58, p);
-      bEls.crafts.forEach(img => img.style.filter = `brightness(${(0.22 + 0.78 * lit).toFixed(3)})`);
-      bEls.inner.style.transform = `scale(${(1.1 - 0.1 * ss(0, 0.9, p)).toFixed(4)})`;
-      const cv = ss(0.46, 0.7, p);
-      bEls.copy.style.opacity = cv; bEls.copy.style.transform = `translateY(${(1 - cv) * 20}px)`;
-      bEls.more.style.opacity = ss(0.6, 0.8, p);
-      bEls.mark.style.opacity = 1 - ss(0.4, 0.6, p);
-      bEls.prompt.style.opacity = 1 - ss(0, 0.08, p);
+      // 1. the camera walks up to the hangar, then on into the doorway
+      const push = 1 + 0.14 * ease(ss(0.02, 0.42, p)) + 0.08 * ease(ss(0.42, 0.86, p));
+      bEls.cam.style.transform = `translate(-50%, -50%) scale(${push.toFixed(4)})`;
+      // 2. light leaks through the seam, then the doors part
+      const open = ease(ss(0.12, 0.48, p));
+      bEls.l.style.transform = `translateX(${(-open * 100).toFixed(2)}%)`;
+      bEls.r.style.transform = `translateX(${(open * 100).toFixed(2)}%)`;
+      const breathe = reduced ? 0.6 : 0.55 + 0.25 * Math.sin(now / 650);
+      bEls.glow.style.opacity = open < 0.01 ? breathe * (0.4 + 0.6 * ss(0, 0.12, p)) : clamp(1 - open * 5);
+      // 3. the lights come up in two steps, like real high-bay lamps warming up
+      const l1 = ss(0.36, 0.44, p), l2 = ss(0.5, 0.62, p);
+      bEls.dim.style.opacity = (0.9 * (1 - (0.55 * l1 + 0.45 * l2))).toFixed(3);
+      bEls.spill.style.opacity = (0.5 * l1 + 0.5 * l2).toFixed(3);
+      // 4. names under each aircraft, then the headline
+      const tv = ss(0.62, 0.76, p);
+      bEls.tags.forEach((t, i) => { const v = ss(0.6 + i * 0.03, 0.72 + i * 0.03, p); t.style.opacity = v; t.style.transform = `translate(-50%, ${(1 - v) * 8}px)`; });
+      bEls.copy.style.opacity = ss(0.7, 0.84, p);
+      bEls.copy.style.transform = `translateY(${(1 - ss(0.7, 0.84, p)) * 16}px)`;
+      bEls.prompt.style.opacity = 1 - ss(0, 0.06, p);
     }
 
     /* ================= C · Big type ================= */
@@ -1056,7 +1049,6 @@
     const stickC = document.getElementById('hxcStick');
     const svg = document.getElementById('hxcMask');
     const vid = document.getElementById('hxcVid');
-    const craftC = document.getElementById('hxcCraft');
     const cEls = { copy: document.getElementById('hxcCopy'), top: document.getElementById('hxcTop'), cue: document.getElementById('hxcCue'), video: document.getElementById('hxcVideo') };
     const FILMS = { h130: { src: 'videos/h130-ses-liftoff.mp4', vs: 1.22 }, sky: { src: 'media/stock-sky.mp4', vs: 1 } };
     let origin = [0, 0];
@@ -1096,7 +1088,6 @@
       cEls.video.style.setProperty('--vs', f.vs);
       vid.playbackRate = 0.75;
     }
-    let cClock = 0;
     function frameC(dt) {
       const box = hxc.getBoundingClientRect();
       const p = clamp(-box.top / (box.height - innerHeight));
@@ -1108,12 +1099,6 @@
       const cv = ss(0.58, 0.8, p);
       cEls.copy.style.opacity = cv; cEls.copy.style.transform = `translateY(${(1 - cv) * 24}px)`;
       cEls.top.style.opacity = cEls.cue.style.opacity = 1 - ss(0, 0.12, p);
-      if (!reduced) cClock += dt;
-      const W = stickC.clientWidth, H = stickC.clientHeight, cw = craftC.offsetWidth || 300, ch = craftC.offsetHeight;
-      const x = W - ((cClock / 24) % 1) * (W + cw * 1.2);
-      const y = H * 0.6 - ch / 2 + Math.sin(cClock * 0.7) * 6;
-      craftC.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0)`;
-      craftC.style.opacity = 1 - ss(0.02, 0.2, p);
     }
 
     /* ================= one loop for whichever hero is on ================= */
