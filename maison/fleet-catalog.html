@@ -322,8 +322,16 @@
     .hxb-copy .hx-title { font-size: clamp(2.2rem, 4.2vw, 4rem); text-shadow: 0 4px 30px rgba(3,6,31,0.7); }
     .hxb-prompt { bottom: 2.2rem; }
     .hxb-scrim { position: absolute; left: 0; right: 0; top: 0; height: 42%; z-index: 2; opacity: 0; pointer-events: none; background: linear-gradient(180deg, rgba(3,6,31,0.82), rgba(3,6,31,0.45) 55%, transparent); }
+    /* film modes: a real camera move (generated video), scrubbed by scroll or played once */
+    .hxb-film { position: absolute; left: 50%; top: 50%; width: max(100vw, calc(100svh * 16 / 9)); aspect-ratio: 16 / 9; transform: translate(-50%, -50%); display: none; }
+    .hxb-film video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; background: #0B1440; }
+    .hxb[data-mode="scrub"] .hxb-film, .hxb[data-mode="play"] .hxb-film { display: block; }
+    .hxb[data-mode="scrub"] .hxb-cam, .hxb[data-mode="play"] .hxb-cam { display: none; }
+    .hxb[data-mode="play"] { height: 100svh; min-height: 560px; }
+    .hxb-film .hxb-tag { color: rgba(245,246,251,0.85); text-shadow: 0 1px 12px rgba(3,6,31,0.95), 0 0 2px rgba(3,6,31,0.8); }
+    .hxb[data-mode="play"] .hxb-copy, .hxb[data-mode="play"] .hxb-scrim, .hxb[data-mode="play"] .hxb-tag { transition: opacity 1.1s ease, transform 1.1s ease; }
     @media (max-width: 760px) {
-      .hxb-cam { width: 150vw; top: 52%;
+      .hxb-cam, .hxb-film { width: 150vw; top: 52%;
         -webkit-mask-image: linear-gradient(180deg, transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(180deg, transparent, #000 12%, #000 88%, transparent); }
       .hxb-tag { font-size: 0.9vw; } .hxb-tag b { font-size: 2.6vw; }
     }
@@ -422,6 +430,10 @@
               <i class="hxb-glow" id="hxbGlow"></i>
             </div>
             <div class="hxb-tags" id="hxbTags"></div>
+          </div>
+          <div class="hxb-film" id="hxbFilm">
+            <video id="hxbVid" muted playsinline preload="auto" poster="assets/gen/fleet-hero/h-doors.jpg" aria-label="The camera walks up to the SkyPulse hangar as the doors open on the fleet"></video>
+            <div class="hxb-tags" id="hxbFTags"></div>
           </div>
           <div class="hxb-scrim" id="hxbScrim"></div>
           <div class="hxb-copy" id="hxbCopy">
@@ -889,7 +901,7 @@
       <h4>Hero<small>Three directions for the top of the Fleet page.</small></h4>
       <div class="hero-cards" data-k="hero">
         <button type="button" class="chip" data-val="a"><b>A · Flypast</b><span>The fleet crosses a dusk sky. Scroll and each aircraft flies down into its card.</span></button>
-        <button type="button" class="chip" data-val="b"><b>B · Hangar</b><span>Scroll slides the hangar doors apart and the lights come up on the fleet.</span></button>
+        <button type="button" class="chip" data-val="b"><b>B · Hangar</b><span>The camera walks up to the hangar, the doors part and the fleet is revealed.</span></button>
         <button type="button" class="chip" data-val="c"><b>C · Big type</b><span>A film plays inside giant letters, then scroll dives through them.</span></button>
       </div>
     </div>
@@ -900,7 +912,8 @@
     </div>
     <div class="tp-group" data-for="b">
       <h4>Hangar</h4>
-      <div class="chip-group" data-k="autoOpen"><button type="button" class="chip" data-val="off">Opens on scroll</button><button type="button" class="chip" data-val="on">Opens by itself</button></div>
+      <div class="chip-group" data-k="bMode"><button type="button" class="chip" data-val="scrub">Film · scroll drives it</button><button type="button" class="chip" data-val="play">Film · plays once</button><button type="button" class="chip" data-val="photo">Photo layers</button></div>
+      <div class="chip-group" data-k="autoOpen" data-only="photo"><button type="button" class="chip" data-val="off">Opens on scroll</button><button type="button" class="chip" data-val="on">Opens by itself</button></div>
     </div>
     <div class="tp-group" data-for="c">
       <h4>Big type</h4>
@@ -922,11 +935,13 @@
 
     /* ---------- settings (per browser, plus ?hero= in the link) ---------- */
     const KEY = 'skypulse-fleet-hero-v1';
-    const DEF = { hero: 'a', speed: 1, handoff: 'on', autoOpen: 'off', word: 'FLEET', film: 'h130' };
+    const DEF = { hero: 'a', speed: 1, handoff: 'on', autoOpen: 'off', bMode: 'scrub', word: 'FLEET', film: 'h130' };
     let saved = {}; try { saved = JSON.parse(localStorage.getItem(KEY)) || {}; } catch {}
     const S = { ...DEF, ...saved };
     const qh = new URLSearchParams(location.search).get('hero');
     if (['a', 'b', 'c'].includes(qh)) S.hero = qh;
+    const qb = new URLSearchParams(location.search).get('b');
+    if (['scrub', 'play', 'photo'].includes(qb)) S.bMode = qb;
     const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch {} };
 
     /* ================= A · Flypast ================= */
@@ -1016,10 +1031,52 @@
       glow: document.getElementById('hxbGlow'), dim: document.getElementById('hxbDim'), spill: document.getElementById('hxbSpill'),
       copy: document.getElementById('hxbCopy'), scrim: document.getElementById('hxbScrim'), prompt: document.getElementById('hxbPrompt'), tags: [...document.querySelectorAll('.hxb-tag')]
     };
+    // Film modes: the generated camera-move video. "scrub" ties video time to scroll; "play" runs it once and holds the last frame.
+    const bVid = document.getElementById('hxbVid');
+    const FILM_B = { scrub: 'assets/gen/fleet-hero/h-approach-scrub.mp4', play: 'assets/gen/fleet-hero/h-approach.mp4' };
+    const FPARKED = [['kingair', 10.5], ['h130', 36.7], ['aw109', 70], ['hawker', 91.5]]; // aircraft x positions in the video's last frame
+    document.getElementById('hxbFTags').innerHTML = FPARKED.map(([k, x]) => { const a = byKey[k]; return `<span class="hxb-tag" style="left:${x}%;top:72%"><b>${a.name}</b>${a.maker}</span>`; }).join('');
+    const fTags = [...document.querySelectorAll('#hxbFTags .hxb-tag')];
+    let vCur = 0, bPlayed = false;
+    function setFilmB() {
+      hxb.dataset.mode = S.bMode;
+      const src = FILM_B[S.bMode];
+      if (S.hero !== 'b' || !src) { bVid.pause(); return; }
+      if (!bVid.getAttribute('src') || !bVid.getAttribute('src').endsWith(src)) { bVid.src = src; bVid.load(); }
+      bPlayed = false; vCur = 0;
+      if (S.bMode === 'play') { bVid.pause(); try { bVid.currentTime = 0; } catch {} }
+    }
+    function revealB(tagsV, copyV, scrimV, tags) {
+      tags.forEach((t, i) => { const v = typeof tagsV === 'function' ? tagsV(i) : tagsV; t.style.opacity = v; t.style.transform = `translate(-50%, ${(1 - v) * 8}px)`; });
+      bEls.copy.style.opacity = copyV; bEls.copy.style.transform = `translateY(${(1 - copyV) * 16}px)`;
+      bEls.scrim.style.opacity = scrimV;
+    }
+    function frameFilm(p) {
+      const dur = isFinite(bVid.duration) && bVid.duration ? bVid.duration : 7.9;
+      if (S.bMode === 'scrub') {
+        const target = clamp(p / 0.8) * (dur - 0.05);
+        vCur += (target - vCur) * (reduced ? 1 : 0.2);
+        if (Math.abs(target - vCur) < 0.004) vCur = target;
+        if (bVid.readyState >= 1 && !bVid.seeking && Math.abs(bVid.currentTime - vCur) > 0.015) bVid.currentTime = vCur;
+        revealB(i => ss(0.78 + i * 0.03, 0.88 + i * 0.03, p), ss(0.82, 0.94, p), ss(0.78, 0.94, p), fTags);
+        bEls.prompt.style.opacity = 1 - ss(0, 0.05, p);
+      } else {
+        const box = hxb.getBoundingClientRect();
+        const inView = box.top < innerHeight * 0.5 && box.bottom > innerHeight * 0.3;
+        if (!bPlayed && inView && bVid.readyState >= 2) {
+          bPlayed = true;
+          if (reduced) bVid.currentTime = dur - 0.05; else bVid.play().catch(() => { bVid.currentTime = dur - 0.05; });
+        }
+        const done = bVid.ended || bVid.currentTime > dur - 1.2 ? 1 : 0;
+        revealB(done, done, done, fTags);
+        bEls.prompt.style.opacity = 0;
+      }
+    }
     let bAuto = 0, bAutoStart = null;
     function frameB(now) {
       const box = hxb.getBoundingClientRect();
       let p = clamp(-box.top / (box.height - innerHeight));
+      if (S.bMode !== 'photo') return frameFilm(p);
       if (S.autoOpen === 'on') {
         if (bAutoStart === null) bAutoStart = now + 900;
         const t = reduced ? 1 : clamp((now - bAutoStart) / 5200);
@@ -1126,6 +1183,8 @@
         else g.querySelectorAll('.chip').forEach(c => c.classList.toggle('active', c.dataset.val === String(S[k])));
       });
       panel.querySelectorAll('[data-for]').forEach(g => g.hidden = g.dataset.for !== S.hero);
+      panel.querySelectorAll('[data-only]').forEach(g => g.hidden = g.dataset.only !== S.bMode);
+      if (changed === undefined || changed === 'hero' || changed === 'bMode') setFilmB();
       const isA = S.hero === 'a';
       layers.back.hidden = layers.front.hidden = !isA;
       if (!isA) document.body.classList.remove('hxa-landing');
