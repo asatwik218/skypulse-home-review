@@ -7,7 +7,7 @@
   <title>The Fleet (Catalogue) — SkyPulse Solutions IFSC</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=IBM+Plex+Mono:wght@300;400;500&family=Inter:wght@300;400;500&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=IBM+Plex+Mono:wght@300;400;500&family=Inter:wght@300;400;500&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="maison-sub.css" />
   <style>
     :root { --card: #F5F6FB; --card-ink: #050A30; --card-muted: #4A5172; --card-rule: rgba(5, 10, 48, 0.1); }
@@ -256,6 +256,141 @@
       .jr-map .ring-label { font-size: 14px; }
       .sbs-swipe { display: block; }
     }
+
+    /* ================= HERO — three directions (switch in Tweak Studio) ================= */
+    .hx { position: relative; background: var(--navy); color: var(--on-navy); }
+    .hx [data-v] { display: none; }
+    .hx[data-hero="a"] [data-v="a"], .hx[data-hero="b"] [data-v="b"], .hx[data-hero="c"] [data-v="c"] { display: block; }
+    .hx-kicker { font-family: var(--label); font-size: 0.66rem; letter-spacing: 0.34em; text-transform: uppercase; color: var(--gold); }
+    .hx-title { font-family: var(--serif); font-weight: 400; font-size: clamp(2.8rem, 6.2vw, 6rem); line-height: 0.98; letter-spacing: var(--display-track); }
+    .hx-title em { font-style: italic; color: var(--gold); }
+    .hx-sub { font-family: var(--label); font-size: 0.62rem; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(245,246,251,0.72); }
+    .hx-cue { position: absolute; left: 50%; bottom: 1.8rem; transform: translateX(-50%); z-index: 6; display: flex; flex-direction: column; align-items: center; gap: 0.6rem;
+      font-family: var(--label); font-size: 0.56rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(245,246,251,0.6); }
+    .hx-cue i { width: 1px; height: 40px; background: rgba(245,246,251,0.22); position: relative; overflow: hidden; }
+    .hx-cue i::after { content: ''; position: absolute; left: 0; top: -60%; width: 100%; height: 60%; background: var(--gold); animation: hxDrip 2.2s cubic-bezier(0.65,0,0.35,1) infinite; }
+    @keyframes hxDrip { to { top: 120%; } }
+
+    /* ---------- A · Flypast ---------- */
+    .hxa { position: relative; height: 100svh; min-height: 620px; overflow: hidden;
+      background: radial-gradient(120% 70% at 50% 108%, rgba(198,161,91,0.22), transparent 60%),
+                  linear-gradient(180deg, #03061F 0%, #071040 52%, #16205A 88%, #2A2F63 100%); }
+    .hxa-cloud { position: absolute; border-radius: 50%; filter: blur(38px); background: radial-gradient(closest-side, rgba(245,246,251,0.16), transparent);
+      animation: hxCloud linear infinite; will-change: transform; }
+    @keyframes hxCloud { from { transform: translateX(110vw); } to { transform: translateX(-60vw); } }
+    .hxa-copy { position: absolute; inset: 0; z-index: 52; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 1.4rem; padding: 0 var(--gutter); pointer-events: none; }
+    .hxa-copy .hx-title { max-width: 13ch; text-shadow: 0 4px 40px rgba(3,6,31,0.6); }
+    .hxa-layer { position: fixed; inset: 0; pointer-events: none; }
+    .hxa-layer.back { z-index: 51; }
+    .hxa-layer.front { z-index: 53; }
+    .hxa-layer[hidden] { display: none; }
+    .hxa-craft { position: absolute; left: 0; top: 0; transform-origin: 0 0; will-change: transform; }
+    .hxa-craft img { display: block; height: 100%; width: auto; filter: drop-shadow(0 18px 24px rgba(3,6,31,0.35)); }
+    .hxa-tag { position: absolute; left: 50%; top: 100%; transform: translateX(-50%); margin-top: 0.5rem; white-space: nowrap; text-align: center;
+      font-family: var(--serif); font-size: 1.15rem; color: #F5F6FB; transition: opacity 0.3s; }
+    .hxa-tag small { display: block; font-family: var(--label); font-size: 0.5rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.2rem; }
+    body.hxa-landing .ct-plane img.is-landing { opacity: 0; }
+
+    /* ---------- B · Hangar ---------- */
+    .hxb { position: relative; height: 270vh; }
+    .hxb-stick { position: sticky; top: 0; height: 100svh; min-height: 600px; overflow: hidden; background: #02041A; }
+    .hxb-in { position: absolute; inset: 0; transform-origin: 50% 70%; will-change: transform; }
+    .hxb-wall { position: absolute; inset: 0 0 34% 0;
+      background:
+        repeating-linear-gradient(90deg, rgba(245,246,251,0.025) 0 1px, transparent 1px 120px),
+        linear-gradient(180deg, #03051C 0%, #0A0F3A 100%); }
+    .hxb-truss { position: absolute; left: 0; right: 0; top: 0; height: 15%;
+      background: repeating-linear-gradient(60deg, transparent 0 46px, rgba(245,246,251,0.05) 46px 48px), repeating-linear-gradient(-60deg, transparent 0 46px, rgba(245,246,251,0.05) 46px 48px);
+      border-bottom: 1px solid rgba(245,246,251,0.08); }
+    .hxb-floor { position: absolute; left: 0; right: 0; bottom: 0; height: 34%;
+      background: linear-gradient(180deg, #0B1142 0%, #050A30 60%, #03061F 100%); }
+    .hxb-floor::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(90deg, transparent 0 calc(25% - 1px), rgba(198,161,91,0.12) calc(25% - 1px) 25%); opacity: 0.5;
+      transform: perspective(500px) rotateX(58deg); transform-origin: top; }
+    .hxb-lamp { position: absolute; top: 14.5%; width: 9%; height: 6px; transform: translateX(-50%); border-radius: 3px; background: #FFF3DA; box-shadow: 0 0 22px 4px rgba(255,236,200,0.65); opacity: 0.08; }
+    .hxb-cone { position: absolute; top: 15%; width: 30%; height: 72%; transform: translateX(-50%); opacity: 0;
+      background: radial-gradient(60% 100% at 50% 0%, rgba(255,238,205,0.2), transparent 70%); clip-path: polygon(38% 0, 62% 0, 100% 100%, 0 100%); }
+    .hxb-pool { position: absolute; bottom: 9%; width: 28%; height: 12%; transform: translateX(-50%); border-radius: 50%; opacity: 0;
+      background: radial-gradient(closest-side, rgba(255,238,205,0.22), transparent); }
+    .hxb-wallmark { position: absolute; left: 50%; top: 24%; transform: translateX(-50%); text-align: center; color: rgba(245,246,251,0.08); font-family: 'Cinzel', serif; font-size: clamp(1.6rem, 4.5vw, 4rem); letter-spacing: 0.4em; white-space: nowrap; }
+    .hxb-line { position: absolute; left: 3%; right: 3%; bottom: 25%; display: flex; align-items: flex-end; justify-content: center; gap: 1.6%; }
+    .hxb-craft { position: relative; flex: 0 0 auto; text-align: center; }
+    .hxb-craft img { display: block; width: 100%; height: auto; -webkit-box-reflect: below 1px linear-gradient(transparent 55%, rgba(255,255,255,0.16)); }
+    .hxb-craft span { position: absolute; left: 50%; top: calc(100% + 3.2vh); transform: translateX(-50%); white-space: nowrap;
+      font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(245,246,251,0.7); }
+    .hxb-craft span b { font-family: var(--serif); font-weight: 400; font-size: 1.3rem; letter-spacing: 0; text-transform: none; color: #F5F6FB; display: block; }
+    .hxb-copy { position: absolute; left: 0; right: 0; top: 19%; z-index: 3; display: flex; flex-direction: column; align-items: center; gap: 1rem; text-align: center; padding: 0 var(--gutter); }
+    .hxb-copy .hx-title { font-size: clamp(2.4rem, 4.8vw, 4.6rem); }
+    .hxb-more { position: absolute; left: 50%; bottom: 4.5%; transform: translateX(-50%); z-index: 3; white-space: nowrap; font-family: var(--label); font-size: 0.56rem; letter-spacing: 0.26em; text-transform: uppercase; color: rgba(245,246,251,0.55); }
+    .hxb-door { position: absolute; top: 0; bottom: 0; width: 50.5%; z-index: 5; overflow: hidden; will-change: transform;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.05), transparent 8%, transparent 92%, rgba(0,0,0,0.35)),
+        repeating-linear-gradient(180deg, transparent 0 calc(25% - 2px), rgba(0,0,0,0.35) calc(25% - 2px) 25%),
+        repeating-linear-gradient(90deg, #0C1347 0 14px, #121A56 14px 17px, #0A1040 17px 31px, #070D36 31px 34px); }
+    .hxb-door.l { left: 0; box-shadow: inset -10px 0 18px -8px rgba(0,0,0,0.6); }
+    .hxb-door.r { right: 0; box-shadow: inset 10px 0 18px -8px rgba(0,0,0,0.6); }
+    .hxb-paint { position: absolute; top: 0; bottom: 0; width: 100vw; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2.2vh; }
+    .hxb-door.l .hxb-paint { left: 0; }
+    .hxb-door.r .hxb-paint { right: 0; }
+    .hxb-paint img { height: clamp(48px, 9vh, 96px); filter: brightness(0) invert(1); opacity: 0.5; }
+    .hxb-paint b { font-family: 'Cinzel', serif; font-weight: 500; font-size: clamp(3rem, 12vw, 12rem); letter-spacing: 0.16em; line-height: 1; color: rgba(198,161,91,0.55); padding-left: 0.16em; }
+    .hxb-paint small { font-family: var(--mono); font-size: clamp(0.6rem, 0.9vw, 0.8rem); letter-spacing: 0.4em; text-transform: uppercase; color: rgba(245,246,251,0.45); }
+    .hxb-seam { position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; z-index: 4; transform: translateX(-50%);
+      background: linear-gradient(180deg, transparent, rgba(255,240,210,0.95) 30%, rgba(255,240,210,0.95) 70%, transparent); box-shadow: 0 0 40px 12px rgba(255,236,200,0.35); opacity: 0; }
+    .hxb-prompt { position: absolute; left: 50%; bottom: 2.2rem; transform: translateX(-50%); z-index: 6; }
+
+    /* ---------- C · Big type ---------- */
+    .hxc { position: relative; height: 240vh; }
+    .hxc-stick { position: sticky; top: 0; height: 100svh; min-height: 600px; overflow: hidden; background: var(--navy); }
+    .hxc-video { position: absolute; inset: 0; overflow: hidden; }
+    .hxc-video video { width: 100%; height: 100%; object-fit: cover; transform: scale(var(--vs, 1.22)); }
+    .hxc-video::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(5,10,48,0.2), transparent 40%, rgba(5,10,48,0.75)); opacity: var(--scrim, 0); }
+    .hxc-mask { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; will-change: transform; }
+    .hxc-mask text { font-family: 'Cinzel', serif; font-weight: 600; }
+    .hxc-craft { position: absolute; left: 0; top: 0; z-index: 3; height: clamp(70px, 13vh, 150px); will-change: transform; pointer-events: none; }
+    .hxc-craft img { height: 100%; width: auto; filter: drop-shadow(0 20px 26px rgba(3,6,31,0.5)); }
+    .hxc-top { position: absolute; left: var(--gutter); right: var(--gutter); top: calc(var(--hdr-h) + 1.5rem); z-index: 4; display: flex; justify-content: space-between; gap: 1rem; }
+    .hxc-copy { position: absolute; left: var(--gutter); right: var(--gutter); bottom: clamp(2.5rem, 9vh, 5rem); z-index: 4; display: flex; flex-direction: column; gap: 1.2rem; opacity: 0; transform: translateY(24px); }
+    .hxc-copy .hx-title { max-width: 14ch; }
+
+    /* ---------- Tweak Studio (page-level, same look as the homepage) ---------- */
+    .tweak-fab { position: fixed; bottom: 1.4rem; right: 1.4rem; z-index: 95; display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.72rem 1.2rem; border-radius: 999px;
+      background: rgba(5, 10, 48, 0.94); color: #F5F6FB; border: 1px solid rgba(198, 161, 91, 0.55); box-shadow: 0 14px 36px rgba(5, 10, 48, 0.35);
+      font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; backdrop-filter: blur(12px); transition: transform 0.25s ease, border-color 0.25s ease; }
+    .tweak-fab:hover { transform: translateY(-2px); border-color: var(--gold); }
+    .tweak-fab .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); }
+    .tweak-panel { --tp-line: rgba(255,255,255,0.1); --tp-dim: #8F94AB; position: fixed; top: 1rem; right: 1rem; width: min(360px, calc(100vw - 2rem)); max-height: calc(100vh - 2rem); z-index: 110;
+      background: rgba(7, 12, 42, 0.97); color: #EEF0F7; border: 1px solid rgba(198, 161, 91, 0.3); border-radius: 14px; backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45); overflow-y: auto; transform: translateX(calc(100% + 2rem)); transition: transform 0.4s var(--ease); font-family: 'Inter', sans-serif; font-size: 13px; }
+    .tweak-panel.open { transform: none; }
+    .tp-head { display: flex; justify-content: space-between; align-items: center; padding: 0.9rem 1.1rem; border-bottom: 1px solid var(--tp-line); }
+    .tp-head strong { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); font-weight: 500; }
+    .tp-close { font-size: 1.15rem; color: var(--tp-dim); padding: 0.15rem 0.45rem; border-radius: 6px; }
+    .tp-close:hover { color: #fff; background: rgba(255,255,255,0.08); }
+    .tp-group { padding: 0.95rem 1.1rem; border-bottom: 1px solid var(--tp-line); display: flex; flex-direction: column; gap: 0.75rem; }
+    .tp-group[hidden] { display: none; }
+    .tp-group h4 { font-size: 0.8rem; font-weight: 600; color: #fff; }
+    .tp-group h4 small { display: block; font-weight: 400; font-size: 0.72rem; color: var(--tp-dim); margin-top: 0.2rem; line-height: 1.45; }
+    .chip-group { display: flex; flex-wrap: wrap; gap: 4px; padding: 3px; background: rgba(255,255,255,0.04); border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); }
+    .chip { flex: 1; padding: 0.5rem 0.6rem; border-radius: 6px; color: var(--tp-dim); font-size: 0.74rem; font-weight: 500; text-align: center; transition: background 0.2s, color 0.2s; }
+    .chip:hover { color: #fff; background: rgba(255,255,255,0.06); }
+    .chip.active { color: #fff; background: rgba(198,161,91,0.22); box-shadow: inset 0 0 0 1px rgba(198,161,91,0.55); }
+    .hero-cards { display: grid; gap: 6px; }
+    .hero-cards .chip { text-align: left; padding: 0.65rem 0.75rem; display: flex; flex-direction: column; gap: 0.2rem; background: rgba(255,255,255,0.03); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08); }
+    .hero-cards .chip b { color: #fff; font-weight: 600; font-size: 0.78rem; }
+    .hero-cards .chip span { font-weight: 400; font-size: 0.7rem; line-height: 1.4; }
+    .hero-cards .chip.active { background: rgba(198,161,91,0.14); box-shadow: inset 0 0 0 1px rgba(198,161,91,0.55); }
+    .tp-range { display: flex; align-items: center; gap: 0.7rem; color: var(--tp-dim); font-size: 0.72rem; }
+    .tp-range input { flex: 1; accent-color: var(--gold); }
+    @media (max-width: 620px) {
+      .tweak-fab { bottom: 5.8rem; right: 0.8rem; padding: 0.55rem 0.9rem; font-size: 0.62rem; }
+      .hxb-line { flex-wrap: wrap; row-gap: 9vh; bottom: 20%; left: 6%; right: 6%; }
+      .hxb-craft { width: 44% !important; }
+      .hxb-craft span { font-size: 0.5rem; top: calc(100% + 1.4vh); }
+      .hxb-craft span b { font-size: 1.05rem; }
+      .hxb-copy { top: 15%; }
+      .hxb-more { white-space: normal; width: 88%; text-align: center; line-height: 1.8; }
+      .hxc-top .hx-sub { display: none; }
+    }
   </style>
 </head>
 <body>
@@ -276,19 +411,54 @@
   </header>
 
   <main>
-    <!-- 1. Intro -->
-    <section class="ct-intro surf-navy" data-theme="dark">
-      <div class="wrap ct-intro-in">
-        <div>
-          <p class="ct-kicker">The SkyPulse Fleet</p>
-          <h1>Seven aircraft types. <em>One lessor.</em></h1>
-          <p>Helicopters, turboprops and jets leased from GIFT City IFSC to India’s operators. Filter the fleet, tick up to three aircraft, and compare them side by side or on a real journey.</p>
+    <!-- 1. HERO — three directions, switched in Tweak Studio (A flypast · B hangar · C big type) -->
+    <section class="hx" id="hx" data-hero="a" data-theme="dark">
+
+      <!-- A · Flypast: the fleet crosses a dusk sky, then each aircraft flies down into its card -->
+      <div class="hxa" data-v="a">
+        <div class="hxa-sky" id="hxaSky" aria-hidden="true"></div>
+        <div class="hxa-copy">
+          <p class="hx-kicker">The SkyPulse Fleet</p>
+          <h1 class="hx-title">Seven aircraft types. <em>One lessor.</em></h1>
+          <p class="hx-sub">08 in service &nbsp;·&nbsp; 27 arriving &nbsp;·&nbsp; GIFT City IFSC</p>
         </div>
-        <div class="ct-stats">
-          <div class="ct-stat"><strong>08</strong><span>Aircraft<br/>in service</span></div>
-          <div class="ct-stat"><strong>27</strong><span>Arriving<br/>2026–27</span></div>
-          <div class="ct-stat"><strong>04</strong><span>Rotary<br/>types</span></div>
-          <div class="ct-stat"><strong>03</strong><span>Fixed-wing<br/>types</span></div>
+        <div class="hx-cue" aria-hidden="true"><span>Scroll</span><i></i></div>
+      </div>
+
+      <!-- B · Hangar: scroll slides the doors apart; the lights come up on the fleet -->
+      <div class="hxb" data-v="b">
+        <div class="hxb-stick">
+          <div class="hxb-in" id="hxbIn">
+            <div class="hxb-wall"><div class="hxb-truss"></div><div class="hxb-wallmark">HANGAR 01</div></div>
+            <div class="hxb-floor"></div>
+            <div id="hxbLights"></div>
+            <div class="hxb-line" id="hxbLine"></div>
+            <div class="hxb-copy" id="hxbCopy">
+              <p class="hx-kicker">The SkyPulse Fleet</p>
+              <h1 class="hx-title">Seven aircraft types. <em>One lessor.</em></h1>
+            </div>
+            <p class="hxb-more" id="hxbMore">Arriving 2026–27 &nbsp;·&nbsp; Airbus H125 &nbsp;·&nbsp; Robinson R44 &nbsp;·&nbsp; 25 × Tecnam P2010</p>
+          </div>
+          <div class="hxb-seam" id="hxbSeam"></div>
+          <div class="hxb-door l" id="hxbDoorL"><div class="hxb-paint"><img src="media/mark.png" alt="" /><b>SKYPULSE</b><small>Hangar 01 &nbsp;·&nbsp; GIFT City IFSC</small></div></div>
+          <div class="hxb-door r" id="hxbDoorR"><div class="hxb-paint"><img src="media/mark.png" alt="" /><b>SKYPULSE</b><small>Hangar 01 &nbsp;·&nbsp; GIFT City IFSC</small></div></div>
+          <div class="hx-cue hxb-prompt" id="hxbPrompt" aria-hidden="true"><span>Scroll to open the hangar</span><i></i></div>
+        </div>
+      </div>
+
+      <!-- C · Big type: the fleet flies inside the letters, then scroll dives through them into the film -->
+      <div class="hxc" data-v="c">
+        <div class="hxc-stick" id="hxcStick">
+          <div class="hxc-video" id="hxcVideo"><video muted loop playsinline preload="none" id="hxcVid"></video></div>
+          <svg class="hxc-mask" id="hxcMask" aria-hidden="true"></svg>
+          <div class="hxc-craft" id="hxcCraft" aria-hidden="true"><img src="assets/cutouts/hawker.png" alt="" /></div>
+          <div class="hxc-top" id="hxcTop"><span class="hx-kicker">The SkyPulse Fleet</span><span class="hx-sub">08 in service · 27 arriving</span></div>
+          <div class="hxc-copy" id="hxcCopy">
+            <p class="hx-kicker">The SkyPulse Fleet</p>
+            <h1 class="hx-title">Seven aircraft types. <em>One lessor.</em></h1>
+            <p class="hx-sub">Helicopters, turboprops and jets &nbsp;·&nbsp; leased from GIFT City IFSC</p>
+          </div>
+          <div class="hx-cue" id="hxcCue" aria-hidden="true"><span>Scroll</span><i></i></div>
         </div>
       </div>
     </section>
@@ -724,6 +894,272 @@
     new MutationObserver(syncBar).observe(header, { attributes: true, attributeFilter: ['class'] });
     syncBar();
     if (location.hash === '#compare') requestAnimationFrame(() => cmpSec.scrollIntoView());
+  })();
+  </script>
+  <!-- Tweak Studio: hero direction -->
+  <button class="tweak-fab" id="openTweak" aria-label="Open Tweak Studio"><span class="dot"></span> Tweak Studio</button>
+  <aside class="tweak-panel" id="tweakPanel" aria-label="Tweak Studio">
+    <div class="tp-head"><strong>Fleet · Tweak Studio</strong><button class="tp-close" id="closeTweak" aria-label="Close">&times;</button></div>
+    <div class="tp-group">
+      <h4>Hero<small>Three directions for the top of the Fleet page.</small></h4>
+      <div class="hero-cards" data-k="hero">
+        <button type="button" class="chip" data-val="a"><b>A · Flypast</b><span>The fleet crosses a dusk sky. Scroll and each aircraft flies down into its card.</span></button>
+        <button type="button" class="chip" data-val="b"><b>B · Hangar</b><span>Scroll slides the hangar doors apart and the lights come up on the fleet.</span></button>
+        <button type="button" class="chip" data-val="c"><b>C · Big type</b><span>A film plays inside giant letters, then scroll dives through them.</span></button>
+      </div>
+    </div>
+    <div class="tp-group" data-for="a">
+      <h4>Flypast</h4>
+      <label class="tp-range">Speed <input type="range" min="0.5" max="2" step="0.1" data-k="speed" /> <span data-out="speed"></span></label>
+      <div class="chip-group" data-k="handoff"><button type="button" class="chip" data-val="on">Fly into cards</button><button type="button" class="chip" data-val="off">Stay in the sky</button></div>
+    </div>
+    <div class="tp-group" data-for="b">
+      <h4>Hangar</h4>
+      <div class="chip-group" data-k="autoOpen"><button type="button" class="chip" data-val="off">Opens on scroll</button><button type="button" class="chip" data-val="on">Opens by itself</button></div>
+    </div>
+    <div class="tp-group" data-for="c">
+      <h4>Big type</h4>
+      <div class="chip-group" data-k="word"><button type="button" class="chip" data-val="FLEET">FLEET</button><button type="button" class="chip" data-val="SKYPULSE">SKYPULSE</button></div>
+      <div class="chip-group" data-k="film"><button type="button" class="chip" data-val="h130">H130 lift-off</button><button type="button" class="chip" data-val="sky">Blue sky</button></div>
+    </div>
+  </aside>
+
+  <script>
+  (() => {
+    const { FLEET } = window.SKY_FLEET;
+    const byKey = Object.fromEntries(FLEET.map(a => [a.key, a]));
+    const hx = document.getElementById('hx');
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+    const ss = (a, b, v) => { const t = clamp((v - a) / (b - a)); return t * t * (3 - 2 * t); };
+    const lerp = (a, b, t) => a + (b - a) * t;
+    const ease = t => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+    /* ---------- settings (per browser, plus ?hero= in the link) ---------- */
+    const KEY = 'skypulse-fleet-hero-v1';
+    const DEF = { hero: 'a', speed: 1, handoff: 'on', autoOpen: 'off', word: 'FLEET', film: 'h130' };
+    let saved = {}; try { saved = JSON.parse(localStorage.getItem(KEY)) || {}; } catch {}
+    const S = { ...DEF, ...saved };
+    const qh = new URLSearchParams(location.search).get('hero');
+    if (['a', 'b', 'c'].includes(qh)) S.hero = qh;
+    const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch {} };
+
+    /* ================= A · Flypast ================= */
+    const hxa = hx.querySelector('.hxa');
+    document.getElementById('hxaSky').innerHTML = Array.from({ length: 8 }, (_, i) => {
+      const top = [8, 22, 35, 52, 64, 74, 15, 46][i], w = [38, 26, 44, 30, 50, 34, 22, 28][i], h = [12, 9, 14, 10, 16, 11, 8, 9][i];
+      const dur = [140, 110, 170, 125, 190, 150, 100, 135][i];
+      return `<i class="hxa-cloud" style="top:${top}%;width:${w}vw;height:${h}vh;animation-duration:${dur}s;animation-delay:-${(i * 37) % dur}s;opacity:${0.5 + (i % 3) * 0.2}"></i>`;
+    }).join('');
+    const LANES = [
+      { k: 'hawker', y: 0.2, hv: 5.5, dir: -1, dur: 30, phase: 0.18, layer: 'back' },
+      { k: 'p2010', y: 0.44, hv: 8, dir: 1, dur: 38, phase: 0.22, layer: 'back' },
+      { k: 'aw109', y: 0.3, hv: 12, dir: -1, dur: 46, phase: 0.58, layer: 'front' },
+      { k: 'kingair', y: 0.69, hv: 10, dir: 1, dur: 40, phase: 0.72, layer: 'front' },
+      { k: 'h130', y: 0.81, hv: 15, dir: 1, dur: 54, phase: 0.36, layer: 'front' }
+    ];
+    const layers = { back: document.createElement('div'), front: document.createElement('div') };
+    Object.entries(layers).forEach(([n, el]) => { el.className = 'hxa-layer ' + n; el.setAttribute('aria-hidden', 'true'); document.body.appendChild(el); });
+    const crafts = LANES.map(l => {
+      const a = byKey[l.k];
+      const el = document.createElement('div');
+      el.className = 'hxa-craft';
+      el.innerHTML = `<img src="${a.cut}" alt="" />${l.layer === 'front' ? `<span class="hxa-tag"><small>${a.maker}</small>${a.name}</span>` : ''}`;
+      if (l.layer === 'back') el.style.filter = 'saturate(0.8) brightness(0.85)';
+      layers[l.layer].appendChild(el);
+      const target = document.querySelector(`.ct-card[data-key="${l.k}"] .ct-plane img`);
+      if (target) { target.loading = 'eager'; target.classList.add('is-landing'); }
+      return { ...l, a, el, img: el.querySelector('img'), tag: el.querySelector('.hxa-tag') || { style: {} }, target, w: 0, h: 0 };
+    });
+    function measureA() {
+      crafts.forEach(c => {
+        c.h = Math.max(36, Math.min(innerHeight * c.hv / 100, innerWidth * c.hv / 100 * 0.9));
+        c.el.style.height = c.h + 'px';
+        const r = c.img.naturalWidth / c.img.naturalHeight || 2.5;
+        c.w = r * c.h;
+      });
+    }
+    crafts.forEach(c => c.img.complete ? measureA() : c.img.addEventListener('load', measureA, { once: true }));
+    let clock = 0;
+    function frameA(dt) {
+      const y = scrollY, W = innerWidth, heroH = hxa.offsetHeight;
+      const cat = document.getElementById('catalogue');
+      const S1 = Math.max(1, cat.getBoundingClientRect().top + y - 96);
+      const p = clamp(y / S1), e = ease(p);
+      const handoff = S.handoff === 'on';
+      if (p <= 0.0005 && !reduced) clock += dt * S.speed;
+      crafts.forEach(c => {
+        const span = W + c.w;
+        const d = (((clock / c.dur) + c.phase) % 1) * span;
+        let x = c.dir > 0 ? -c.w + d : W - d;
+        let yy = c.y * heroH - c.h / 2 - y, sc = 1, op = 1;
+        if (handoff && p > 0 && c.target) {
+          const r = c.target.getBoundingClientRect();
+          if (r.width > 0) { x = lerp(x, r.left, e); yy = lerp(yy, r.top, e); sc = lerp(1, r.width / c.w, e); }
+          else op = 1 - e;
+        }
+        c.el.style.transform = `translate3d(${x.toFixed(1)}px, ${yy.toFixed(1)}px, 0) scale(${sc.toFixed(4)})`;
+        c.el.style.opacity = op;
+        const mid = 1 - Math.abs((x + c.w / 2) / W - 0.5) * 2;
+        c.tag.style.opacity = p > 0 ? clamp(1 - e * 5) : ss(0.2, 0.6, mid);
+      });
+      const landed = handoff ? p >= 1 : y > heroH;
+      layers.back.hidden = layers.front.hidden = landed;
+      document.body.classList.toggle('hxa-landing', handoff && !landed);
+    }
+
+    /* ================= B · Hangar ================= */
+    const hxb = hx.querySelector('.hxb');
+    const PARK = [['kingair', 13.4], ['h130', 12.6], ['aw109', 13.0], ['hawker', 14.8]];
+    const sumL = PARK.reduce((s, [, l]) => s + l, 0);
+    const lineB = document.getElementById('hxbLine');
+    lineB.innerHTML = PARK.map(([k, l]) => { const a = byKey[k]; return `<div class="hxb-craft" style="width:${(l / sumL * 86).toFixed(2)}%"><img src="${a.cut}" alt="${a.full}" loading="lazy" /><span><b>${a.name}</b>${a.maker}</span></div>`; }).join('');
+    lineB.style.maxWidth = '1240px'; lineB.style.margin = '0 auto';
+    const LAMPS = [0.2, 0.4, 0.6, 0.8];
+    document.getElementById('hxbLights').innerHTML = LAMPS.map(x => `<i class="hxb-cone" style="left:${x * 100}%"></i><i class="hxb-pool" style="left:${x * 100}%"></i><i class="hxb-lamp" style="left:${x * 100}%"></i>`).join('');
+    const bEls = {
+      inner: document.getElementById('hxbIn'), l: document.getElementById('hxbDoorL'), r: document.getElementById('hxbDoorR'),
+      seam: document.getElementById('hxbSeam'), copy: document.getElementById('hxbCopy'), more: document.getElementById('hxbMore'),
+      prompt: document.getElementById('hxbPrompt'), mark: document.querySelector('.hxb-wallmark'), crafts: [...lineB.querySelectorAll('img')],
+      lamps: [...document.querySelectorAll('.hxb-lamp')], cones: [...document.querySelectorAll('.hxb-cone')], pools: [...document.querySelectorAll('.hxb-pool')]
+    };
+    let bAuto = 0, bAutoStart = null;
+    function frameB(now) {
+      const box = hxb.getBoundingClientRect();
+      let p = clamp(-box.top / (box.height - innerHeight));
+      if (S.autoOpen === 'on') {
+        if (bAutoStart === null) bAutoStart = now + 1200;
+        bAuto = reduced ? 0.62 : clamp((now - bAutoStart) / 3400) * 0.62;
+        p = Math.max(p, ease(bAuto / 0.62) * 0.62);
+      }
+      const open = Math.max(0.012, ss(0.04, 0.5, p));
+      bEls.l.style.transform = `translateX(${(-open * 101).toFixed(2)}%)`;
+      bEls.r.style.transform = `translateX(${(open * 101).toFixed(2)}%)`;
+      const breathe = reduced ? 0.5 : 0.45 + 0.25 * Math.sin(now / 700);
+      bEls.seam.style.opacity = open < 0.05 ? breathe : clamp(1 - (open - 0.05) * 4) * 0.8;
+      bEls.lamps.forEach((el, i) => {
+        const v = ss(0.14 + i * 0.07, 0.3 + i * 0.07, p);
+        el.style.opacity = 0.08 + 0.92 * v; bEls.cones[i].style.opacity = v; bEls.pools[i].style.opacity = v;
+      });
+      const lit = ss(0.18, 0.58, p);
+      bEls.crafts.forEach(img => img.style.filter = `brightness(${(0.22 + 0.78 * lit).toFixed(3)})`);
+      bEls.inner.style.transform = `scale(${(1.1 - 0.1 * ss(0, 0.9, p)).toFixed(4)})`;
+      const cv = ss(0.46, 0.7, p);
+      bEls.copy.style.opacity = cv; bEls.copy.style.transform = `translateY(${(1 - cv) * 20}px)`;
+      bEls.more.style.opacity = ss(0.6, 0.8, p);
+      bEls.mark.style.opacity = 1 - ss(0.4, 0.6, p);
+      bEls.prompt.style.opacity = 1 - ss(0, 0.08, p);
+    }
+
+    /* ================= C · Big type ================= */
+    const hxc = hx.querySelector('.hxc');
+    const stickC = document.getElementById('hxcStick');
+    const svg = document.getElementById('hxcMask');
+    const vid = document.getElementById('hxcVid');
+    const craftC = document.getElementById('hxcCraft');
+    const cEls = { copy: document.getElementById('hxcCopy'), top: document.getElementById('hxcTop'), cue: document.getElementById('hxcCue'), video: document.getElementById('hxcVideo') };
+    const FILMS = { h130: { src: 'videos/h130-ses-liftoff.mp4', vs: 1.22 }, sky: { src: 'media/stock-sky.mp4', vs: 1 } };
+    let origin = [0, 0];
+    function layoutC() {
+      const W = stickC.clientWidth, H = stickC.clientHeight;
+      svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+      svg.innerHTML = `<defs><mask id="hxcM" maskUnits="userSpaceOnUse" x="0" y="0" width="${W}" height="${H}"><rect width="${W}" height="${H}" fill="#fff"/><text id="hxcWord" x="${W / 2}" y="${H / 2}" text-anchor="middle" dominant-baseline="central" fill="#000" letter-spacing="0.04em">${S.word}</text></mask></defs><rect width="${W}" height="${H}" fill="#050A30" mask="url(#hxcM)"/>`;
+      const t = svg.querySelector('#hxcWord');
+      let f = H * 0.5; t.setAttribute('font-size', f);
+      const bb = t.getBBox();
+      f = Math.min(f * (W * 0.9) / bb.width, H * 0.62 / 0.72);
+      t.setAttribute('font-size', f.toFixed(1));
+      // Dive point: the middle of the first solid stroke of the centre letter, found by drawing the word on a canvas
+      const idx = Math.floor(S.word.length / 2);
+      const ex = t.getExtentOfChar(idx);
+      origin = [ex.x + ex.width * 0.2, ex.y + ex.height * 0.5];
+      try {
+        const cv = document.createElement('canvas'); cv.width = W; cv.height = H;
+        const ctx = cv.getContext('2d');
+        ctx.font = `600 ${f}px Cinzel`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        if ('letterSpacing' in ctx) ctx.letterSpacing = (f * 0.04) + 'px';
+        ctx.fillText(S.word, W / 2, H / 2);
+        const yy = Math.round(ex.y + ex.height * 0.32);
+        const row = ctx.getImageData(0, yy, W, 1).data;
+        let a0 = -1;
+        for (let x = Math.max(0, Math.floor(ex.x - ex.width * 0.1)); x < Math.min(W, ex.x + ex.width * 1.1); x++) {
+          const on = row[x * 4 + 3] > 128;
+          if (on && a0 < 0) a0 = x;
+          if (!on && a0 >= 0) { if (x - a0 > 3) { origin = [(a0 + x) / 2, yy]; break; } a0 = -1; }
+        }
+      } catch (e) {}
+      svg.style.transformOrigin = `${origin[0]}px ${origin[1]}px`;
+    }
+    function setFilm() {
+      const f = FILMS[S.film];
+      if (!vid.src.endsWith(f.src.replace('../', ''))) { vid.src = f.src; }
+      cEls.video.style.setProperty('--vs', f.vs);
+      vid.playbackRate = 0.75;
+    }
+    let cClock = 0;
+    function frameC(dt) {
+      const box = hxc.getBoundingClientRect();
+      const p = clamp(-box.top / (box.height - innerHeight));
+      const z = ss(0.04, 0.62, p);
+      const s = 1 + Math.pow(z, 2.6) * 70;
+      svg.style.transform = `scale(${s.toFixed(3)})`;
+      svg.style.opacity = z > 0.97 ? 0 : 1;
+      cEls.video.style.setProperty('--scrim', ss(0.5, 0.75, p).toFixed(3));
+      const cv = ss(0.58, 0.8, p);
+      cEls.copy.style.opacity = cv; cEls.copy.style.transform = `translateY(${(1 - cv) * 24}px)`;
+      cEls.top.style.opacity = cEls.cue.style.opacity = 1 - ss(0, 0.12, p);
+      if (!reduced) cClock += dt;
+      const W = stickC.clientWidth, H = stickC.clientHeight, cw = craftC.offsetWidth || 300, ch = craftC.offsetHeight;
+      const x = W - ((cClock / 24) % 1) * (W + cw * 1.2);
+      const y = H * 0.6 - ch / 2 + Math.sin(cClock * 0.7) * 6;
+      craftC.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0)`;
+      craftC.style.opacity = 1 - ss(0.02, 0.2, p);
+    }
+
+    /* ================= one loop for whichever hero is on ================= */
+    let last = performance.now();
+    function tick(now) {
+      const dt = Math.min(0.1, (now - last) / 1000); last = now;
+      if (S.hero === 'a') frameA(dt);
+      else if (S.hero === 'b') frameB(now);
+      else frameC(dt);
+      requestAnimationFrame(tick);
+    }
+
+    /* ================= Tweak Studio ================= */
+    const panel = document.getElementById('tweakPanel');
+    document.getElementById('openTweak').addEventListener('click', () => panel.classList.add('open'));
+    document.getElementById('closeTweak').addEventListener('click', () => panel.classList.remove('open'));
+    function apply(changed) {
+      hx.dataset.hero = S.hero;
+      panel.querySelectorAll('[data-k]').forEach(g => {
+        const k = g.dataset.k;
+        if (g.tagName === 'INPUT') { g.value = S[k]; panel.querySelector(`[data-out="${k}"]`).textContent = (+S[k]).toFixed(1) + '×'; }
+        else g.querySelectorAll('.chip').forEach(c => c.classList.toggle('active', c.dataset.val === String(S[k])));
+      });
+      panel.querySelectorAll('[data-for]').forEach(g => g.hidden = g.dataset.for !== S.hero);
+      const isA = S.hero === 'a';
+      layers.back.hidden = layers.front.hidden = !isA;
+      if (!isA) document.body.classList.remove('hxa-landing');
+      crafts.forEach(c => c.target && c.target.classList.toggle('is-landing', isA));
+      if (S.hero === 'c') { setFilm(); layoutC(); vid.play().catch(() => {}); } else vid.pause();
+      if (changed === 'hero') { bAutoStart = null; scrollTo({ top: 0, behavior: 'auto' }); }
+      if (changed === 'autoOpen') bAutoStart = null;
+      const q = new URLSearchParams(location.search); q.set('hero', S.hero);
+      history.replaceState(null, '', location.pathname + '?' + q + location.hash);
+      save();
+    }
+    panel.addEventListener('click', e => {
+      const c = e.target.closest('.chip'); if (!c) return;
+      const k = c.closest('[data-k]').dataset.k;
+      S[k] = c.dataset.val; apply(k);
+    });
+    panel.querySelector('input[data-k="speed"]').addEventListener('input', e => { S.speed = +e.target.value; apply('speed'); });
+    window.addEventListener('resize', () => { measureA(); if (S.hero === 'c') layoutC(); });
+    (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => { if (S.hero === 'c') layoutC(); });
+
+    apply();
+    requestAnimationFrame(tick);
   })();
   </script>
 </body>

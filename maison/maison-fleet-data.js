@@ -32,10 +32,9 @@
         { src: A + 'aw109-hax.jpg', alt: 'AW109 VT-HAX outside the hangar', pos: 'center 65%' },
         { src: A + 'aw109-hgx.jpg', alt: 'AW109 VT-HGX in profile', pos: 'center 78%' }
       ],
-      video: 'videos/aw109-hax-liftoff.mp4',
+      video: 'videos/vt-hgx-tour.mp4',
       films: [
-        { src: 'videos/vt-hgx-tour.mp4', label: 'Cabin tour', poster: A + 'aw109-hgx.jpg', pos: 'center 78%' },
-        { src: 'videos/aw109-hax-liftoff.mp4', label: 'Lift-off', poster: A + 'aw109-hax.jpg', pos: 'center 65%' }
+        { src: 'videos/vt-hgx-tour.mp4', label: 'Cabin tour', poster: A + 'aw109-hgx.jpg', pos: 'center 78%' }
       ],
       layout: 'assets/vt-hgx/vt-hgx-seating.png', layoutOwn: true,
       seats: 6, crew: 2, cruise: 289, range: 860,
