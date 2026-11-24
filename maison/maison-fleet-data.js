@@ -17,7 +17,7 @@
 
   const FLEET = [
     {
-      key: 'aw109', cat: 'rotary', status: 'service',
+      key: 'aw109', cut: 'assets/cutouts/aw109.png', cat: 'rotary', status: 'service',
       maker: 'Leonardo', name: 'AW109', full: 'Leonardo AW109S Grand',
       klass: 'Twin-engine light helicopter',
       line: 'A twin-engine executive helicopter with a cream leather club cabin.',
@@ -53,7 +53,7 @@
       missions: ['vip', 'corporate', 'shuttle', 'ems', 'sar']
     },
     {
-      key: 'h130', cat: 'rotary', status: 'service',
+      key: 'h130', cut: 'assets/cutouts/h130.png', cat: 'rotary', status: 'service',
       maker: 'Airbus', name: 'H130', full: 'Airbus H130 T2',
       klass: 'Single-engine light helicopter',
       line: 'Four airframes with a wide panoramic cabin and a quiet Fenestron tail.',
@@ -89,7 +89,7 @@
       missions: ['vip', 'shuttle', 'pilgrimage', 'ems']
     },
     {
-      key: 'kingair', cat: 'fixed', status: 'service',
+      key: 'kingair', cut: 'assets/cutouts/kingair.png', cutCredit: 'Photo: Paul Seymour / AirHistory.net', cat: 'fixed', status: 'service',
       maker: 'Beechcraft', name: 'King Air', full: 'Beechcraft King Air B200',
       klass: 'Twin-turboprop',
       line: 'A pressurised twin-turboprop for short runways and regional airports.',
@@ -114,7 +114,7 @@
       missions: ['vip', 'corporate', 'ems']
     },
     {
-      key: 'hawker', cat: 'fixed', status: 'service',
+      key: 'hawker', cut: 'assets/cutouts/hawker.png', cat: 'fixed', status: 'service',
       maker: 'Hawker', name: 'Hawker 400', full: 'Hawker 400XP',
       klass: 'Light business jet',
       line: 'A light business jet: fast, flat-floored and built for city pairs.',
@@ -183,7 +183,7 @@
       missions: ['training']
     },
     {
-      key: 'p2010', cat: 'fixed', status: 'arriving', when: '2026–27', count: 25,
+      key: 'p2010', cut: 'assets/cutouts/p2010.png', cat: 'fixed', status: 'arriving', when: '2026–27', count: 25,
       maker: 'Tecnam', name: 'P2010', full: 'Tecnam P2010',
       klass: 'Four-seat training aircraft',
       line: 'Twenty-five glass-cockpit trainers for India’s flying schools.',

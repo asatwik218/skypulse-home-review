@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="robots" content="noindex, nofollow" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Fleet (Catalogue) — SkyPulse Solutions IFSC</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=IBM+Plex+Mono:wght@300;400;500&family=Inter:wght@300;400;500&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="maison-sub.css" />
+  <style>
+    :root { --card: #F5F6FB; --card-ink: #050A30; --card-muted: #4A5172; --card-rule: rgba(5, 10, 48, 0.1); }
+
+    /* ---------- 1. Intro ---------- */
+    .ct-intro { padding: calc(var(--hdr-h) + clamp(2.5rem, 7vh, 4.5rem)) var(--gutter) clamp(2.5rem, 6vh, 4rem); }
+    .ct-intro-in { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: clamp(2rem, 5vw, 6rem); align-items: end; }
+    .ct-kicker { font-family: var(--label); font-size: 0.66rem; letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.2rem; }
+    .ct-intro h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(2.6rem, 4.8vw, 4.6rem); line-height: 1; letter-spacing: var(--display-track); }
+    .ct-intro h1 em { font-style: italic; color: var(--gold); }
+    .ct-intro p { margin-top: 1.4rem; max-width: 46ch; font-size: 1rem; line-height: 1.75; font-weight: 300; color: var(--on-navy-muted); }
+    .ct-stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid var(--rule-navy); }
+    .ct-stat { padding: 1.1rem 0; border-bottom: 1px solid var(--rule-navy); display: flex; align-items: baseline; gap: 0.9rem; }
+    .ct-stat:nth-child(even) { padding-left: 1.4rem; border-left: 1px solid var(--rule-navy); }
+    .ct-stat strong { font-family: var(--serif); font-weight: 400; font-size: 2.4rem; line-height: 1; color: var(--on-navy); }
+    .ct-stat span { font-family: var(--label); font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--on-navy-muted); line-height: 1.6; }
+
+    /* ---------- 2. Filter bar ---------- */
+    .ct-filters {
+      position: sticky; top: var(--bar-top, 0px); z-index: 60; transition: top 0.45s var(--ease);
+      background: rgba(172, 175, 190, 0.96); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--surf-rule);
+    }
+    .ct-filters-in { max-width: calc(1360px + 2 * var(--gutter)); margin: 0 auto; padding: 0.75rem var(--gutter); display: flex; align-items: center; flex-wrap: wrap; gap: 0.75rem 1.4rem; }
+    .ct-fgroup { display: flex; align-items: center; gap: 0.6rem; }
+    .ct-flabel { font-family: var(--label); font-size: 0.56rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--surf-muted); }
+    .ct-seg { display: inline-flex; gap: 0.2rem; padding: 0.2rem; border: 1px solid var(--surf-rule); border-radius: 999px; }
+    .ct-seg button {
+      padding: 0.42rem 0.85rem; border-radius: 999px; font-family: var(--label); font-size: 0.6rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--surf-muted); transition: background 0.25s ease, color 0.25s ease;
+    }
+    .ct-seg button:hover { color: var(--surf-fg); }
+    .ct-seg button[aria-pressed="true"] { background: var(--surf-fg); color: var(--surf-bg); }
+    .ct-select {
+      appearance: none; -webkit-appearance: none; font-family: var(--label); font-size: 0.6rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--surf-fg); background: transparent; border: 1px solid var(--surf-rule); border-radius: 999px; padding: 0.55rem 2rem 0.55rem 0.95rem; cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23050A30' stroke-width='1.2'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-size: 9px; background-position: right 0.85rem center;
+    }
+    .ct-count { margin-left: auto; font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.08em; color: var(--surf-muted); }
+    .ct-reset { font-family: var(--label); font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--surf-accent); text-decoration: underline; text-underline-offset: 3px; }
+    .ct-reset[hidden] { display: none; }
+
+    /* ---------- 3. Catalogue grid ---------- */
+    .ct-cat { padding: clamp(2rem, 4vw, 3rem) var(--gutter) var(--sec-pad); }
+    .ct-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(0.8rem, 1.4vw, 1.25rem); }
+    .ct-card {
+      position: relative; display: flex; flex-direction: column; background: var(--card); color: var(--card-ink);
+      padding: 1.25rem 1.35rem 1.15rem; box-shadow: 0 1px 0 rgba(5,10,48,0.06), 0 18px 40px -28px rgba(5,10,48,0.45);
+      transition: transform 0.6s var(--ease), box-shadow 0.6s var(--ease), opacity 0.4s ease;
+    }
+    .ct-card:hover { transform: translateY(-4px); box-shadow: 0 1px 0 rgba(5,10,48,0.06), 0 28px 50px -30px rgba(5,10,48,0.55); }
+    .ct-card[hidden] { display: none; }
+    .ct-card.is-picked { box-shadow: inset 0 0 0 1px var(--gold-deep), 0 18px 40px -28px rgba(5,10,48,0.45); }
+    .ct-card-top { display: flex; justify-content: space-between; align-items: center; gap: 0.6rem; }
+    .ct-card-top .status-dot { --surf-muted: var(--card-muted); --surf-accent: var(--gold-deep); font-size: 0.54rem; }
+    .ct-cat-tag { font-family: var(--label); font-size: 0.54rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--card-muted); }
+    .ct-name { text-align: center; margin-top: 1.4rem; }
+    .ct-name small { display: block; font-family: var(--label); font-size: 0.58rem; letter-spacing: 0.32em; text-transform: uppercase; color: var(--card-muted); margin-bottom: 0.45rem; }
+    .ct-name b { font-family: var(--serif); font-weight: 400; font-size: clamp(1.8rem, 2.3vw, 2.2rem); line-height: 1; letter-spacing: 0.01em; }
+    .ct-plane { position: relative; height: clamp(130px, 11vw, 168px); margin: 0.6rem -0.4rem 0.4rem; display: grid; place-items: center; }
+    .ct-plane img { max-width: 100%; max-height: 100%; object-fit: contain; position: relative; z-index: 1; transition: transform 0.9s var(--ease); }
+    .ct-card:hover .ct-plane img { transform: translateX(8px) scale(1.03); }
+    .ct-plane::after { content: ''; position: absolute; left: 18%; right: 18%; bottom: 8%; height: 12px; border-radius: 50%; background: radial-gradient(closest-side, rgba(5,10,48,0.18), transparent); }
+    .ct-plane svg { width: 70%; height: auto; fill: none; stroke: var(--gold-deep); stroke-width: 0.9; position: relative; z-index: 1; }
+    .ct-plane .ct-soon { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold-deep); white-space: nowrap; z-index: 1; }
+    .ct-credit { position: absolute; right: 0.4rem; bottom: -0.2rem; font-family: var(--mono); font-size: 0.5rem; color: var(--card-muted); opacity: 0.8; z-index: 1; }
+    .ct-specs { list-style: none; }
+    .ct-specs li { display: grid; grid-template-columns: 1.6rem minmax(0, 1fr); align-items: center; gap: 0.7rem; padding: 0.62rem 0; border-top: 1px solid var(--card-rule); font-size: 0.84rem; color: var(--card-ink); }
+    .ct-specs svg { width: 20px; height: 20px; fill: none; stroke: var(--card-muted); stroke-width: 1.2; stroke-linecap: round; stroke-linejoin: round; }
+    .ct-specs span i { font-style: normal; color: var(--card-muted); }
+    .ct-desc { margin: 0.75rem 0 1.1rem; font-size: 0.84rem; line-height: 1.65; color: var(--card-muted); }
+    .ct-foot { margin-top: auto; display: flex; justify-content: space-between; align-items: center; gap: 0.6rem; padding-top: 0.95rem; border-top: 1px solid var(--card-rule); }
+    .ct-pick { display: inline-flex; align-items: center; gap: 0.55rem; font-family: var(--label); font-size: 0.58rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--card-ink); }
+    .ct-pick i { width: 14px; height: 14px; border: 1px solid var(--card-muted); display: grid; place-items: center; transition: background 0.2s ease, border-color 0.2s ease; }
+    .ct-pick[aria-pressed="true"] i { background: var(--card-ink); border-color: var(--card-ink); }
+    .ct-pick[aria-pressed="true"] i::after { content: ''; width: 7px; height: 4px; border-left: 1.4px solid #F5F6FB; border-bottom: 1.4px solid #F5F6FB; transform: rotate(-45deg) translate(1px, -1px); }
+    .ct-pick[aria-disabled="true"] { opacity: 0.4; cursor: not-allowed; }
+    .ct-more { font-family: var(--label); font-size: 0.58rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold-deep); display: inline-flex; gap: 0.45rem; }
+    .ct-more span { transition: transform 0.35s var(--ease); }
+    .ct-more:hover span { transform: translateX(4px); }
+    .ct-card-link { position: absolute; inset: 0; z-index: 0; }
+    .ct-card > *:not(.ct-card-link) { position: relative; z-index: 1; }
+    .ct-card .ct-plane { z-index: 0; pointer-events: none; }
+
+    /* the empty 8th slot explains compare */
+    .ct-hint { display: flex; flex-direction: column; justify-content: center; gap: 1rem; padding: 1.6rem; border: 1px dashed var(--surf-rule); color: var(--surf-fg); }
+    .ct-hint[hidden] { display: none; }
+    .ct-hint b { font-family: var(--serif); font-weight: 400; font-size: 1.7rem; line-height: 1.1; }
+    .ct-hint b em { font-style: italic; color: var(--surf-accent); }
+    .ct-hint p { font-size: 0.86rem; line-height: 1.65; color: var(--surf-muted); }
+    .ct-empty { grid-column: 1 / -1; padding: 3rem 0; text-align: center; font-family: var(--serif); font-size: 1.6rem; }
+    .ct-empty[hidden] { display: none; }
+
+    /* ---------- Compare tray ---------- */
+    .ct-tray {
+      position: fixed; left: 50%; bottom: 1.2rem; z-index: 80; transform: translate(-50%, 140%);
+      display: flex; align-items: center; gap: 0.8rem; padding: 0.55rem 0.55rem 0.55rem 1.1rem;
+      background: rgba(5, 10, 48, 0.96); color: var(--on-navy); box-shadow: 0 24px 60px -20px rgba(5,10,48,0.6);
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      transition: transform 0.6s var(--ease); max-width: calc(100vw - 1.5rem);
+    }
+    .ct-tray.is-on { transform: translate(-50%, 0); }
+    .ct-tray-label { font-family: var(--label); font-size: 0.56rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--on-navy-muted); white-space: nowrap; }
+    .ct-slots { display: flex; gap: 0.4rem; }
+    .ct-slot { position: relative; width: 136px; height: 52px; display: flex; align-items: center; gap: 0.5rem; padding: 0 0.5rem; border: 1px dashed rgba(245,246,251,0.22); }
+    .ct-slot.is-full { border: 1px solid rgba(245,246,251,0.16); background: rgba(245,246,251,0.05); }
+    .ct-slot img { width: 44px; height: 30px; object-fit: contain; background: var(--card); padding: 2px; }
+    .ct-slot .mini-draw { width: 44px; height: 30px; background: var(--card); display: grid; place-items: center; }
+    .ct-slot .mini-draw svg { width: 80%; fill: none; stroke: var(--gold-deep); stroke-width: 1.2; }
+    .ct-slot span { font-family: var(--serif); font-size: 0.95rem; line-height: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .ct-slot em { font-style: normal; font-family: var(--label); font-size: 0.5rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(245,246,251,0.45); margin: auto; }
+    .ct-slot button { position: absolute; top: -7px; right: -7px; width: 18px; height: 18px; border-radius: 50%; background: var(--on-navy); color: var(--navy); font-size: 12px; line-height: 18px; text-align: center; }
+    .ct-go { padding: 0 1.2rem; height: 52px; background: var(--gold); color: var(--navy); font-family: var(--label); font-size: 0.6rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; white-space: nowrap; transition: opacity 0.3s; }
+    .ct-go[disabled] { opacity: 0.35; cursor: not-allowed; }
+
+    /* ---------- 4. Compare ---------- */
+    .cmp { padding: var(--sec-pad) var(--gutter); scroll-margin-top: 0; }
+    .cmp-head { display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 1.2rem; margin-bottom: clamp(1.8rem, 4vh, 2.8rem); }
+    .cmp-head h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(2.2rem, 4vw, 3.6rem); line-height: 1; }
+    .cmp-head h2 em { font-style: italic; color: var(--gold); }
+    .cmp-head p { margin-top: 0.8rem; font-size: 0.95rem; line-height: 1.7; font-weight: 300; color: var(--on-navy-muted); max-width: 52ch; }
+    .cmp-switch { display: inline-flex; gap: 0.2rem; padding: 0.25rem; border: 1px solid var(--rule-navy); border-radius: 999px; }
+    .cmp-switch button { padding: 0.6rem 1.15rem; border-radius: 999px; font-family: var(--label); font-size: 0.6rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--on-navy-muted); transition: background 0.25s, color 0.25s; }
+    .cmp-switch button[aria-pressed="true"] { background: var(--gold); color: var(--navy); }
+    .cmp-view[hidden] { display: none; }
+    .sbs-swipe { display: none; font-family: var(--label); font-size: 0.56rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--on-navy-muted); margin-bottom: 0.6rem; }
+
+    /* Direction 1: side by side */
+    .sbs { --cols: 220px repeat(3, minmax(0, 1fr)); }
+    .sbs-heads { display: grid; grid-template-columns: var(--cols); gap: 0 clamp(0.8rem, 1.6vw, 1.4rem); padding: 0.8rem 0 1rem; }
+    .sbs-tools { display: flex; flex-direction: column; justify-content: flex-end; gap: 0.8rem; padding-bottom: 0.4rem; }
+    .sbs-tools label { display: inline-flex; align-items: center; gap: 0.6rem; cursor: pointer; font-family: var(--label); font-size: 0.56rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--on-navy-muted); }
+    .sbs-tools input { appearance: none; -webkit-appearance: none; width: 28px; height: 16px; border-radius: 999px; background: rgba(245,246,251,0.18); position: relative; cursor: pointer; transition: background 0.25s; }
+    .sbs-tools input::after { content: ''; position: absolute; top: 2px; left: 2px; width: 12px; height: 12px; border-radius: 50%; background: var(--on-navy); transition: transform 0.25s var(--ease); }
+    .sbs-tools input:checked { background: var(--gold); }
+    .sbs-tools input:checked::after { transform: translateX(12px); }
+    .sbs-col { display: flex; flex-direction: column; gap: 0.7rem; min-width: 0; }
+    .sbs-stage { position: relative; aspect-ratio: 16 / 8; background: var(--card); display: grid; place-items: center; overflow: hidden; }
+    .sbs-stage img { max-width: 86%; max-height: 82%; object-fit: contain; }
+    .sbs-stage svg { width: 62%; fill: none; stroke: var(--gold-deep); stroke-width: 0.9; }
+    .sbs-stage button { position: absolute; top: 0.5rem; right: 0.5rem; width: 24px; height: 24px; border-radius: 50%; color: var(--card-muted); font-size: 16px; line-height: 1; }
+    .sbs-stage button:hover { background: rgba(5,10,48,0.08); color: var(--navy); }
+    .sbs-pickrow { display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; }
+    .sbs-col .ct-select { color: var(--on-navy); border-color: var(--rule-navy); width: 100%; font-size: 0.58rem;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23F5F6FB' stroke-width='1.2'/%3E%3C/svg%3E"); }
+    .sbs-col .ct-select option { color: #050A30; }
+    .sbs-name { font-family: var(--serif); font-size: clamp(1.5rem, 2.2vw, 2rem); line-height: 1; }
+    .sbs-name small { display: block; font-family: var(--label); font-size: 0.54rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--on-navy-muted); margin-bottom: 0.35rem; }
+    .sbs-empty { aspect-ratio: 16 / 8; border: 1px dashed var(--rule-navy); display: grid; place-items: center; text-align: center; color: var(--on-navy-muted); font-family: var(--label); font-size: 0.56rem; letter-spacing: 0.2em; text-transform: uppercase; }
+    .sbs-group { margin-top: 1.6rem; }
+    .sbs-group h3 { font-family: var(--label); font-size: 0.58rem; font-weight: 500; letter-spacing: 0.26em; text-transform: uppercase; color: var(--gold); padding-bottom: 0.7rem; border-bottom: 1px solid color-mix(in srgb, var(--gold) 45%, transparent); }
+    .sbs-row { display: grid; grid-template-columns: var(--cols); gap: 0 clamp(0.8rem, 1.6vw, 1.4rem); border-bottom: 1px solid var(--rule-navy); transition: background 0.2s; }
+    .sbs-row:hover { background: rgba(245,246,251,0.03); }
+    .sbs-row[hidden] { display: none; }
+    .sbs-row > div { padding: 1rem 0; min-width: 0; }
+    .sbs-k { font-family: var(--label); font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--on-navy-muted); padding-top: 1.25rem !important; }
+    .sbs-v { font-family: var(--serif); font-size: 1.3rem; line-height: 1.25; color: var(--on-navy); }
+    .sbs-v.txt { font-family: var(--sans); font-size: 0.88rem; line-height: 1.6; font-weight: 300; }
+    .sbs-v small { font-family: var(--label); font-size: 0.56rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--on-navy-muted); margin-left: 0.3rem; }
+    .sbs-bar { display: block; height: 3px; margin-top: 0.65rem; background: rgba(245,246,251,0.1); position: relative; }
+    .sbs-bar i { position: absolute; left: 0; top: 0; bottom: 0; background: var(--on-navy-muted); border-radius: 0 3px 3px 0; transition: width 0.7s var(--ease); }
+    .sbs-v.is-best .sbs-bar i { background: var(--gold); }
+    .sbs-best { display: inline-block; margin-left: 0.5rem; vertical-align: 0.25em; font-family: var(--label); font-size: 0.5rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--navy); background: var(--gold); padding: 0.2rem 0.4rem; }
+    .sbs-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+    .sbs-tags span { font-family: var(--label); font-size: 0.54rem; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.3rem 0.5rem; border: 1px solid var(--rule-navy); color: var(--on-navy); }
+
+    /* Direction 2: journeys */
+    .jr-ctl { display: flex; flex-wrap: wrap; align-items: center; gap: 0.8rem 1.2rem; padding-bottom: 1.4rem; border-bottom: 1px solid var(--rule-navy); }
+    .jr-od { display: flex; align-items: center; gap: 0.6rem; }
+    .jr-od .ct-select { color: var(--on-navy); border-color: var(--rule-navy); min-width: 160px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23F5F6FB' stroke-width='1.2'/%3E%3C/svg%3E"); }
+    .jr-od .ct-select option { color: #050A30; }
+    .jr-swap { width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--rule-navy); color: var(--on-navy); font-size: 0.9rem; }
+    .jr-swap:hover { border-color: var(--gold); color: var(--gold); }
+    .jr-quick { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+    .jr-quick button { padding: 0.45rem 0.75rem; border: 1px solid var(--rule-navy); font-family: var(--label); font-size: 0.54rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--on-navy-muted); transition: color 0.2s, border-color 0.2s; }
+    .jr-quick button:hover, .jr-quick button[aria-pressed="true"] { color: var(--on-navy); border-color: var(--gold); }
+    .jr-body { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 4rem); padding-top: 1.8rem; align-items: start; }
+    .jr-route { display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.6rem; }
+    .jr-route b { font-family: var(--serif); font-weight: 400; font-size: clamp(1.8rem, 3vw, 2.6rem); line-height: 1; }
+    .jr-route b i { font-style: italic; color: var(--gold); padding: 0 0.3rem; }
+    .jr-route span { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.08em; color: var(--on-navy-muted); }
+    .jr-row { display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 1.1rem; align-items: center; padding: 1.15rem 0; border-top: 1px solid var(--rule-navy); }
+    .jr-row:last-child { border-bottom: 1px solid var(--rule-navy); }
+    .jr-thumb { height: 52px; background: var(--card); display: grid; place-items: center; }
+    .jr-thumb img { max-width: 86%; max-height: 80%; object-fit: contain; }
+    .jr-thumb svg { width: 70%; fill: none; stroke: var(--gold-deep); stroke-width: 1.1; }
+    .jr-top { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; margin-bottom: 0.65rem; }
+    .jr-top strong { font-family: var(--serif); font-weight: 400; font-size: 1.35rem; }
+    .jr-top strong small { font-family: var(--label); font-size: 0.52rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--on-navy-muted); margin-left: 0.5rem; }
+    .jr-time { font-family: var(--serif); font-size: 1.9rem; line-height: 1; white-space: nowrap; }
+    .jr-time.is-best { color: var(--gold); }
+    .jr-row.is-na { opacity: 0.55; }
+    .jr-row.is-na .jr-line { border-top: 1px dashed var(--rule-navy); height: 0; margin: 0.6rem 0; }
+    .jr-line { position: relative; height: 10px; display: flex; align-items: center; }
+    .jr-leg { height: 3px; background: var(--on-navy-muted); border-radius: 0 3px 3px 0; transition: width 0.7s var(--ease); }
+    .jr-row.is-best .jr-leg { background: var(--gold); }
+    .jr-stop { width: 22px; flex: 0 0 auto; display: grid; place-items: center; }
+    .jr-stop::before { content: ''; width: 7px; height: 7px; border-radius: 50%; border: 1px solid var(--on-navy); }
+    .jr-note { margin-top: 0.55rem; font-family: var(--label); font-size: 0.54rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--on-navy-muted); }
+    .jr-map { position: relative; }
+    .jr-map svg { width: 100%; height: auto; display: block; }
+    .jr-map .city circle { fill: rgba(245,246,251,0.4); }
+    .jr-map .city text { font-family: var(--label); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; fill: rgba(245,246,251,0.5); }
+    .jr-map .city.is-od circle { fill: var(--gold); }
+    .jr-map .city.is-od text { fill: var(--on-navy); font-size: 11px; }
+    .jr-map .ring { fill: none; stroke: var(--gold); stroke-width: 1.2; opacity: 0.85; }
+    .jr-map .ring-label { font-family: var(--mono); font-size: 10px; fill: var(--gold); paint-order: stroke; stroke: var(--navy); stroke-width: 4px; }
+    .jr-map .route { stroke: var(--on-navy); stroke-width: 1.4; fill: none; }
+    .jr-map .graticule { stroke: rgba(245,246,251,0.06); stroke-width: 1; }
+    .jr-legend { display: flex; flex-wrap: wrap; gap: 0.8rem 1.4rem; margin-top: 0.8rem; }
+    .jr-legend span { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--label); font-size: 0.54rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--on-navy-muted); }
+    .jr-legend svg { width: 28px; height: 6px; }
+    .cmp-note { margin-top: 1.6rem; font-family: var(--mono); font-size: 0.64rem; line-height: 1.7; color: var(--on-navy-muted); max-width: 90ch; }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 1180px) { .ct-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .ct-hint { display: none; } }
+    @media (max-width: 980px) {
+      .ct-intro-in, .jr-body { grid-template-columns: minmax(0, 1fr); }
+      .ct-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .sbs { --cols: 120px repeat(3, minmax(150px, 1fr)); }
+      .sbs-scroll { overflow-x: auto; }
+      .sbs-inner { min-width: 640px; }
+      .sbs-heads { position: static; }
+    }
+    @media (max-width: 620px) {
+      .ct-grid { grid-template-columns: minmax(0, 1fr); }
+      .ct-filters-in { padding-inline: 1rem; gap: 0.6rem; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+      .ct-filters-in::-webkit-scrollbar { display: none; }
+      .ct-fgroup { flex: 0 0 auto; }
+      .ct-flabel, .ct-count { display: none; }
+      .ct-tray { padding-left: 0.6rem; gap: 0.5rem; }
+      .ct-tray-label { display: none; }
+      .ct-slot { width: 52px; padding: 0 0.3rem; }
+      .ct-slot span, .ct-slot em { display: none; }
+      .ct-go { padding: 0 0.9rem; }
+      .jr-od { width: 100%; }
+      .jr-od .ct-select { min-width: 0; flex: 1; }
+      .jr-row { grid-template-columns: 64px minmax(0, 1fr); gap: 0.8rem; }
+      .jr-top strong { font-size: 1.15rem; }
+      .jr-top strong small { display: none; }
+      .jr-time { font-size: 1.5rem; }
+      .jr-map .city text { font-size: 15px; }
+      .jr-map .city.is-od text { font-size: 16px; }
+      .jr-map .ring-label { font-size: 14px; }
+      .sbs-swipe { display: block; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header" id="header">
+    <nav class="header-nav" aria-label="Left navigation">
+      <a href="./#about">Leasing</a>
+      <a href="fleet-catalog.html" aria-current="page">Fleet</a>
+      <a href="./#missions">Missions</a>
+    </nav>
+    <a href="./" class="crest" aria-label="SkyPulse Solutions IFSC home">
+      <img src="media/mark.png" alt="SkyPulse feather crest" />
+    </a>
+    <nav class="header-nav right" aria-label="Right navigation">
+      <a href="./#why">Why SkyPulse</a>
+      <a href="./#journal">News</a>
+      <a href="#compare" class="keep">Compare</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- 1. Intro -->
+    <section class="ct-intro surf-navy" data-theme="dark">
+      <div class="wrap ct-intro-in">
+        <div>
+          <p class="ct-kicker">The SkyPulse Fleet</p>
+          <h1>Seven aircraft types. <em>One lessor.</em></h1>
+          <p>Helicopters, turboprops and jets leased from GIFT City IFSC to India’s operators. Filter the fleet, tick up to three aircraft, and compare them side by side or on a real journey.</p>
+        </div>
+        <div class="ct-stats">
+          <div class="ct-stat"><strong>08</strong><span>Aircraft<br/>in service</span></div>
+          <div class="ct-stat"><strong>27</strong><span>Arriving<br/>2026–27</span></div>
+          <div class="ct-stat"><strong>04</strong><span>Rotary<br/>types</span></div>
+          <div class="ct-stat"><strong>03</strong><span>Fixed-wing<br/>types</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Filters + catalogue (the bar only sticks while the catalogue is on screen) -->
+    <div class="ct-shop">
+    <div class="ct-filters surf-grey" id="ctFilters">
+      <div class="ct-filters-in">
+        <div class="ct-fgroup">
+          <div class="ct-seg" role="group" aria-label="Category" data-f="cat">
+            <button type="button" data-v="all" aria-pressed="true">All</button>
+            <button type="button" data-v="rotary" aria-pressed="false">Rotary</button>
+            <button type="button" data-v="fixed" aria-pressed="false">Fixed-wing</button>
+          </div>
+        </div>
+        <div class="ct-fgroup">
+          <div class="ct-seg" role="group" aria-label="Status" data-f="status">
+            <button type="button" data-v="all" aria-pressed="true">Any status</button>
+            <button type="button" data-v="service" aria-pressed="false">In service</button>
+            <button type="button" data-v="arriving" aria-pressed="false">Arriving</button>
+          </div>
+        </div>
+        <div class="ct-fgroup">
+          <span class="ct-flabel">Passengers</span>
+          <select class="ct-select" id="fSeats" aria-label="Passengers">
+            <option value="0">Any</option><option value="4">4 or more</option><option value="6">6 or more</option><option value="8">8 or more</option>
+          </select>
+        </div>
+        <div class="ct-fgroup">
+          <span class="ct-flabel">Mission</span>
+          <select class="ct-select" id="fMission" aria-label="Mission"><option value="">Any mission</option></select>
+        </div>
+        <button type="button" class="ct-reset" id="fReset" hidden>Clear filters</button>
+        <span class="ct-count" id="fCount"></span>
+      </div>
+    </div>
+
+    <section class="ct-cat surf-grey" id="catalogue" data-theme="light">
+      <div class="wrap">
+        <div class="ct-grid" id="ctGrid"></div>
+      </div>
+    </section>
+    </div>
+
+    <!-- 3. Compare -->
+    <section class="cmp surf-navy" id="compare" data-theme="dark">
+      <div class="wrap">
+        <div class="cmp-head">
+          <div>
+            <p class="ct-kicker">Compare</p>
+            <h2>Compare <em>the fleet</em></h2>
+            <p id="cmpLead">Up to three aircraft, side by side. Change any of them from the menu above each column.</p>
+          </div>
+          <div class="cmp-switch" role="group" aria-label="Compare view">
+            <button type="button" data-view="sbs" aria-pressed="true">Side by side</button>
+            <button type="button" data-view="jr" aria-pressed="false">Journeys</button>
+          </div>
+        </div>
+
+        <div class="cmp-view sbs" id="viewSbs">
+          <p class="sbs-swipe" aria-hidden="true">Swipe to see every column →</p>
+          <div class="sbs-scroll"><div class="sbs-inner">
+            <div class="sbs-heads" id="sbsHeads"></div>
+            <div id="sbsRows"></div>
+          </div></div>
+        </div>
+
+        <div class="cmp-view jr" id="viewJr" hidden>
+          <div class="jr-ctl">
+            <div class="jr-od">
+              <select class="ct-select" id="jrFrom" aria-label="From"></select>
+              <button type="button" class="jr-swap" id="jrSwap" aria-label="Swap origin and destination">⇄</button>
+              <select class="ct-select" id="jrTo" aria-label="To"></select>
+            </div>
+            <div class="jr-quick" id="jrQuick"></div>
+          </div>
+          <div class="jr-body">
+            <div>
+              <div class="jr-route" id="jrRoute"></div>
+              <div id="jrRows"></div>
+            </div>
+            <div class="jr-map">
+              <svg id="jrMap" role="img" aria-label="Map of the route with how far each aircraft can fly non-stop"></svg>
+              <div class="jr-legend" id="jrLegend"></div>
+            </div>
+          </div>
+          <p class="cmp-note">Indicative only: straight-line distance at typical cruise speed, plus 15 minutes for take-off and landing and 30 minutes for each fuel stop. Non-stop range uses 80% of the maximum to keep a reserve. The map shows city positions only, not borders.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="ct-tray" id="ctTray" aria-live="polite">
+    <span class="ct-tray-label">Compare</span>
+    <div class="ct-slots" id="ctSlots"></div>
+    <button type="button" class="ct-go" id="ctGo">Compare</button>
+  </div>
+
+  <footer id="footer" class="surf-join" style="--surf-rule: rgba(245,246,251,0.15)" data-theme="dark">
+    <div class="footer-crest">
+      <img src="media/mark.png" alt="SkyPulse feather crest" />
+      <span>SkyPulse Solutions IFSC Private Limited</span>
+    </div>
+    <div class="footer-cols">
+      <div><h4>Registered Office</h4><p>Unit 80, The Platform, Ground Floor, 11 T2, Block 11, GIFT SEZ, Gandhinagar 382355, Gujarat, India.<br/>Monday–Friday · 10:00–18:00 IST</p></div>
+      <div><h4>Directory</h4><ul><li><a href="./#about">Leasing</a></li><li><a href="fleet-catalog.html">Fleet Register</a></li><li><a href="./#why">Why SkyPulse</a></li><li><a href="./#journal">News</a></li></ul></div>
+      <div><h4>Governance</h4><ul><li>Leadership &amp; Board</li><li>Annual Return (Form MGT-7)</li><li>Privacy Policy</li><li>Grievance Redressal</li></ul></div>
+      <div><h4>Correspondence</h4><ul><li>info@skypulsesolutions.com</li><li>+91 98214 32482</li><li>GIFT City · Gandhinagar</li></ul></div>
+    </div>
+    <div class="footer-legal">
+      <span>© 2026 SkyPulse Solutions IFSC Private Limited · Aircraft Operating Lessor · Not a Charter Operator</span>
+      <span>Statutory disclosures published pursuant to Companies (Incorporation) Rules r.26</span>
+    </div>
+  </footer>
+
+  <script src="maison-fleet-data.js"></script>
+  <script src="maison-sub.js"></script>
+  <script>
+  (() => {
+    const { FLEET, MISSIONS } = window.SKY_FLEET;
+    const PAGE = 'aircraft.html?a=';
+    const ORDER = ['aw109', 'h130', 'h125', 'r44', 'kingair', 'hawker', 'p2010'];
+    const byKey = Object.fromEntries(FLEET.map(a => [a.key, a]));
+    const list = ORDER.map(k => byKey[k]);
+    const pad = n => String(n).padStart(2, '0');
+    const fmt = n => n.toLocaleString('en-IN');
+    const catLabel = c => c === 'rotary' ? 'Rotary' : 'Fixed-wing';
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const specOf = (a, k) => (a.spec.find(([key]) => key.toLowerCase().includes(k)) || [, ''])[1];
+    const mtow = a => +(specOf(a, 'take-off').replace(/[^\d]/g, '')) || null;
+    const statusText = a => a.status === 'service' ? (a.regs.length > 1 ? `In service · ${pad(a.regs.length)}` : 'In service') : `Arriving ${a.when}`;
+    const art = (a, cls = '') => a.cut ? `<img class="${cls}" src="${a.cut}" alt="${a.full}" loading="lazy" />` : (a.drawing || '');
+    const ICON = {
+      range: '<svg viewBox="0 0 24 24"><path d="M3 17c4-1 7-4 9-8s5-6 9-6"/><path d="M17 3h4v4"/><circle cx="4" cy="17" r="1.6"/></svg>',
+      seats: '<svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 20c0-3.3 2.5-5.6 5.5-5.6s5.5 2.3 5.5 5.6"/><path d="M15.5 5.2a3 3 0 0 1 0 5.6M17.5 14.6c2 .6 3.2 2.6 3.2 5.4"/></svg>',
+      speed: '<svg viewBox="0 0 24 24"><path d="M4 16a8 8 0 1 1 16 0"/><path d="M12 16l4.5-5"/><circle cx="12" cy="16" r="1.3"/></svg>'
+    };
+
+    /* ================= Catalogue ================= */
+    const grid = document.getElementById('ctGrid');
+    grid.innerHTML = list.map(a => `
+      <article class="ct-card" data-key="${a.key}">
+        <a class="ct-card-link" href="${PAGE}${a.key}" aria-label="Explore the ${a.full}"></a>
+        <div class="ct-card-top"><span class="status-dot ${a.status === 'arriving' ? 'arriving' : ''}">${statusText(a)}</span><span class="ct-cat-tag">${catLabel(a.cat)}</span></div>
+        <div class="ct-name"><small>${a.maker}</small><b>${a.name}</b></div>
+        <div class="ct-plane">${art(a)}${a.cut ? '' : '<span class="ct-soon">Imagery to follow</span>'}${a.cutCredit ? `<span class="ct-credit">${a.cutCredit}</span>` : ''}</div>
+        <ul class="ct-specs">
+          <li>${ICON.range}<span>${fmt(a.range)} km <i>· ${fmt(Math.round(a.range * 0.54))} nm</i></span></li>
+          <li>${ICON.seats}<span>${pad(a.seats)} passengers <i>· ${a.crew} crew</i></span></li>
+          <li>${ICON.speed}<span>${a.cruise} km/h <i>· ${a.power.toLowerCase()}</i></span></li>
+        </ul>
+        <p class="ct-desc">${a.line}</p>
+        <div class="ct-foot">
+          <button type="button" class="ct-pick" data-key="${a.key}" aria-pressed="false"><i aria-hidden="true"></i>Compare</button>
+          <a class="ct-more" href="${PAGE}${a.key}">Explore <span aria-hidden="true">→</span></a>
+        </div>
+      </article>`).join('') + `
+      <div class="ct-hint" id="ctHint"><b>Tick <em>Compare</em> on up to three aircraft.</b><p>They collect in the tray at the bottom of the screen. Compare them side by side, or see how long each takes on a real route.</p></div>
+      <p class="ct-empty" id="ctEmpty" hidden>No aircraft match these filters.</p>`;
+
+    // Filters
+    const F = { cat: 'all', status: 'all', seats: 0, mission: '' };
+    const fMission = document.getElementById('fMission');
+    fMission.insertAdjacentHTML('beforeend', MISSIONS.map(m => `<option value="${m.key}">${m.label}</option>`).join(''));
+    document.querySelectorAll('.ct-seg[data-f]').forEach(seg => seg.addEventListener('click', e => {
+      const b = e.target.closest('button'); if (!b) return;
+      F[seg.dataset.f] = b.dataset.v; applyFilters();
+    }));
+    document.getElementById('fSeats').addEventListener('change', e => { F.seats = +e.target.value; applyFilters(); });
+    fMission.addEventListener('change', e => { F.mission = e.target.value; applyFilters(); });
+    document.getElementById('fReset').addEventListener('click', () => { Object.assign(F, { cat: 'all', status: 'all', seats: 0, mission: '' }); applyFilters(); });
+    function applyFilters() {
+      document.querySelectorAll('.ct-seg[data-f]').forEach(seg => seg.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === F[seg.dataset.f]))));
+      document.getElementById('fSeats').value = String(F.seats);
+      fMission.value = F.mission;
+      let n = 0;
+      grid.querySelectorAll('.ct-card').forEach(card => {
+        const a = byKey[card.dataset.key];
+        const ok = (F.cat === 'all' || a.cat === F.cat) && (F.status === 'all' || a.status === F.status) && a.seats >= F.seats && (!F.mission || a.missions.includes(F.mission));
+        card.hidden = !ok; if (ok) n++;
+      });
+      const filtered = F.cat !== 'all' || F.status !== 'all' || F.seats || F.mission;
+      document.getElementById('fReset').hidden = !filtered;
+      document.getElementById('ctHint').hidden = n !== 7;
+      document.getElementById('ctEmpty').hidden = n > 0;
+      document.getElementById('fCount').textContent = `Showing ${pad(n)} of 07`;
+    }
+    applyFilters();
+
+    /* ================= Selection (shared by cards, tray, compare) ================= */
+    const MAX = 3;
+    let sel = (new URLSearchParams(location.search).get('compare') || '').split(',').filter(k => byKey[k]).slice(0, MAX);
+    const userPicked = () => sel.length > 0;
+    function setSel(next) {
+      sel = next.slice(0, MAX);
+      const q = new URLSearchParams(location.search);
+      sel.length ? q.set('compare', sel.join(',')) : q.delete('compare');
+      history.replaceState(null, '', location.pathname + (q.toString() ? '?' + q : '') + location.hash);
+      renderSel();
+    }
+    grid.addEventListener('click', e => {
+      const b = e.target.closest('.ct-pick'); if (!b) return;
+      const k = b.dataset.key;
+      if (sel.includes(k)) setSel(sel.filter(x => x !== k));
+      else if (sel.length < MAX) setSel([...sel, k]);
+    });
+    const slots = document.getElementById('ctSlots'), tray = document.getElementById('ctTray'), go = document.getElementById('ctGo');
+    function renderSel() {
+      grid.querySelectorAll('.ct-pick').forEach(b => {
+        const on = sel.includes(b.dataset.key);
+        b.setAttribute('aria-pressed', String(on));
+        b.setAttribute('aria-disabled', String(!on && sel.length >= MAX));
+        b.title = !on && sel.length >= MAX ? 'Remove an aircraft from the tray to add this one' : '';
+        b.closest('.ct-card').classList.toggle('is-picked', on);
+      });
+      slots.innerHTML = [0, 1, 2].map(i => {
+        const a = byKey[sel[i]];
+        return a ? `<div class="ct-slot is-full">${a.cut ? `<img src="${a.cut}" alt="" />` : `<span class="mini-draw">${a.drawing}</span>`}<span>${a.name}</span><button type="button" data-rm="${a.key}" aria-label="Remove ${a.name}">×</button></div>`
+                 : `<div class="ct-slot"><em>Add</em></div>`;
+      }).join('');
+      go.disabled = sel.length < 2;
+      go.textContent = sel.length < 2 ? 'Pick 2 or 3' : `Compare ${sel.length} →`;
+      syncTray();
+      renderCompare();
+    }
+    slots.addEventListener('click', e => { const k = e.target.closest('[data-rm]')?.dataset.rm; if (k) setSel(sel.filter(x => x !== k)); });
+    go.addEventListener('click', () => document.getElementById('compare').scrollIntoView({ behavior: reduced ? 'auto' : 'smooth' }));
+    const cmpSec = document.getElementById('compare');
+    function syncTray() {
+      const r = cmpSec.getBoundingClientRect();
+      const inCompare = r.top < innerHeight * 0.6 && r.bottom > 0;
+      tray.classList.toggle('is-on', sel.length > 0 && !inCompare);
+    }
+    window.addEventListener('scroll', syncTray, { passive: true });
+
+    /* ================= Compare: shared ================= */
+    // With nothing ticked yet, show a sensible default pair so the section is never empty
+    const shown = () => sel.length ? sel : ['aw109', 'kingair'];
+    const views = { sbs: document.getElementById('viewSbs'), jr: document.getElementById('viewJr') };
+    const lead = document.getElementById('cmpLead');
+    let view = 'sbs';
+    document.querySelector('.cmp-switch').addEventListener('click', e => {
+      const b = e.target.closest('button'); if (!b) return;
+      view = b.dataset.view;
+      document.querySelectorAll('.cmp-switch button').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+      views.sbs.hidden = view !== 'sbs'; views.jr.hidden = view !== 'jr';
+      lead.textContent = view === 'sbs' ? 'Up to three aircraft, side by side. Change any of them from the menu above each column.'
+                                        : 'Pick a route and see how long each aircraft takes, how many fuel stops it needs, and how far it reaches non-stop.';
+      renderCompare();
+    });
+    function renderCompare() { view === 'sbs' ? renderSbs() : renderJr(); }
+    // Picking from a compare menu writes back to the shared selection
+    function replaceAt(i, k) {
+      const cur = [...shown()];
+      if (!k) cur.splice(i, 1);
+      else if (cur.includes(k)) { const j = cur.indexOf(k); [cur[i], cur[j]] = [cur[j], cur[i]]; }
+      else cur[i] = k;
+      setSel(cur.filter(Boolean));
+    }
+    const opts = (cur, taken) => `<option value="">${cur ? 'Remove' : 'Add an aircraft'}</option>` + list.map(a => `<option value="${a.key}" ${a.key === cur ? 'selected' : ''}>${a.name.startsWith(a.maker) ? a.name : a.maker + ' ' + a.name}${taken.includes(a.key) && a.key !== cur ? ' (in compare)' : ''}</option>`).join('');
+
+    /* ================= Direction 1: side by side ================= */
+    let diffOnly = false;
+    const ROWS = [
+      ['Capacity', [
+        ['Passengers', a => a.seats, a => `${pad(a.seats)}`, 'Most seats'],
+        ['Crew', a => a.crew, a => `${pad(a.crew)}`, null],
+      ]],
+      ['Performance', [
+        ['Cruise speed', a => a.cruise, a => `${a.cruise}<small>km/h</small>`, 'Fastest'],
+        ['Range', a => a.range, a => `${fmt(a.range)}<small>km</small>`, 'Furthest'],
+        ['Max take-off weight', a => mtow(a), a => mtow(a) ? `${fmt(mtow(a))}<small>kg</small>` : '—', null],
+        ['Engines', null, a => a.engines, null],
+      ]],
+      ['Role', [
+        ['Category', null, a => `${catLabel(a.cat)} · ${a.klass}`, null],
+        ['Missions', null, a => `<span class="sbs-tags">${MISSIONS.filter(m => a.missions.includes(m.key)).map(m => `<span>${m.label}</span>`).join('')}</span>`, null],
+      ]],
+      ['In the fleet', [
+        ['Status', null, a => a.status === 'service' ? (a.regs.length > 1 ? `${pad(a.regs.length)} in service` : 'In service') : `Arriving ${a.when}${a.count ? ' · ' + a.count + ' aircraft' : ''}`, null],
+        ['Registrations', null, a => a.regs.length ? a.regs.map(r => r.reg).join(' · ') : '—', null],
+      ]]
+    ];
+    const fleetMax = { 'Passengers': Math.max(...list.map(a => a.seats)), 'Crew': 2, 'Cruise speed': Math.max(...list.map(a => a.cruise)), 'Range': Math.max(...list.map(a => a.range)), 'Max take-off weight': Math.max(...list.map(a => mtow(a) || 0)) };
+    function renderSbs() {
+      const ks = shown(), cols = ks.map(k => byKey[k]);
+      const heads = document.getElementById('sbsHeads');
+      heads.innerHTML = `<div class="sbs-tools"><label><input type="checkbox" id="sbsDiff" ${diffOnly ? 'checked' : ''} /> Differences only</label></div>` +
+        [0, 1, 2].map(i => {
+          const a = cols[i];
+          if (!a) return `<div class="sbs-col"><div class="sbs-empty">${i === cols.length ? 'Add a third aircraft' : ''}</div>${i === cols.length ? `<select class="ct-select" data-i="${i}" aria-label="Add an aircraft">${opts('', ks)}</select>` : ''}</div>`;
+          return `<div class="sbs-col">
+            <div class="sbs-stage">${art(a)}${cols.length > 1 ? `<button type="button" data-rm-i="${i}" aria-label="Remove ${a.name}">×</button>` : ''}</div>
+            <select class="ct-select" data-i="${i}" aria-label="Aircraft ${i + 1}">${opts(a.key, ks)}</select>
+            <div class="sbs-pickrow"><span class="sbs-name"><small>${a.maker}</small>${a.name}</span><a class="ct-more" href="${PAGE}${a.key}" style="color:var(--gold)">Explore <span aria-hidden="true">→</span></a></div>
+          </div>`;
+        }).join('');
+      heads.querySelectorAll('select[data-i]').forEach(s => s.addEventListener('change', () => replaceAt(+s.dataset.i, s.value)));
+      heads.querySelectorAll('[data-rm-i]').forEach(b => b.addEventListener('click', () => replaceAt(+b.dataset.rmI, '')));
+      heads.querySelector('#sbsDiff').addEventListener('change', e => { diffOnly = e.target.checked; renderSbs(); });
+
+      document.getElementById('sbsRows').innerHTML = ROWS.map(([group, rows]) => `
+        <div class="sbs-group"><h3>${group}</h3>${rows.map(([label, num, show, bestLabel]) => {
+          const vals = cols.map(show);
+          const same = vals.every(v => v === vals[0]);
+          const nums = num ? cols.map(num) : [];
+          const best = num && cols.length > 1 ? Math.max(...nums) : null;
+          const bestCount = nums.filter(n => n === best).length;
+          return `<div class="sbs-row" ${diffOnly && same && cols.length > 1 ? 'hidden' : ''}>
+            <div class="sbs-k">${label}</div>
+            ${[0, 1, 2].map(i => {
+              const a = cols[i]; if (!a) return '<div></div>';
+              const isBest = num && best != null && nums[i] === best && bestCount === 1 && bestLabel;
+              const bar = num && fleetMax[label] ? `<span class="sbs-bar"><i style="width:${(nums[i] / fleetMax[label] * 100).toFixed(1)}%"></i></span>` : '';
+              return `<div class="sbs-v ${num ? '' : 'txt'} ${isBest ? 'is-best' : ''}">${vals[i]}${isBest ? `<span class="sbs-best">${bestLabel}</span>` : ''}${bar}</div>`;
+            }).join('')}
+          </div>`;
+        }).join('')}</div>`).join('');
+    }
+
+    /* ================= Direction 2: journeys ================= */
+    const CITIES = [
+      ['amd', 'Ahmedabad', 23.07, 72.63], ['bom', 'Mumbai', 19.09, 72.87, 'l'], ['del', 'Delhi', 28.56, 77.10], ['blr', 'Bengaluru', 13.20, 77.71, 'l'],
+      ['maa', 'Chennai', 12.99, 80.17], ['ccu', 'Kolkata', 22.65, 88.45], ['hyd', 'Hyderabad', 17.24, 78.43], ['goi', 'Goa', 15.38, 73.83],
+      ['jai', 'Jaipur', 26.82, 75.81], ['sxr', 'Srinagar', 33.99, 74.77, 'l'], ['ded', 'Dehradun', 30.19, 78.18, 'l'], ['ked', 'Kedarnath', 30.73, 79.07, 'r', true],
+      ['vns', 'Varanasi', 25.45, 82.86], ['pnq', 'Pune', 18.58, 73.92], ['udr', 'Udaipur', 24.62, 73.90], ['ixl', 'Leh', 34.13, 77.55],
+      ['cok', 'Kochi', 10.15, 76.40], ['gau', 'Guwahati', 26.11, 91.59]
+    ].map(([k, n, lat, lon, side = 'r', heli = false]) => ({ k, n, lat, lon, side, heli }));
+    const C = Object.fromEntries(CITIES.map(c => [c.k, c]));
+    const QUICK = [['bom', 'del'], ['amd', 'bom'], ['ded', 'ked'], ['bom', 'goi'], ['del', 'sxr'], ['blr', 'maa'], ['del', 'ccu']];
+    let route = ['bom', 'del'];
+    const hav = (a, b) => {
+      const R = 6371, r = d => d * Math.PI / 180;
+      const dLat = r(b.lat - a.lat), dLon = r(b.lon - a.lon);
+      const h = Math.sin(dLat / 2) ** 2 + Math.cos(r(a.lat)) * Math.cos(r(b.lat)) * Math.sin(dLon / 2) ** 2;
+      return 2 * R * Math.asin(Math.sqrt(h));
+    };
+    const hm = h => { const t = Math.round(h * 60); return t < 60 ? `${t} min` : `${Math.floor(t / 60)} h ${pad(t % 60)} m`; };
+    function trip(a, km) {
+      const usable = a.range * 0.8;
+      const stops = Math.max(0, Math.ceil(km / usable) - 1);
+      const fly = km / a.cruise;
+      return { stops, fly, total: fly + 0.25 + stops * 0.5 };
+    }
+    const fromSel = document.getElementById('jrFrom'), toSel = document.getElementById('jrTo');
+    const cityOpts = cur => [...CITIES].sort((x, y) => x.n.localeCompare(y.n)).map(c => `<option value="${c.k}" ${c.k === cur ? 'selected' : ''}>${c.n}</option>`).join('');
+    document.getElementById('jrQuick').innerHTML = QUICK.map(([f, t]) => `<button type="button" data-r="${f},${t}" aria-pressed="false">${C[f].n} → ${C[t].n}</button>`).join('');
+    document.getElementById('jrQuick').addEventListener('click', e => { const b = e.target.closest('[data-r]'); if (b) { route = b.dataset.r.split(','); renderJr(); } });
+    fromSel.addEventListener('change', () => { route = [fromSel.value, route[1]]; if (route[0] === route[1]) route[1] = route[0] === 'del' ? 'bom' : 'del'; renderJr(); });
+    toSel.addEventListener('change', () => { route = [route[0], toSel.value]; if (route[0] === route[1]) route[0] = route[1] === 'bom' ? 'del' : 'bom'; renderJr(); });
+    document.getElementById('jrSwap').addEventListener('click', () => { route = [route[1], route[0]]; renderJr(); });
+
+    // Equirectangular plane in km (no borders drawn — just city positions), fitted to a 560 × 640 box
+    const LAT0 = 22, KX = 111.32 * Math.cos(LAT0 * Math.PI / 180), KY = 110.57;
+    const B = { lon0: 67.5, lon1: 93.5, lat0: 7.5, lat1: 36 };
+    const W = 560, S = W / ((B.lon1 - B.lon0) * KX), H = Math.round((B.lat1 - B.lat0) * KY * S);
+    const P = c => [(c.lon - B.lon0) * KX * S, (B.lat1 - c.lat) * KY * S];
+    const DASH = ['', '9 6', '2 5'];
+
+    function renderJr() {
+      fromSel.innerHTML = cityOpts(route[0]); toSel.innerHTML = cityOpts(route[1]);
+      document.querySelectorAll('#jrQuick button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.r === route.join(','))));
+      const o = C[route[0]], d = C[route[1]], km = Math.round(hav(o, d));
+      document.getElementById('jrRoute').innerHTML = `<b>${o.n}<i>→</i>${d.n}</b><span>${fmt(km)} km · ${fmt(Math.round(km * 0.54))} nm, straight line</span>`;
+      const cols = shown().map(k => byKey[k]);
+      const heliOnly = o.heli || d.heli;
+      const trips = cols.map(a => heliOnly && a.cat === 'fixed' ? null : trip(a, km));
+      const ok = trips.filter(Boolean);
+      const maxT = Math.max(...ok.map(t => t.total), 0.01);
+      const minT = Math.min(...ok.map(t => t.total));
+      document.getElementById('jrRows').innerHTML = cols.map((a, i) => {
+        const t = trips[i];
+        if (!t) return `<div class="jr-row is-na">
+          <div class="jr-thumb">${art(a)}</div>
+          <div>
+            <div class="jr-top"><strong>${a.name}<small>${catLabel(a.cat)}</small></strong><span class="jr-time">—</span></div>
+            <div class="jr-line" aria-hidden="true"></div>
+            <p class="jr-note">${(o.heli ? o : d).n} has a helipad only · a helicopter flies this leg</p>
+          </div>
+        </div>`;
+        const legs = t.stops + 1, best = ok.length > 1 && t.total === minT;
+        const w = (t.total / maxT) * 100;
+        const legW = `calc((${w.toFixed(2)}% - ${t.stops * 22}px) / ${legs})`;
+        return `<div class="jr-row ${best ? 'is-best' : ''}">
+          <div class="jr-thumb">${art(a)}</div>
+          <div>
+            <div class="jr-top"><strong>${a.name}<small>${catLabel(a.cat)}</small></strong><span class="jr-time ${best ? 'is-best' : ''}">${hm(t.total)}</span></div>
+            <div class="jr-line" aria-hidden="true">${Array.from({ length: legs }, (_, j) => `<span class="jr-leg" style="width:${legW}"></span>${j < t.stops ? '<span class="jr-stop"></span>' : ''}`).join('')}</div>
+            <p class="jr-note">${t.stops ? `${t.stops} fuel stop${t.stops > 1 ? 's' : ''}` : 'Non-stop'} · ${a.cruise} km/h${best ? ' · Quickest' : ''}</p>
+          </div>
+        </div>`;
+      }).join('');
+
+      // Map
+      const svg = document.getElementById('jrMap');
+      svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+      const [ox, oy] = P(o), [dx, dy] = P(d);
+      let g = '';
+      for (let lon = 70; lon <= 92; lon += 5) { const x = (lon - B.lon0) * KX * S; g += `<line class="graticule" x1="${x}" y1="0" x2="${x}" y2="${H}"/>`; }
+      for (let lat = 10; lat <= 35; lat += 5) { const y = (B.lat1 - lat) * KY * S; g += `<line class="graticule" x1="0" y1="${y}" x2="${W}" y2="${y}"/>`; }
+      const rings = cols.map((a, i) => {
+        if (!trips[i]) return '';
+        const r = a.range * 0.8 * S;
+        // put each label where the ring is inside the box, starting at the top
+        let lx = ox, ly = oy - r, ang = -90;
+        for (let step = 0; step < 36; step++) {
+          const t = (-90 + step * (i % 2 ? -10 : 10)) * Math.PI / 180;
+          const x = ox + r * Math.cos(t), y = oy + r * Math.sin(t);
+          if (x > 40 && x < W - 40 && y > 14 && y < H - 8) { lx = x; ly = y; ang = t; break; }
+        }
+        return `<circle class="ring" cx="${ox}" cy="${oy}" r="${r}" stroke-dasharray="${DASH[i]}"/>` +
+               `<text class="ring-label" x="${lx}" y="${ly - 5}" text-anchor="${lx > W * 0.72 ? 'end' : lx < W * 0.28 ? 'start' : 'middle'}">${a.name} · ${fmt(Math.round(a.range * 0.8))} km</text>`;
+      }).join('');
+      const cities = CITIES.map(c => {
+        const [x, y] = P(c), od = c.k === o.k || c.k === d.k;
+        const anchor = c.side === 'l' || x > W - 90 ? 'end' : 'start', tx = anchor === 'end' ? x - 7 : x + 7;
+        return `<g class="city ${od ? 'is-od' : ''}"><circle cx="${x}" cy="${y}" r="${od ? 4.5 : 2.5}"/><text x="${tx}" y="${y + 3.5}" text-anchor="${anchor}">${c.n}</text></g>`;
+      }).join('');
+      svg.innerHTML = `<defs><clipPath id="jrClip"><rect width="${W}" height="${H}"/></clipPath></defs>${g}<g clip-path="url(#jrClip)">${rings}</g><line class="route" x1="${ox}" y1="${oy}" x2="${dx}" y2="${dy}"/>${cities}`;
+      document.getElementById('jrLegend').innerHTML = cols.map((a, i) => `<span><svg viewBox="0 0 28 6"><line x1="0" y1="3" x2="28" y2="3" stroke="var(--gold)" stroke-width="1.4" stroke-dasharray="${DASH[i]}"/></svg>${a.name} non-stop reach</span>`).join('') +
+        `<span><svg viewBox="0 0 28 6"><line x1="0" y1="3" x2="28" y2="3" stroke="var(--on-navy)" stroke-width="1.4"/></svg>Route</span>`;
+    }
+
+    renderSel();
+
+    /* Filter bar and compare heads sit under the header when it shows */
+    const header = document.getElementById('header');
+    function syncBar() {
+      const shownH = !header.classList.contains('nav-hidden');
+      document.documentElement.style.setProperty('--bar-top', shownH ? header.offsetHeight + 'px' : '0px');
+    }
+    window.addEventListener('scroll', syncBar, { passive: true });
+    new MutationObserver(syncBar).observe(header, { attributes: true, attributeFilter: ['class'] });
+    syncBar();
+    if (location.hash === '#compare') requestAnimationFrame(() => cmpSec.scrollIntoView());
+  })();
+  </script>
+</body>
+</html>
