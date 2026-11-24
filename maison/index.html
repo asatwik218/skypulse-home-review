@@ -665,89 +665,105 @@
       flex-shrink: 0;
     }
 
-    /* ---------- Aircraft detail: tile expands to fill its bento grid ---------- */
+    /* ---------- Aircraft detail: the tile's photo glides straight into place, details slide in beside it ---------- */
     .fb-stage {
-      position: absolute; z-index: 6; overflow: hidden; display: grid;
-      grid-template-columns: minmax(0, 1fr) 0fr;
-      background: var(--navy); color: var(--on-navy);
-      clip-path: inset(var(--st-clip, 0px)); visibility: hidden;
-      transition: clip-path 0.7s var(--ease), grid-template-columns 0.6s var(--ease);
+      --st-bg: var(--surf-bg, var(--navy)); --st-fg: var(--surf-fg, var(--on-navy)); --st-accent: var(--surf-accent, var(--gold));
+      --st-muted: var(--surf-muted, var(--on-navy-muted)); --st-rule: var(--surf-rule, var(--rule-navy));
+      --st-split: 61.8%; --st-ease: cubic-bezier(0.65, 0, 0.2, 1);
+      position: absolute; z-index: 6; visibility: hidden; pointer-events: none; color: var(--st-fg);
     }
-    .fb-stage.is-open { visibility: visible; }
-    .fb-stage.is-split { grid-template-columns: minmax(0, 1.62fr) minmax(0, 1fr); }
-    .st-media-wrap { position: relative; min-width: 0; min-height: 0; }
-    .st-media { position: absolute; inset: 0; overflow: hidden; background: var(--navy-2); }
-    .st-seat {
-      position: absolute; left: 1.25rem; bottom: 1.25rem; z-index: 2; margin: 0;
-      padding: 0.6rem 0.8rem 0.5rem; background: rgba(5, 10, 48, 0.6); border: 1px solid rgba(198, 161, 91, 0.32);
-      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-      opacity: 0; transform: translateY(8px); transition: opacity 0.5s ease 0.25s, transform 0.6s var(--ease) 0.25s;
+    .fb-stage.is-open { visibility: visible; pointer-events: auto; }
+    .st-media-wrap {
+      position: absolute; overflow: hidden; background: var(--navy-2);
+      transition: top 0.75s var(--st-ease), left 0.75s var(--st-ease), width 0.75s var(--st-ease), height 0.75s var(--st-ease);
     }
-    .fb-stage.is-ready .st-seat { opacity: 1; transform: none; }
-    .st-seat img { display: block; height: 46px; width: auto; }
-    .st-seat figcaption { margin-top: 0.35rem; font-family: var(--label); font-size: 0.52rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
-    .st-media :is(img, video) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity 0.45s ease; }
+    .fb-stage.no-anim, .fb-stage.no-anim * { transition: none !important; }
+    .st-media { position: absolute; inset: 0; }
+    .st-media :is(img, video) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
     .st-media img { filter: brightness(0.92) contrast(1.03); }
-    .fb-stage.is-split .st-media img { animation: stDrift 14s ease-out both; }
-    @keyframes stDrift { from { transform: scale(1.06); } to { transform: scale(1); } }
-    .st-media::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, transparent 70%, rgba(5,10,48,0.35)); }
     .st-media .st-pending { position: absolute; inset: 0; display: grid; place-items: center; }
     .st-media .st-pending svg { width: 46%; max-width: 360px; fill: none; stroke: rgba(198,161,91,0.55); stroke-width: 0.8; }
+
     .st-panel {
-      min-width: 0; display: flex; flex-direction: column; overflow: hidden;
-      border-left: 1px solid rgba(198, 161, 91, 0.28);
+      position: absolute; top: 0; right: 0; bottom: 0; width: calc(100% - var(--st-split));
+      background: var(--st-bg); border-left: 1px solid color-mix(in srgb, var(--st-accent) 35%, transparent);
+      display: flex; flex-direction: column; overflow: hidden;
+      opacity: 0; transform: translateX(28px);
+      transition: opacity 0.5s ease, transform 0.75s var(--st-ease);
     }
-    .st-bar {
-      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
-      padding: 0.8rem clamp(1.25rem, 2.2vw, 2rem); border-bottom: 1px solid var(--rule-navy);
+    .fb-stage.is-in .st-panel { opacity: 1; transform: none; transition-delay: 0.22s; }
+    .st-close {
+      position: absolute; top: 0.9rem; right: 0.9rem; z-index: 2; width: 34px; height: 34px; border-radius: 50%;
+      border: 1px solid var(--st-rule); color: var(--st-fg); display: grid; place-items: center; font-size: 1.05rem;
+      background: var(--st-bg); transition: border-color 0.25s ease, color 0.25s ease;
     }
-    .st-count { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.18em; color: var(--on-navy-muted); }
-    .st-nav { display: flex; gap: 0.5rem; }
-    .st-nav button {
-      width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--rule-navy); color: var(--on-navy);
-      display: grid; place-items: center; font-size: 0.95rem; transition: border-color 0.25s ease, color 0.25s ease;
-    }
-    .st-nav button:hover, .st-nav button:focus-visible { border-color: var(--gold); color: var(--gold); outline: none; }
+    .st-close:hover, .st-close:focus-visible { border-color: var(--st-accent); color: var(--st-accent); outline: none; }
     .st-body {
       flex: 1; min-height: 0; overflow-y: auto; scrollbar-width: thin;
       display: flex; flex-direction: column; gap: 0.85rem;
-      padding: clamp(1.1rem, 1.9vw, 1.75rem) clamp(1.25rem, 2.2vw, 2rem);
+      padding: clamp(1.4rem, 2.4vw, 2.1rem) clamp(1.25rem, 2.2vw, 2rem) clamp(1.1rem, 1.9vw, 1.6rem);
     }
-    .st-body > * { opacity: 0; transform: translateY(12px); transition: opacity 0.5s ease, transform 0.6s var(--ease); }
-    .fb-stage.is-ready .st-body > * { opacity: 1; transform: none; }
-    .fb-stage.is-ready .st-body > :nth-child(2) { transition-delay: 0.05s; }
-    .fb-stage.is-ready .st-body > :nth-child(3) { transition-delay: 0.1s; }
-    .fb-stage.is-ready .st-body > :nth-child(4) { transition-delay: 0.15s; }
-    .fb-stage.is-ready .st-body > :nth-child(n+5) { transition-delay: 0.2s; }
-    .st-reg { font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); line-height: 1.6; }
+    .st-body > * { opacity: 0; transform: translateY(10px); transition: opacity 0.45s ease, transform 0.55s var(--ease); }
+    .fb-stage.is-in .st-body > * { opacity: 1; transform: none; }
+    .fb-stage.is-in .st-body > :nth-child(1) { transition-delay: 0.38s; }
+    .fb-stage.is-in .st-body > :nth-child(2) { transition-delay: 0.43s; }
+    .fb-stage.is-in .st-body > :nth-child(3) { transition-delay: 0.48s; }
+    .fb-stage.is-in .st-body > :nth-child(4) { transition-delay: 0.53s; }
+    .fb-stage.is-in .st-body > :nth-child(n+5) { transition-delay: 0.58s; }
+    .st-reg { font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--st-accent); line-height: 1.6; padding-right: 2.75rem; }
     .st-title { font-family: var(--serif); font-weight: 400; font-size: clamp(1.7rem, 2.3vw, 2.3rem); line-height: 1.02; letter-spacing: var(--display-track); margin-top: -0.4rem; }
-    .st-desc { font-size: 0.84rem; line-height: 1.65; font-weight: 300; color: var(--on-navy-muted); }
-    .st-pillars { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--rule-navy); }
-    .st-pillars div { padding: 0.6rem 0; border-bottom: 1px solid var(--rule-navy); }
+    .st-desc { font-size: 0.84rem; line-height: 1.65; font-weight: 300; color: var(--st-muted); }
+    .st-pillars { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--st-rule); }
+    .st-pillars div { padding: 0.6rem 0; border-bottom: 1px solid var(--st-rule); }
     .st-pillars div:nth-child(odd) { padding-right: 1rem; }
-    .st-pillars div:nth-child(even) { padding-left: 1rem; border-left: 1px solid var(--rule-navy); }
-    .st-pillars dt { font-family: var(--label); font-size: 0.56rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--on-navy-muted); }
+    .st-pillars div:nth-child(even) { padding-left: 1rem; border-left: 1px solid var(--st-rule); }
+    .st-pillars dt { font-family: var(--label); font-size: 0.56rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--st-muted); }
     .st-pillars dd { font-family: var(--serif); font-size: 1.08rem; line-height: 1.2; margin-top: 0.3rem; }
     .st-rows { display: grid; gap: 0.45rem; }
-    .st-rows p { display: grid; grid-template-columns: 9rem 1fr; gap: 0.75rem; font-size: 0.78rem; line-height: 1.5; color: var(--on-navy); }
-    .st-rows p span:first-child { font-family: var(--label); font-size: 0.56rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--on-navy-muted); padding-top: 0.2rem; }
-    .st-seat[hidden] { display: none; }
-    .st-more { margin: auto 0 0 !important; padding-top: 0.5rem; align-self: flex-start; color: var(--gold); }
-    .fb-stage.is-swapping .st-media :is(img, video), .fb-stage.is-swapping .st-body > * { opacity: 0; transition-delay: 0s; }
-    /* the grid underneath recedes while a tile is open */
-    .fleet-bento.has-stage .fb-tile { opacity: 0.2; filter: saturate(0.5); pointer-events: none; transition-delay: 0s; }
+    .st-rows p { display: grid; grid-template-columns: 9rem 1fr; gap: 0.75rem; font-size: 0.78rem; line-height: 1.5; }
+    .st-rows p span:first-child { font-family: var(--label); font-size: 0.56rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--st-muted); padding-top: 0.2rem; }
+    .st-more { margin: auto 0 0 !important; padding-top: 0.5rem; align-self: flex-start; color: var(--st-accent) !important; }
+
+    /* Cabin layout card on the photo; click opens the full drawing */
+    .st-seat {
+      all: unset; box-sizing: border-box; cursor: zoom-in;
+      position: absolute; left: 1.1rem; bottom: 1.1rem; z-index: 2;
+      padding: 0.5rem 0.6rem 0.45rem; background: rgba(5, 10, 48, 0.6); border: 1px solid rgba(198, 161, 91, 0.32);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      opacity: 0; transform: translateY(8px); transition: opacity 0.45s ease, transform 0.55s var(--ease), border-color 0.25s ease;
+    }
+    .fb-stage.is-in .st-seat { opacity: 1; transform: none; transition-delay: 0.6s, 0.6s, 0s; }
+    .st-seat:hover, .st-seat:focus-visible { border-color: var(--gold); }
+    .st-seat img { display: block; height: 46px; width: auto; background: #fff; }
+    .st-seat span { display: flex; justify-content: space-between; gap: 0.75rem; margin-top: 0.35rem; font-family: var(--label); font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
+    .st-seat span i { font-style: normal; color: rgba(245,246,251,0.7); }
+    .st-zoom {
+      position: fixed; inset: 0; z-index: 160; display: grid; place-items: center; padding: clamp(1rem, 5vw, 4rem);
+      background: rgba(3, 6, 24, 0.86); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      opacity: 0; pointer-events: none; transition: opacity 0.4s ease; cursor: zoom-out;
+    }
+    .st-zoom.open { opacity: 1; pointer-events: auto; }
+    .st-zoom figure { margin: 0; display: grid; gap: 0.9rem; justify-items: center; }
+    .st-zoom img { max-width: min(1100px, 100%); max-height: 78vh; width: auto; height: auto; background: #fff; transform-origin: 0 0; transition: transform 0.6s var(--st-ease, ease); }
+    .st-zoom figcaption { font-family: var(--label); font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); opacity: 0; transition: opacity 0.3s ease 0.3s; }
+    .st-zoom.open figcaption { opacity: 1; }
+
+    /* the grid underneath fades away while a tile is open */
+    .fleet-bento .fb-tile { transition: transform 0.65s var(--ease), border-color 0.45s ease, opacity 0.45s ease, filter 0.5s ease, box-shadow 0.65s var(--ease); }
+    .fleet-bento.has-stage .fb-tile { opacity: 0; pointer-events: none; }
+    .fleet-bento.has-stage .fb-tile.is-source { opacity: 0; transition: none; }
     .fb-tile:focus-visible { outline: 1px solid var(--gold); outline-offset: 3px; }
+
     @media (max-width: 980px) {
-      .fb-stage { position: fixed; inset: 0 !important; width: auto !important; height: auto !important; z-index: 135; grid-template-columns: 1fr; grid-template-rows: 1fr 0fr; transition: clip-path 0.6s var(--ease), grid-template-rows 0.55s var(--ease); }
-      .fb-stage.is-split { grid-template-columns: 1fr; grid-template-rows: minmax(0, 0.42fr) minmax(0, 0.58fr); }
-      .st-panel { border-left: 0; border-top: 1px solid rgba(198, 161, 91, 0.28); }
-      .st-media::after { background: linear-gradient(180deg, transparent 70%, rgba(5,10,48,0.35)); }
+      .fb-stage { position: fixed; inset: 0 !important; width: auto !important; height: auto !important; z-index: 135; }
+      .fb-stage::before { content: ''; position: absolute; inset: 0; background: var(--st-bg); opacity: 0; transition: opacity 0.5s ease; }
+      .fb-stage.is-in::before { opacity: 1; }
+      .st-panel { top: 42%; left: 0; width: auto; border-left: 0; border-top: 1px solid color-mix(in srgb, var(--st-accent) 35%, transparent); transform: translateY(32px); }
       .st-seat { left: 0.9rem; bottom: 0.9rem; }
       .st-seat img { height: 36px; }
     }
     @media (prefers-reduced-motion: reduce) {
-      .fb-stage, .st-body > * { transition: none !important; }
-      .fb-stage.is-split .st-media img { animation: none; }
+      .fb-stage *, .st-zoom, .st-zoom img { transition: none !important; }
     }
 
     /* Option B: Click-to-Open Full Luxury Aircraft Dossier Modal */
@@ -2791,23 +2807,21 @@
     });
 
 
-    // ---------- Aircraft detail: the clicked tile grows to fill its bento grid, details slide in alongside ----------
+    // ---------- Aircraft detail: the tile's photo glides straight to its final spot, details slide in beside it ----------
     state.fleetDetail = 'expand';
     document.querySelectorAll('#tFleetDetail .chip').forEach(b => b.addEventListener('click', () => {
       document.querySelectorAll('#tFleetDetail .chip').forEach(c => c.classList.toggle('active', c === b));
       state.fleetDetail = b.dataset.val;
     }));
+    // Until each aircraft has its own drawing, the AW109 cabin plan stands in as a sample
+    const SEAT_TEMPLATE = 'assets/vt-hgx/vt-hgx-seating.png';
     const STAGE_HTML = `
-      <div class="st-media-wrap"><div class="st-media"></div><figure class="st-seat" hidden><img alt="Cabin seating layout" /><figcaption>Cabin layout</figcaption></figure></div>
+      <div class="st-media-wrap">
+        <div class="st-media"></div>
+        <button type="button" class="st-seat" aria-label="Open the cabin layout"><img alt="" /><span>Cabin layout <i></i></span></button>
+      </div>
       <aside class="st-panel">
-        <div class="st-bar">
-          <span class="st-count"></span>
-          <div class="st-nav">
-            <button type="button" data-st="prev" aria-label="Previous aircraft">&larr;</button>
-            <button type="button" data-st="next" aria-label="Next aircraft">&rarr;</button>
-            <button type="button" data-st="close" aria-label="Close">&times;</button>
-          </div>
-        </div>
+        <button type="button" class="st-close" aria-label="Close">&times;</button>
         <div class="st-body">
           <span class="st-reg"></span>
           <h3 class="st-title"></h3>
@@ -2819,36 +2833,39 @@
       </aside>`;
     const stageReduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
     const isPhone = () => matchMedia('(max-width: 980px)').matches;
-    let stage = null, stageGrid = null, stageTile = null, stageBusy = false;
-    const stageTiles = () => [...stageGrid.querySelectorAll('.fb-tile[data-dossier]')];
+    const MOVE = stageReduce ? 0 : 750;
+    let stage = null, stageGrid = null, stageTile = null, stageBusy = false, zoom = null;
     function ensureStage() {
       if (stage) return stage;
       stage = document.createElement('div');
       stage.className = 'fb-stage'; stage.setAttribute('role', 'dialog'); stage.setAttribute('aria-label', 'Aircraft details');
       stage.innerHTML = STAGE_HTML;
-      stage.addEventListener('click', e => {
-        const a = e.target.closest('[data-st]')?.dataset.st;
-        if (a === 'close') closeStage(); else if (a === 'prev') stepStage(-1); else if (a === 'next') stepStage(1);
-      });
+      stage.querySelector('.st-close').addEventListener('click', closeStage);
+      stage.querySelector('.st-seat').addEventListener('click', openZoom);
       return stage;
     }
     function placeStage() {
-      // Sits exactly over the grid (desktop) or the whole screen (phone, via CSS)
-      if (isPhone()) return;
+      if (isPhone()) return;   // phone: fixed full screen via CSS
       const g = stageGrid;
       Object.assign(stage.style, { top: g.offsetTop + 'px', left: g.offsetLeft + 'px', width: g.offsetWidth + 'px', height: g.offsetHeight + 'px' });
     }
-    function clipTo(tile) {
+    const wrap = () => stage.querySelector('.st-media-wrap');
+    function setBox(r) { Object.assign(wrap().style, { top: r.top + 'px', left: r.left + 'px', width: r.width + 'px', height: r.height + 'px' }); }
+    function tileBox(tile) {
       const s = stage.getBoundingClientRect(), t = tile.getBoundingClientRect();
-      return `${t.top - s.top}px ${s.right - t.right}px ${s.bottom - t.bottom}px ${t.left - s.left}px`;
+      return { top: t.top - s.top, left: t.left - s.left, width: t.width, height: t.height };
+    }
+    function finalBox() {
+      const s = stage.getBoundingClientRect();
+      return isPhone() ? { top: 0, left: 0, width: s.width, height: s.height * 0.42 }
+                       : { top: 0, left: 0, width: s.width * 0.618, height: s.height };
     }
     function fillStage(tile) {
       const d = DOSSIERS[tile.dataset.dossier] || {};
       const media = stage.querySelector('.st-media');
       const tv = tile.querySelector('video source'), ti = tile.querySelector('img.img-ext');
-      const pending = tile.classList.contains('fb-pending');
       media.innerHTML = '';
-      if (pending) {
+      if (tile.classList.contains('fb-pending')) {
         media.innerHTML = '<div class="st-pending">' + (tile.querySelector('.fb-media-pending svg')?.outerHTML || '') + '</div>';
       } else if (tv && !stageReduce) {
         const v = document.createElement('video');
@@ -2872,73 +2889,85 @@
       q('.st-desc').textContent = d.desc || '';
       q('.st-pillars').innerHTML = (d.pillars || []).map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('');
       q('.st-rows').innerHTML = (d.specs || []).filter(([k]) => /Mission|Lease/.test(k)).map(([k, v]) => `<p><span>${k}</span><span>${v}</span></p>`).join('');
-      const seat = q('.st-seat'); seat.hidden = !d.seating; if (d.seating) seat.querySelector('img').src = d.seating;
-      const list = stageTiles(), i = list.indexOf(tile);
-      q('.st-count').textContent = String(i + 1).padStart(2, '0') + ' / ' + String(list.length).padStart(2, '0');
+      const seat = q('.st-seat'), own = !!d.seating;
+      seat.querySelector('img').src = own ? d.seating : SEAT_TEMPLATE;
+      seat.querySelector('i').textContent = own ? '' : 'Sample';
+      seat.dataset.caption = (q('.st-title').textContent + ' · cabin layout' + (own ? '' : ' (sample until the real drawing arrives)'));
       q('.st-more').href = '#aircraft-' + (tile.dataset.dossier || '');
       q('.st-body').scrollTop = 0;
     }
     function openStage(tile) {
-      if (stageBusy) return;
+      if (stageBusy || stage?.classList.contains('is-open')) return;
       stageGrid = tile.closest('.fleet-bento'); stageTile = tile;
       const host = stageGrid.parentElement;
       if (getComputedStyle(host).position === 'static') host.style.position = 'relative';
       ensureStage(); host.appendChild(stage);
       tile.querySelector('video')?.pause();
       placeStage(); fillStage(tile);
-      stage.classList.remove('is-split', 'is-ready');
-      stage.style.transition = 'none';
-      stage.style.setProperty('--st-clip', clipTo(tile));
-      stage.classList.add('is-open');
-      stageGrid.classList.add('has-stage');
+      // start exactly on top of the tile, no animation
+      stage.classList.add('no-anim', 'is-open'); stage.classList.remove('is-in');
+      setBox(tileBox(tile));
+      stage.offsetWidth;
+      stage.classList.remove('no-anim');
+      stageGrid.classList.add('has-stage'); tile.classList.add('is-source');
       if (isPhone()) document.documentElement.style.overflow = 'hidden';
       else {
         const r = stageGrid.getBoundingClientRect();
         if (r.top < 70 || r.bottom > innerHeight) window.scrollBy({ top: r.top - Math.max(90, (innerHeight - r.height) / 2), behavior: 'smooth' });
       }
-      stage.offsetWidth;            // commit the start state
-      stage.style.transition = '';
       stageBusy = true;
-      const grow = stageReduce ? 0 : 680;
-      requestAnimationFrame(() => stage.style.setProperty('--st-clip', '0px'));
-      setTimeout(() => {
-        stage.classList.add('is-split');
-        setTimeout(() => { stage.classList.add('is-ready'); stageBusy = false; stage.querySelector('[data-st="close"]').focus({ preventScroll: true }); }, stageReduce ? 0 : 380);
-      }, grow);
+      requestAnimationFrame(() => {
+        setBox(finalBox());           // one continuous move: tile -> final photo position
+        stage.classList.add('is-in'); // panel and text follow a beat behind
+      });
+      setTimeout(() => { stageBusy = false; stage.querySelector('.st-close').focus({ preventScroll: true }); }, MOVE + 200);
     }
     function closeStage() {
-      if (!stage || !stage.classList.contains('is-open') || stageBusy) return;
+      if (!stage?.classList.contains('is-open') || stageBusy) return;
       stageBusy = true;
-      stage.classList.remove('is-ready', 'is-split');
-      const shrink = () => {
-        stage.style.setProperty('--st-clip', clipTo(stageTile));
-        stageGrid.classList.remove('has-stage');
-        setTimeout(() => {
-          stage.classList.remove('is-open');
-          stage.querySelector('.st-media').innerHTML = '';
-          document.documentElement.style.overflow = '';
-          stageBusy = false; stageTile.focus({ preventScroll: true });
-        }, stageReduce ? 0 : 700);
-      };
-      stageReduce ? shrink() : setTimeout(shrink, 450);
-    }
-    function stepStage(dir) {
-      if (stageBusy) return;
-      const list = stageTiles(); if (list.length < 2) return;
-      const next = list[(list.indexOf(stageTile) + dir + list.length) % list.length];
-      stageBusy = true; stage.classList.add('is-swapping');
+      stage.classList.remove('is-in');
+      setBox(tileBox(stageTile));     // glide back into the tile while the panel fades
+      stageGrid.classList.remove('has-stage');
       setTimeout(() => {
-        stageTile = next; fillStage(next);
-        requestAnimationFrame(() => { stage.classList.remove('is-swapping'); stageBusy = false; });
-      }, stageReduce ? 0 : 320);
+        stageTile.classList.remove('is-source');
+        stage.classList.remove('is-open');
+        stage.querySelector('.st-media').innerHTML = '';
+        document.documentElement.style.overflow = '';
+        stageBusy = false; stageTile.focus({ preventScroll: true });
+      }, MOVE);
+    }
+    // Cabin layout lightbox: the drawing grows from the small card to full size
+    function openZoom() {
+      const seat = stage.querySelector('.st-seat'), small = seat.querySelector('img');
+      if (!zoom) {
+        zoom = document.createElement('div'); zoom.className = 'st-zoom'; zoom.setAttribute('role', 'dialog'); zoom.setAttribute('aria-label', 'Cabin layout');
+        zoom.innerHTML = '<figure><img alt="Cabin layout" /><figcaption></figcaption></figure>';
+        zoom.addEventListener('click', closeZoom);
+        document.body.appendChild(zoom);
+      }
+      const big = zoom.querySelector('img');
+      big.src = small.src; zoom.querySelector('figcaption').textContent = seat.dataset.caption || '';
+      const go = () => {
+        big.style.transition = 'none'; big.style.transform = '';
+        zoom.classList.add('open');
+        const a = small.getBoundingClientRect(), b = big.getBoundingClientRect();
+        big.style.transform = `translate(${a.left - b.left}px, ${a.top - b.top}px) scale(${a.width / b.width}, ${a.height / b.height})`;
+        big.offsetWidth; big.style.transition = ''; big.style.transform = '';
+      };
+      big.complete ? go() : (big.onload = go);
+    }
+    function closeZoom() {
+      if (!zoom?.classList.contains('open')) return;
+      const small = stage.querySelector('.st-seat img'), big = zoom.querySelector('img');
+      const a = small.getBoundingClientRect(), b = big.getBoundingClientRect();
+      big.style.transform = `translate(${a.left - b.left}px, ${a.top - b.top}px) scale(${a.width / b.width}, ${a.height / b.height})`;
+      zoom.classList.remove('open');
     }
     window.addEventListener('keydown', e => {
-      if (!stage?.classList.contains('is-open')) return;
-      if (e.key === 'Escape') closeStage();
-      else if (e.key === 'ArrowRight') stepStage(1);
-      else if (e.key === 'ArrowLeft') stepStage(-1);
+      if (e.key !== 'Escape') return;
+      if (zoom?.classList.contains('open')) closeZoom(); else closeStage();
     });
-    window.addEventListener('resize', () => { if (stage?.classList.contains('is-open')) placeStage(); });
+    window.addEventListener('resize', () => { if (stage?.classList.contains('is-open') && !stageBusy) { placeStage(); stage.classList.add('no-anim'); setBox(finalBox()); stage.offsetWidth; stage.classList.remove('no-anim'); } });
     // Close when the visitor scrolls well away from the open grid
     window.addEventListener('scroll', () => {
       if (!stage?.classList.contains('is-open') || stageBusy || isPhone()) return;
