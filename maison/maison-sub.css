@@ -1,0 +1,139 @@
+/* Shared base for the Maison inner pages (Fleet, aircraft). Mirrors the homepage defaults. */
+:root {
+  --navy: #050A30; --navy-2: #0B1142; --paper: #F5F6FB; --white: #FFFFFF;
+  --ink: #050A30; --ink-muted: #4A5172; --on-navy: #F5F6FB; --on-navy-muted: #ACAFBE;
+  --gold: #C6A15B; --gold-deep: #85652A;
+  --rule-light: rgba(5, 10, 48, 0.13); --rule-navy: rgba(245, 246, 251, 0.15);
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --label: 'Montserrat', sans-serif;
+  --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --display-track: -0.01em;
+  --sec-pad: clamp(4.5rem, 8vw, 7.5rem);
+  --gutter: clamp(1.25rem, 4.5vw, 4.5rem);
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --hdr-h: 64px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; background: var(--navy); color: var(--ink); font-family: var(--sans); font-size: 16px; -webkit-font-smoothing: antialiased; }
+body { overflow-x: hidden; background: var(--navy); }
+img, video { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+ul, ol { list-style: none; }
+.wrap { max-width: 1360px; margin: 0 auto; }
+:focus-visible { outline: 1px solid var(--gold); outline-offset: 4px; }
+
+/* Surfaces — same two brand surfaces as the homepage */
+.surf-navy {
+  --surf-bg: #050A30; --surf-fg: #F5F6FB; --surf-muted: #ACAFBE; --surf-accent: #C6A15B; --surf-rule: rgba(245, 246, 251, 0.15);
+  --surf-card: rgba(245, 246, 251, 0.04);
+}
+.surf-grey {
+  --surf-bg: #ACAFBE; --surf-fg: #050A30; --surf-muted: #262C4A; --surf-accent: #4E3A12; --surf-rule: rgba(5, 10, 48, 0.22);
+  --surf-card: rgba(5, 10, 48, 0.05);
+}
+:is(section, footer, div):is(.surf-navy, .surf-grey) { background: var(--surf-bg); color: var(--surf-fg); }
+.surf-join { box-shadow: inset 0 1px 0 var(--surf-rule); }
+
+/* Header — same centred-crest bar and headroom behaviour */
+.header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 70;
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+  padding: 1.35rem var(--gutter); color: var(--on-navy);
+  transition: background 0.4s var(--ease), color 0.4s var(--ease), border-color 0.4s ease, padding 0.4s var(--ease), transform 0.45s var(--ease);
+  border-bottom: 1px solid transparent;
+}
+.header.nav-hidden { transform: translateY(-101%); }
+.header.scrolled {
+  background: rgba(172, 175, 190, 0.94); color: var(--navy); border-bottom-color: rgba(5, 10, 48, 0.18);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  padding-top: 0.95rem; padding-bottom: 0.95rem;
+}
+.header.on-dark.scrolled { background: rgba(5, 10, 48, 0.92); color: var(--on-navy); border-bottom-color: var(--rule-navy); }
+.header-nav {
+  display: flex; gap: clamp(1.1rem, 2.3vw, 2.3rem);
+  font-family: var(--label); font-size: 0.67rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase;
+}
+.header-nav.right { justify-content: flex-end; }
+.header-nav a { position: relative; padding-bottom: 4px; opacity: 0.88; transition: opacity 0.3s ease; }
+.header-nav a:hover, .header-nav a[aria-current] { opacity: 1; }
+.header-nav a::after {
+  content: ''; position: absolute; left: 0; bottom: 0; width: 100%; height: 1px;
+  background: var(--gold); transform: scaleX(0); transform-origin: right; transition: transform 0.35s var(--ease);
+}
+.header-nav a:hover::after, .header-nav a[aria-current]::after { transform: scaleX(1); transform-origin: left; }
+.crest img { height: 30px; filter: brightness(0) invert(1); transition: filter 0.4s ease; }
+.header.scrolled:not(.on-dark) .crest img { filter: brightness(0) saturate(100%) invert(7%) sepia(60%) saturate(4200%) hue-rotate(228deg) brightness(92%) contrast(106%); }
+@media (max-width: 760px) {
+  .header { grid-template-columns: auto 1fr; padding-block: 1rem; }
+  .header-nav:first-child { display: none; }
+  .header-nav.right { gap: 1.1rem; }
+  .header-nav.right a:not(.keep) { display: none; }
+}
+
+/* Compact ledger heading (same as homepage) */
+.fleet-ledger {
+  display: flex; align-items: baseline; flex-wrap: wrap; gap: 0.4rem 1.4rem;
+  padding-block-end: 0.9rem; margin-block-end: clamp(1.8rem, 4vh, 3rem);
+  border-block-end: 1px solid color-mix(in srgb, var(--surf-accent, var(--gold)) 50%, transparent);
+}
+.fl-num { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.18em; color: var(--surf-accent, var(--gold)); }
+.fl-title { font-family: var(--serif); font-weight: 400; font-size: clamp(1.5rem, 2.1vw, 2rem); line-height: 1; letter-spacing: var(--display-track); white-space: nowrap; }
+.fl-title em, .accent-em { font-style: italic; color: var(--surf-accent, var(--gold)); }
+.fl-meta { font-family: var(--label); font-size: 0.64rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--surf-muted, var(--on-navy-muted)); }
+.fl-link {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  font-family: var(--label); font-size: 0.66rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--surf-accent, var(--gold)); white-space: nowrap;
+}
+.fleet-ledger .fl-link { margin-inline-start: auto; }
+.fl-link span { transition: transform 0.35s var(--ease); }
+.fl-link:hover span { transform: translateX(5px); }
+
+/* Registration plate */
+.plate {
+  display: inline-flex; align-items: center; height: 1.7rem; padding: 0 0.6rem;
+  font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.14em;
+  border: 1px solid var(--surf-rule, var(--rule-navy)); color: var(--surf-fg, var(--on-navy));
+}
+.status-dot { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--label); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--surf-muted); }
+.status-dot::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #5FB98A; }
+.status-dot.arriving::before { background: transparent; box-shadow: inset 0 0 0 1px var(--surf-accent, var(--gold)); }
+
+/* Drafting-sheet placeholder for aircraft without photography */
+.drafting {
+  position: absolute; inset: 0; display: grid; place-items: center;
+  background:
+    linear-gradient(rgba(198,161,91,0.07) 1px, transparent 1px) 0 0 / 28px 28px,
+    linear-gradient(90deg, rgba(198,161,91,0.07) 1px, transparent 1px) 0 0 / 28px 28px,
+    #0B1142;
+}
+.drafting svg { width: min(56%, 360px); height: auto; fill: none; stroke: rgba(198,161,91,0.6); stroke-width: 0.8; }
+.drafting small {
+  position: absolute; left: 50%; bottom: 1.1rem; transform: translateX(-50%);
+  font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(198,161,91,0.75); white-space: nowrap;
+}
+
+/* Scroll reveal */
+.rv { opacity: 0; transform: translateY(22px); transition: opacity 0.9s var(--ease), transform 0.9s var(--ease); }
+.rv.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .rv { opacity: 1; transform: none; transition: none; } html { scroll-behavior: auto; } }
+
+/* Footer (same as homepage) */
+footer { background: var(--navy); color: var(--on-navy-muted); padding: 5rem var(--gutter) 4rem; }
+.footer-crest { max-width: 1320px; margin: 0 auto 3.25rem; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 0.9rem; }
+.footer-crest img { height: 34px; filter: brightness(0) invert(1); }
+.footer-crest span { font-family: var(--label); font-size: 0.7rem; letter-spacing: 0.34em; text-transform: uppercase; color: var(--on-navy); }
+.footer-cols {
+  max-width: 1320px; margin: 0 auto; display: grid; grid-template-columns: 1.45fr 1fr 1fr 1fr; gap: 2.5rem;
+  padding: 2.5rem 0; border-top: 1px solid var(--rule-navy); border-bottom: 1px solid var(--rule-navy);
+  font-size: 0.85rem; line-height: 1.75;
+}
+.footer-cols h4 { font-family: var(--label); font-size: 0.64rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.9rem; }
+.footer-legal {
+  max-width: 1320px; margin: 1.75rem auto 0; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem;
+  font-family: var(--mono); font-size: 0.68rem; color: rgba(172, 175, 190, 0.68);
+}
+@media (max-width: 860px) { .footer-cols { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 520px) { .footer-cols { grid-template-columns: 1fr; } }

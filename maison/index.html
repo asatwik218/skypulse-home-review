@@ -1360,7 +1360,7 @@
   <header class="header" id="header">
     <nav class="header-nav" aria-label="Left navigation">
       <a href="#about">Leasing</a>
-      <a href="#fleet">Fleet</a>
+      <a href="fleet.html">Fleet</a>
       <a href="#missions">Missions</a>
     </nav>
     <a href="#" class="crest" aria-label="SkyPulse Solutions IFSC Home">
@@ -1457,7 +1457,7 @@
           <span class="fl-num" data-secnum="2">02</span>
           <h2 class="fl-title">Rotary <em>Fleet</em></h2>
           <span class="fl-meta">Helicopters · 06 in service · R44 &amp; H125 arriving</span>
-          <a class="fl-link" href="#full-fleet" title="Full fleet page — to be designed">View the full fleet <span aria-hidden="true">&rarr;</span></a>
+          <a class="fl-link" href="fleet.html#rotary" data-one-href="fleet.html" data-two-href="fleet.html#rotary">View the full fleet <span aria-hidden="true">&rarr;</span></a>
         </header>
 
         <div class="variant-group" id="group-fleet">
@@ -1734,7 +1734,7 @@
           <span class="fl-num" data-secnum="3">03</span>
           <h2 class="fl-title">Fixed-Wing <em>Fleet</em></h2>
           <span class="fl-meta">Turboprop &amp; jet · 02 in service · 25 trainers arriving</span>
-          <a class="fl-link" href="#full-fleet" title="Full fleet page — to be designed">View the full fleet <span aria-hidden="true">&rarr;</span></a>
+          <a class="fl-link" href="fleet.html#fixed-wing">View the full fleet <span aria-hidden="true">&rarr;</span></a>
         </header>
         <div class="fleet-bento layout-asym set-fixed mode-video" id="fleetBentoFixed"></div>
       </div>
@@ -1938,7 +1938,7 @@
     </div>
     <div class="footer-cols">
       <div><h4>Registered Office</h4><p>Unit 80, The Platform, Ground Floor, 11 T2, Block 11, GIFT SEZ, Gandhinagar 382355, Gujarat, India.<br/>Monday–Friday · 10:00–18:00 IST</p></div>
-      <div><h4>Directory</h4><ul><li><a href="#about">Leasing</a></li><li><a href="#fleet">Fleet Register</a></li><li><a href="#why">Why SkyPulse</a></li><li><a href="#journal">News</a></li></ul></div>
+      <div><h4>Directory</h4><ul><li><a href="#about">Leasing</a></li><li><a href="fleet.html">Fleet Register</a></li><li><a href="#why">Why SkyPulse</a></li><li><a href="#journal">News</a></li></ul></div>
       <div><h4>Governance</h4><ul><li>Leadership &amp; Board</li><li>Annual Return (Form MGT-7)</li><li>Privacy Policy</li><li>Grievance Redressal</li></ul></div>
       <div><h4>Correspondence</h4><ul><li>info@skypulsesolutions.com</li><li>+91 98214 32482</li><li>GIFT City · Gandhinagar</li></ul></div>
     </div>
@@ -2632,6 +2632,7 @@
       const k = two ? 'two' : 'one';
       rotaryLedger.querySelector('.fl-title').innerHTML = rotaryLedger.dataset[`${k}Title`];
       rotaryLedger.querySelector('.fl-meta').innerHTML = rotaryLedger.dataset[`${k}Meta`];
+      const rl = rotaryLedger.querySelector('.fl-link'); if (rl) rl.href = rl.dataset[`${k}Href`];
       document.querySelectorAll('[data-secnum-base]').forEach(e => { e.textContent = String(+e.dataset.secnumBase + (two ? 1 : 0)).padStart(2, '0'); });
       // Renumber later sections when the fixed-wing section is shown
       document.querySelectorAll('.eyebrow[data-secbase]').forEach(e => {
@@ -2837,7 +2838,7 @@
           <p class="st-desc"></p>
           <dl class="st-pillars"></dl>
           <div class="st-rows"></div>
-          <a class="fl-link st-more" href="#full-fleet" title="Aircraft page — to be designed">Full dossier <span aria-hidden="true">&rarr;</span></a>
+          <a class="fl-link st-more" href="fleet.html">Full dossier <span aria-hidden="true">&rarr;</span></a>
         </div>
       </aside>`;
     const stageReduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -2906,7 +2907,8 @@
       q('.st-thumb').innerHTML = `<img class="tb-plan" src="${plan}" alt="" />` + photo;
       q('.st-seat i').textContent = own ? '' : 'Sample';
       setPlan(false);
-      q('.st-more').href = '#aircraft-' + (tile.dataset.dossier || '');
+      const dk = tile.dataset.dossier || '';
+      q('.st-more').href = dk && dk !== 'pipeline' ? 'aircraft.html?a=' + dk : 'fleet.html#arriving';
       q('.st-body').scrollTop = 0;
     }
     function openStage(tile) {

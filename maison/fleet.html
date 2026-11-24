@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="robots" content="noindex, nofollow" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Fleet — SkyPulse Solutions IFSC</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=IBM+Plex+Mono:wght@300;400;500&family=Inter:wght@300;400;500&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="maison-sub.css" />
+  <style>
+    /* ---------- 1. Hero: the fleet as an index ---------- */
+    .fx-hero { position: relative; padding: calc(var(--hdr-h) + clamp(1.5rem, 4.5vh, 3rem)) var(--gutter) 0; }
+    .fx-hero-in {
+      max-width: 1360px; margin: 0 auto;
+      display: grid; grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr); gap: clamp(2rem, 4.5vw, 5rem); align-items: stretch;
+    }
+    .fx-kicker { font-family: var(--label); font-size: 0.66rem; letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.2rem; }
+    .fx-hero h1 {
+      font-family: var(--serif); font-weight: 400; font-size: clamp(2.3rem, 3.7vw, 3.6rem); line-height: 1.02;
+      letter-spacing: var(--display-track); margin-bottom: clamp(1.4rem, 3.5vh, 2.4rem); max-width: 15ch;
+    }
+    .fx-hero h1 em { font-style: italic; color: var(--gold); }
+
+    .fx-index { border-top: 1px solid var(--rule-navy); counter-reset: ix; }
+    .fx-ix {
+      position: relative; display: grid; grid-template-columns: 2.6rem minmax(0, 1fr) auto; align-items: baseline; gap: 1rem;
+      padding: clamp(0.45rem, 1.05vh, 0.75rem) 0; border-bottom: 1px solid var(--rule-navy);
+      transition: opacity 0.4s ease;
+    }
+    .fx-ix .n { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.14em; color: var(--on-navy-muted); transition: color 0.3s; }
+    .fx-ix .nm { font-family: var(--serif); font-size: clamp(1.5rem, 2.3vw, 2.15rem); line-height: 1.05; transition: color 0.3s, transform 0.5s var(--ease); }
+    .fx-ix .nm small { font-family: var(--label); font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--on-navy-muted); margin-left: 0.7rem; vertical-align: 0.4em; }
+    .fx-ix .mt { font-family: var(--label); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--on-navy-muted); text-align: right; }
+    .fx-ix::after {
+      content: ''; position: absolute; left: 0; bottom: -1px; height: 1px; width: 100%; background: var(--gold);
+      transform: scaleX(0); transform-origin: left;
+    }
+    .fx-ix.is-on .n, .fx-ix.is-on .nm { color: var(--gold); }
+    .fx-ix.is-on .nm { transform: translateX(0.35rem); }
+    .fx-ix.is-on::after { animation: ixRun var(--ix-dur, 5s) linear forwards; }
+    .fx-hero.is-held .fx-ix.is-on::after { animation: none; transform: scaleX(1); }
+    .fx-index:hover .fx-ix:not(.is-on) { opacity: 0.55; }
+    @keyframes ixRun { to { transform: scaleX(1); } }
+
+    .fx-hero-media { position: relative; margin: 0; min-height: 420px; overflow: hidden; background: var(--navy-2); }
+    .fx-hm { position: absolute; inset: 0; opacity: 0; transition: opacity 0.9s ease; }
+    .fx-hm.is-on { opacity: 1; }
+    .fx-hm img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.06); transition: transform 6s var(--ease); }
+    .fx-hm.is-on img { transform: scale(1); }
+    .fx-hero-media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgba(5,10,48,0.7)); pointer-events: none; }
+    .fx-hero-cap {
+      position: absolute; left: 1.25rem; right: 1.25rem; bottom: 1.1rem; z-index: 2;
+      display: flex; justify-content: space-between; align-items: flex-end; gap: 1rem;
+      font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(245,246,251,0.86);
+    }
+    .fx-hero-cap b { font-weight: 400; color: var(--gold); }
+
+    .fx-stats {
+      max-width: 1360px; margin: clamp(1.5rem, 3.5vh, 2.5rem) auto 0;
+      display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--rule-navy);
+    }
+    .fx-stat { padding: 1.1rem 0 1.3rem; display: flex; align-items: baseline; gap: 0.9rem; }
+    .fx-stat + .fx-stat { padding-left: 1.5rem; border-left: 1px solid var(--rule-navy); }
+    .fx-stat strong { font-family: var(--serif); font-weight: 400; font-size: clamp(2rem, 3vw, 2.7rem); line-height: 1; color: var(--on-navy); }
+    .fx-stat span { font-family: var(--label); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--on-navy-muted); line-height: 1.6; }
+
+    /* ---------- 2. Sticky category switch ---------- */
+    .fx-bar {
+      position: sticky; top: var(--bar-top, 0px); z-index: 60;
+      transition: top 0.45s var(--ease), background 0.4s ease, color 0.4s ease;
+      border-bottom: 1px solid var(--surf-rule);
+    }
+    .fx-bar.surf-navy { background: rgba(5, 10, 48, 0.94); }
+    .fx-bar.surf-grey { background: rgba(172, 175, 190, 0.96); }
+    .fx-bar { backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+    .fx-bar-in { max-width: 1360px; margin: 0 auto; padding: 0.8rem var(--gutter); display: flex; align-items: center; gap: 1.5rem; }
+    .fx-bar-in { max-width: calc(1360px + 2 * var(--gutter)); }
+    .fx-seg { display: inline-flex; gap: 0.25rem; padding: 0.25rem; border: 1px solid var(--surf-rule); border-radius: 999px; }
+    .fx-seg button {
+      display: inline-flex; align-items: center; gap: 0.55rem; padding: 0.5rem 1rem; border-radius: 999px;
+      font-family: var(--label); font-size: 0.62rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--surf-muted); transition: background 0.3s ease, color 0.3s ease;
+    }
+    .fx-seg button i { font-style: normal; font-family: var(--mono); letter-spacing: 0.06em; opacity: 0.7; }
+    .fx-seg button:hover { color: var(--surf-fg); }
+    .fx-seg button[aria-pressed="true"] { background: var(--surf-fg); color: var(--surf-bg); }
+    .fx-jump { margin-left: auto; display: flex; gap: 1.6rem; }
+    .fx-jump a { font-family: var(--label); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--surf-muted); transition: color 0.3s; }
+    .fx-jump a:hover { color: var(--surf-accent); }
+
+    /* ---------- 3. Category groups: one large row per type ---------- */
+    .fx-sec { padding: var(--sec-pad) var(--gutter); scroll-margin-top: 60px; }
+    .fx-sec[hidden] { display: none; }
+    .fx-row {
+      display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: clamp(1.5rem, 3vw, 3.5rem); align-items: center;
+      scroll-margin-top: 140px;
+    }
+    .fx-row + .fx-row { margin-top: clamp(4rem, 9vw, 7.5rem); }
+    .fx-row .fx-media { grid-column: 1 / span 7; }
+    .fx-row .fx-info { grid-column: 8 / span 5; }
+    .fx-row:nth-child(even of .fx-row) .fx-media { grid-column: 6 / span 7; grid-row: 1; }
+    .fx-row:nth-child(even of .fx-row) .fx-info { grid-column: 1 / span 5; grid-row: 1; }
+
+    .fx-media { position: relative; display: block; aspect-ratio: 16 / 10.5; overflow: hidden; background: var(--navy-2); }
+    .fx-media > img, .fx-media > video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity 0.8s ease, transform 1.4s var(--ease); }
+    .fx-media .p2, .fx-media video { opacity: 0; }
+    .fx-media:hover .p1 { transform: scale(1.035); }
+    .fx-media.has-p2:hover .p2 { opacity: 1; transform: scale(1.035); }
+    .fx-media.is-playing video { opacity: 1; }
+    .fx-media-tag {
+      position: absolute; left: 1rem; top: 1rem; z-index: 2; display: flex; gap: 0.35rem; flex-wrap: wrap;
+    }
+    .fx-media-tag span {
+      font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.14em; padding: 0.3rem 0.55rem;
+      background: rgba(5,10,48,0.62); color: #F5F6FB; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+    }
+    .fx-media-hint {
+      position: absolute; right: 1rem; bottom: 1rem; z-index: 2;
+      font-family: var(--label); font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase; color: #F5F6FB;
+      opacity: 0; transform: translateY(6px); transition: opacity 0.4s ease, transform 0.5s var(--ease);
+    }
+    .fx-media:hover .fx-media-hint { opacity: 0.9; transform: none; }
+
+    .fx-class { display: flex; gap: 0.9rem; align-items: baseline; font-family: var(--label); font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--surf-muted); margin-bottom: 1rem; }
+    .fx-class b { font-family: var(--mono); font-weight: 400; color: var(--surf-accent); letter-spacing: 0.14em; }
+    .fx-name { font-family: var(--serif); font-weight: 400; font-size: clamp(2.4rem, 4vw, 3.6rem); line-height: 1; letter-spacing: var(--display-track); }
+    .fx-name small { display: block; font-size: 0.42em; font-style: italic; color: var(--surf-accent); margin-bottom: 0.35rem; }
+    .fx-line { margin: 1.2rem 0 1.8rem; font-size: 0.98rem; line-height: 1.7; font-weight: 300; color: var(--surf-muted); max-width: 40ch; }
+    .surf-grey .fx-line { font-weight: 400; }
+    .fx-specs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid var(--surf-rule); }
+    .fx-specs > div { padding: 0.95rem 0; border-bottom: 1px solid var(--surf-rule); }
+    .fx-specs > div:nth-child(even) { padding-left: 1.2rem; border-left: 1px solid var(--surf-rule); }
+    .fx-specs dd { font-family: var(--serif); font-size: 1.85rem; line-height: 1; }
+    .fx-specs dd small { font-family: var(--label); font-size: 0.6rem; letter-spacing: 0.14em; margin-left: 0.35rem; color: var(--surf-muted); text-transform: uppercase; }
+    .fx-specs dt { order: 2; font-family: var(--label); font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--surf-muted); margin-top: 0.45rem; }
+    .fx-specs > div { display: flex; flex-direction: column; }
+    .fx-regs { display: flex; align-items: center; flex-wrap: wrap; gap: 0.4rem; margin: 1.5rem 0 1.8rem; }
+    .fx-regs > span:first-child { font-family: var(--label); font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--surf-muted); margin-right: 0.6rem; }
+
+    /* ---------- 4. Arriving ---------- */
+    .fx-arr { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1rem, 2vw, 1.8rem); }
+    .fx-card { display: flex; flex-direction: column; scroll-margin-top: 140px; }
+    .fx-card[hidden] { display: none; }
+    .fx-card .fx-media { aspect-ratio: 4 / 3; }
+    .fx-card-body { padding-top: 1.3rem; display: flex; flex-direction: column; gap: 0.75rem; flex: 1; }
+    .fx-card h3 { font-family: var(--serif); font-weight: 400; font-size: 2rem; line-height: 1; }
+    .fx-card h3 small { font-size: 0.5em; font-style: italic; color: var(--surf-accent); margin-left: 0.4rem; }
+    .fx-card p { font-size: 0.9rem; line-height: 1.65; font-weight: 300; color: var(--surf-muted); }
+    .fx-card .fx-mini { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.08em; color: var(--surf-fg); padding: 0.75rem 0; border-block: 1px solid var(--surf-rule); }
+    .fx-card .fl-link { margin-top: auto; padding-top: 0.4rem; }
+    .fx-count {
+      position: absolute; right: 1rem; top: 1rem; z-index: 2; font-family: var(--serif); font-size: 2.6rem; line-height: 1; color: #F5F6FB;
+      text-shadow: 0 2px 16px rgba(5,10,48,0.5);
+    }
+    .fx-count small { font-family: var(--label); font-size: 0.55rem; letter-spacing: 0.22em; text-transform: uppercase; display: block; text-align: right; margin-top: 0.2rem; }
+
+    /* ---------- 5. Compare ---------- */
+    .fx-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .fx-table { width: 100%; min-width: 880px; border-collapse: collapse; }
+    .fx-table th {
+      text-align: left; font-family: var(--label); font-size: 0.58rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--surf-muted); padding: 0 1rem 0.9rem 0; border-bottom: 1px solid var(--surf-fg); white-space: nowrap; vertical-align: bottom;
+    }
+    .fx-table th button { font: inherit; letter-spacing: inherit; text-transform: inherit; color: inherit; display: inline-flex; gap: 0.4rem; align-items: center; }
+    .fx-table th button::after { content: '↕'; font-family: var(--sans); opacity: 0.45; letter-spacing: 0; }
+    .fx-table th button[aria-sort="descending"]::after { content: '↓'; opacity: 1; color: var(--surf-accent); }
+    .fx-table th button:hover { color: var(--surf-fg); }
+    .fx-table td { padding: 1.05rem 1rem 1.05rem 0; border-bottom: 1px solid var(--surf-rule); vertical-align: middle; font-size: 0.88rem; }
+    .fx-table tbody tr { transition: background 0.25s ease; cursor: pointer; }
+    .fx-table tbody tr:hover { background: var(--surf-card); }
+    .fx-table tbody tr[hidden] { display: none; }
+    .fx-t-name { font-family: var(--serif); font-size: 1.45rem; line-height: 1.05; white-space: nowrap; }
+    .fx-t-name small { display: block; font-family: var(--label); font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--surf-muted); margin-bottom: 0.3rem; }
+    .fx-t-num { font-family: var(--mono); font-size: 0.8rem; white-space: nowrap; }
+    .fx-t-bar { display: grid; grid-template-columns: 4.6rem minmax(80px, 1fr); align-items: center; gap: 0.8rem; min-width: 190px; }
+    .fx-t-bar i { display: block; height: 4px; border-radius: 0 4px 4px 0; background: var(--surf-accent); transform-origin: left; transition: width 0.7s var(--ease); }
+    .fx-t-track { position: relative; height: 4px; background: color-mix(in srgb, var(--surf-fg) 10%, transparent); }
+    .fx-t-track i { position: absolute; left: 0; top: 0; height: 100%; }
+    .fx-t-dim { color: var(--surf-muted); font-size: 0.82rem; white-space: nowrap; }
+    .fx-swipe { display: none; font-family: var(--label); font-size: 0.56rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--surf-muted); margin-bottom: 0.9rem; }
+    .fx-note { margin-top: 1.3rem; font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.04em; color: var(--surf-muted); line-height: 1.7; }
+
+    /* ---------- 6. Missions matrix ---------- */
+    .fx-matrix { width: 100%; min-width: 820px; border-collapse: collapse; table-layout: fixed; }
+    .fx-matrix col.mcol { width: 23%; }
+    .fx-matrix thead th { padding: 0 0.5rem 0.9rem; text-align: center; vertical-align: bottom; border-bottom: 1px solid var(--surf-fg); }
+    .fx-matrix thead th:first-child { text-align: left; padding-left: 0; font-family: var(--label); font-size: 0.58rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--surf-muted); }
+    .fx-matrix .grp th { border-bottom: none; padding-bottom: 0.4rem; font-family: var(--label); font-size: 0.56rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--surf-accent); font-weight: 500; }
+    .fx-matrix .grp th[colspan] { border-bottom: 1px solid var(--surf-rule); }
+    .fx-matrix .ac th a { font-family: var(--serif); font-weight: 400; font-size: 1.15rem; line-height: 1.1; display: inline-block; transition: color 0.25s; }
+    .fx-matrix .ac th a:hover { color: var(--surf-accent); }
+    .fx-matrix .ac th small { display: block; font-family: var(--label); font-size: 0.52rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--surf-muted); margin-top: 0.3rem; font-weight: 400; }
+    .fx-matrix tbody th { text-align: left; font-family: var(--serif); font-weight: 400; font-size: 1.25rem; padding: 0.85rem 0; border-bottom: 1px solid var(--surf-rule); }
+    .fx-matrix td { text-align: center; border-bottom: 1px solid var(--surf-rule); transition: background 0.25s ease; }
+    .fx-matrix tbody tr:hover td, .fx-matrix tbody tr:hover th, .fx-matrix td.col-hi, .fx-matrix th.col-hi { background: var(--surf-card); }
+    .fx-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: var(--surf-accent); }
+    .fx-dash { display: inline-block; width: 10px; height: 1px; background: var(--surf-rule); vertical-align: middle; }
+    .fx-matrix [hidden] { display: none; }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 980px) {
+      .fx-hero-in { grid-template-columns: 1fr; }
+      .fx-hero-media { order: -1; min-height: 0; aspect-ratio: 16 / 10; }
+      .fx-stats { grid-template-columns: repeat(2, 1fr); }
+      .fx-stat:nth-child(3) { padding-left: 0; border-left: none; }
+      .fx-stat:nth-child(n+3) { border-top: 1px solid var(--rule-navy); }
+      .fx-row .fx-media, .fx-row .fx-info,
+      .fx-row:nth-child(even of .fx-row) .fx-media, .fx-row:nth-child(even of .fx-row) .fx-info { grid-column: 1 / -1; grid-row: auto; }
+      .fx-arr { grid-template-columns: 1fr 1fr; }
+      .fx-jump { display: none; }
+    }
+    @media (max-width: 620px) {
+      .fx-hero h1 { max-width: none; }
+      .fx-ix { grid-template-columns: 2rem minmax(0, 1fr) auto; }
+      .fx-ix .nm small { display: none; }
+      #fxCapR { display: none; }
+      .fx-hero-cap { white-space: nowrap; }
+      .fx-stat { flex-direction: column; gap: 0.5rem; }
+      .fx-arr { grid-template-columns: 1fr; }
+      .fx-swipe { display: block; }
+      .fx-bar-in { padding-inline: 1rem; }
+      .fx-seg { width: 100%; }
+      .fx-seg button { flex: 1; justify-content: center; padding-inline: 0.4rem; letter-spacing: 0.14em; }
+      .fx-table th:first-child, .fx-table td:first-child, .fx-matrix thead tr > th:first-child, .fx-matrix tbody th {
+        position: sticky; left: 0; z-index: 1; background: var(--surf-bg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header" id="header">
+    <nav class="header-nav" aria-label="Left navigation">
+      <a href="./#about">Leasing</a>
+      <a href="fleet.html" aria-current="page">Fleet</a>
+      <a href="./#missions">Missions</a>
+    </nav>
+    <a href="./" class="crest" aria-label="SkyPulse Solutions IFSC home">
+      <img src="media/mark.png" alt="SkyPulse feather crest" />
+    </a>
+    <nav class="header-nav right" aria-label="Right navigation">
+      <a href="./#why">Why SkyPulse</a>
+      <a href="./#journal">News</a>
+      <a href="#footer" class="keep">Company</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- 1. HERO — the whole fleet as an index; hover a name to see the aircraft -->
+    <section class="fx-hero surf-navy" id="top" data-theme="dark">
+      <div class="fx-hero-in">
+        <div class="fx-hero-text">
+          <p class="fx-kicker">The SkyPulse Fleet</p>
+          <h1>Eight aircraft flying. <em>Twenty-seven on the way.</em></h1>
+          <ol class="fx-index" id="fxIndex"></ol>
+        </div>
+        <figure class="fx-hero-media" id="fxHeroMedia" aria-hidden="true">
+          <figcaption class="fx-hero-cap"><span id="fxCapL"></span><span id="fxCapR"></span></figcaption>
+        </figure>
+      </div>
+      <div class="fx-stats">
+        <div class="fx-stat"><strong>08</strong><span>Aircraft<br/>in service</span></div>
+        <div class="fx-stat"><strong>04</strong><span>Types flying<br/>today</span></div>
+        <div class="fx-stat"><strong>27</strong><span>Aircraft arriving<br/>2026–27</span></div>
+        <div class="fx-stat"><strong>07</strong><span>Types by<br/>2027</span></div>
+      </div>
+    </section>
+
+    <!-- 2. Category switch (sticky) -->
+    <div class="fx-bar surf-navy" id="fxBar">
+      <div class="fx-bar-in">
+        <div class="fx-seg" role="group" aria-label="Show aircraft">
+          <button type="button" data-f="all" aria-pressed="true">All <i>07</i></button>
+          <button type="button" data-f="rotary" aria-pressed="false">Rotary <i>04</i></button>
+          <button type="button" data-f="fixed" aria-pressed="false">Fixed-wing <i>03</i></button>
+        </div>
+        <nav class="fx-jump" aria-label="On this page">
+          <a href="#arriving">Arriving</a>
+          <a href="#compare">Compare</a>
+          <a href="#roles">Missions</a>
+        </nav>
+      </div>
+    </div>
+
+    <!-- 3. Rotary -->
+    <section class="fx-sec fx-group surf-navy" id="rotary" data-cat="rotary" data-theme="dark">
+      <div class="wrap">
+        <header class="fleet-ledger">
+          <span class="fl-num">01</span>
+          <h2 class="fl-title">Rotary <em>Fleet</em></h2>
+          <span class="fl-meta">Helicopters · 06 in service · 02 types</span>
+        </header>
+        <div class="fx-rows" data-rows="rotary"></div>
+      </div>
+    </section>
+
+    <!-- 4. Fixed-wing -->
+    <section class="fx-sec fx-group surf-grey" id="fixed-wing" data-cat="fixed" data-theme="light">
+      <div class="wrap">
+        <header class="fleet-ledger">
+          <span class="fl-num">02</span>
+          <h2 class="fl-title">Fixed-wing <em>Fleet</em></h2>
+          <span class="fl-meta">Turboprop &amp; jet · 02 in service · 02 types</span>
+        </header>
+        <div class="fx-rows" data-rows="fixed"></div>
+      </div>
+    </section>
+
+    <!-- 5. Arriving -->
+    <section class="fx-sec surf-navy" id="arriving" data-theme="dark">
+      <div class="wrap">
+        <header class="fleet-ledger">
+          <span class="fl-num">03</span>
+          <h2 class="fl-title">Arriving <em>Fleet</em></h2>
+          <span class="fl-meta">27 aircraft · 03 new types · 2026–27</span>
+        </header>
+        <div class="fx-arr" id="fxArr"></div>
+      </div>
+    </section>
+
+    <!-- 6. Compare -->
+    <section class="fx-sec surf-grey" id="compare" data-theme="light">
+      <div class="wrap">
+        <header class="fleet-ledger">
+          <span class="fl-num">04</span>
+          <h2 class="fl-title">Compare the <em>fleet</em></h2>
+          <span class="fl-meta">Seats · speed · range, side by side</span>
+        </header>
+        <p class="fx-swipe" aria-hidden="true">Swipe the table →</p>
+        <div class="fx-scroll">
+          <table class="fx-table" id="fxTable">
+            <thead>
+              <tr>
+                <th scope="col">Aircraft</th>
+                <th scope="col">Category</th>
+                <th scope="col"><button type="button" data-sort="seats" aria-sort="none">Passengers</button></th>
+                <th scope="col"><button type="button" data-sort="cruise" aria-sort="none">Cruise speed</button></th>
+                <th scope="col"><button type="button" data-sort="range" aria-sort="none">Range</button></th>
+                <th scope="col">Power</th>
+                <th scope="col">Status</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <p class="fx-note">Indicative manufacturer figures for each type. Exact seating, speed and range depend on the configuration of each airframe. Click a column heading to sort, or a row to open the aircraft.</p>
+      </div>
+    </section>
+
+    <!-- 7. Missions × aircraft -->
+    <section class="fx-sec surf-navy" id="roles" data-theme="dark">
+      <div class="wrap">
+        <header class="fleet-ledger">
+          <span class="fl-num">05</span>
+          <h2 class="fl-title">Missions <em>&amp; aircraft</em></h2>
+          <span class="fl-meta">Which aircraft is leased for which work</span>
+          <a class="fl-link" href="./#missions">All missions <span aria-hidden="true">→</span></a>
+        </header>
+        <p class="fx-swipe" aria-hidden="true">Swipe the table →</p>
+        <div class="fx-scroll">
+          <table class="fx-matrix" id="fxMatrix"></table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="footer" class="surf-join" style="--surf-rule: rgba(245,246,251,0.15)" data-theme="dark">
+    <div class="footer-crest">
+      <img src="media/mark.png" alt="SkyPulse feather crest" />
+      <span>SkyPulse Solutions IFSC Private Limited</span>
+    </div>
+    <div class="footer-cols">
+      <div><h4>Registered Office</h4><p>Unit 80, The Platform, Ground Floor, 11 T2, Block 11, GIFT SEZ, Gandhinagar 382355, Gujarat, India.<br/>Monday–Friday · 10:00–18:00 IST</p></div>
+      <div><h4>Directory</h4><ul><li><a href="./#about">Leasing</a></li><li><a href="fleet.html">Fleet Register</a></li><li><a href="./#why">Why SkyPulse</a></li><li><a href="./#journal">News</a></li></ul></div>
+      <div><h4>Governance</h4><ul><li>Leadership &amp; Board</li><li>Annual Return (Form MGT-7)</li><li>Privacy Policy</li><li>Grievance Redressal</li></ul></div>
+      <div><h4>Correspondence</h4><ul><li>info@skypulsesolutions.com</li><li>+91 98214 32482</li><li>GIFT City · Gandhinagar</li></ul></div>
+    </div>
+    <div class="footer-legal">
+      <span>© 2026 SkyPulse Solutions IFSC Private Limited · Aircraft Operating Lessor · Not a Charter Operator</span>
+      <span>Statutory disclosures published pursuant to Companies (Incorporation) Rules r.26</span>
+    </div>
+  </footer>
+
+  <script src="maison-fleet-data.js"></script>
+  <script src="maison-sub.js"></script>
+  <script>
+  (() => {
+    const { FLEET, MISSIONS } = window.SKY_FLEET;
+    const PAGE = 'aircraft.html?a=';
+    const pad = n => String(n).padStart(2, '0');
+    const fmt = n => n.toLocaleString('en-IN');
+    const catLabel = c => c === 'rotary' ? 'Rotary' : 'Fixed-wing';
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // Display order: in service first, each category together
+    const ORDER = ['aw109', 'h130', 'kingair', 'hawker', 'h125', 'r44', 'p2010'];
+    const byKey = Object.fromEntries(FLEET.map(a => [a.key, a]));
+    const list = ORDER.map(k => byKey[k]);
+    const anchor = a => (a.status === 'service' ? 'a-' : 'arr-') + a.key;
+    const drafting = (a, note = 'Imagery to follow') => `<div class="drafting">${a.drawing}<small>${note}</small></div>`;
+
+    /* ---- Hero index ---- */
+    const ix = document.getElementById('fxIndex');
+    const hm = document.getElementById('fxHeroMedia');
+    const capL = document.getElementById('fxCapL'), capR = document.getElementById('fxCapR');
+    ix.innerHTML = list.map((a, i) => {
+      const meta = a.status === 'service'
+        ? `${catLabel(a.cat)} · ${a.regs.length > 1 ? pad(a.regs.length) + ' aircraft' : a.regs[0].reg}`
+        : `Arriving${a.count ? ' · ×' + a.count : ''}`;
+      return `<li><a class="fx-ix" href="#${anchor(a)}" data-key="${a.key}"><span class="n">${pad(i + 1)}</span><span class="nm">${a.name}<small>${a.maker}</small></span><span class="mt">${meta}</span></a></li>`;
+    }).join('');
+    hm.insertAdjacentHTML('afterbegin', list.map(a => {
+      const p = a.photos[0];
+      return `<div class="fx-hm" data-key="${a.key}">${p ? `<img src="${p.src}" alt="" style="object-position:${p.pos}" ${a.key === 'aw109' ? '' : 'loading="lazy"'} />` : drafting(a)}</div>`;
+    }).join(''));
+    const items = [...ix.querySelectorAll('.fx-ix')];
+    const frames = [...hm.querySelectorAll('.fx-hm')];
+    let cur = 0, timer = null;
+    const DUR = 5000;
+    ix.style.setProperty('--ix-dur', DUR + 'ms');
+    function show(i) {
+      cur = (i + items.length) % items.length;
+      const a = list[cur];
+      items.forEach((el, j) => {
+        el.classList.toggle('is-on', j === cur);
+        if (j === cur) { el.style.animation = 'none'; void el.offsetWidth; el.style.animation = ''; }
+      });
+      frames.forEach((f, j) => f.classList.toggle('is-on', j === cur));
+      capL.innerHTML = `<b>${pad(cur + 1)}</b> &nbsp;${a.full}`;
+      capR.textContent = a.status === 'service' ? a.regs.map(r => r.reg).join(' · ') : 'Arriving ' + a.when;
+    }
+    const heroSec = document.querySelector('.fx-hero');
+    function auto() { clearInterval(timer); if (!reduced) timer = setInterval(() => show(cur + 1), DUR); }
+    items.forEach((el, i) => {
+      el.addEventListener('mouseenter', () => { heroSec.classList.add('is-held'); clearInterval(timer); show(i); });
+      el.addEventListener('focus', () => { heroSec.classList.add('is-held'); clearInterval(timer); show(i); });
+      el.addEventListener('click', () => setFilter('all', false));
+    });
+    ix.addEventListener('mouseleave', () => { heroSec.classList.remove('is-held'); auto(); });
+    show(0);
+    if (reduced) heroSec.classList.add('is-held');
+    auto();
+
+    /* ---- Rows ---- */
+    function specs(a) {
+      const pw = a.power.split(' ');
+      return `<dl class="fx-specs">
+        <div><dt>Passengers</dt><dd>${pad(a.seats)}<small>+ ${a.crew} crew</small></dd></div>
+        <div><dt>Cruise speed</dt><dd>${a.cruise}<small>km/h</small></dd></div>
+        <div><dt>Range</dt><dd>${fmt(a.range)}<small>km</small></dd></div>
+        <div><dt>Engines</dt><dd>${pw[0] === 'Twin' ? '02' : '01'}<small>${pw[1]}${pw[0] === 'Twin' ? 's' : ''}</small></dd></div>
+      </dl>`;
+    }
+    function media(a, cls = '') {
+      const [p1, p2] = a.photos;
+      const tags = a.status === 'service' ? a.regs.map(r => `<span>${r.reg}</span>`).join('') : `<span>Arriving ${a.when}</span>`;
+      const body = p1
+        ? `<img class="p1" src="${p1.src}" alt="${p1.alt}" style="object-position:${p1.pos}" loading="lazy" />` +
+          (p2 && !a.video ? `<img class="p2" src="${p2.src}" alt="" style="object-position:${p2.pos}" loading="lazy" />` : '') +
+          (a.video ? `<video muted loop playsinline preload="none" style="${a.videoScale ? `transform:scale(${a.videoScale})` : ''}"><source src="${a.video}" type="video/mp4" /></video>` : '')
+        : drafting(a);
+      const hint = a.video ? 'Hover to fly' : (p2 ? 'Hover for cabin' : '');
+      return `<a class="fx-media ${cls} ${p2 && !a.video ? 'has-p2' : ''}" href="${PAGE}${a.key}" aria-label="Open the ${a.full}">${body}<span class="fx-media-tag">${tags}</span>${a.count ? `<span class="fx-count">×${a.count}<small>aircraft</small></span>` : ''}${hint ? `<span class="fx-media-hint">${hint}</span>` : ''}</a>`;
+    }
+    ['rotary', 'fixed'].forEach(cat => {
+      const box = document.querySelector(`[data-rows="${cat}"]`);
+      box.innerHTML = list.filter(a => a.cat === cat && a.status === 'service').map(a => {
+        const n = list.indexOf(a) + 1;
+        return `<article class="fx-row" id="${anchor(a)}">
+          ${media(a, 'rv')}
+          <div class="fx-info rv">
+            <p class="fx-class"><b>${pad(n)}</b>${a.klass}</p>
+            <h3 class="fx-name"><small>${a.maker}</small>${a.name}</h3>
+            <p class="fx-line">${a.line}</p>
+            ${specs(a)}
+            <div class="fx-regs"><span>In the fleet</span>${a.regs.map(r => `<span class="plate">${r.reg}</span>`).join('')}</div>
+            <a class="fl-link" href="${PAGE}${a.key}">Explore the ${a.name} <span aria-hidden="true">→</span></a>
+          </div>
+        </article>`;
+      }).join('');
+    });
+
+    /* ---- Arriving cards ---- */
+    document.getElementById('fxArr').innerHTML = list.filter(a => a.status === 'arriving').map(a => `
+      <article class="fx-card rv" id="${anchor(a)}" data-cat="${a.cat}">
+        ${media(a)}
+        <div class="fx-card-body">
+          <span class="status-dot arriving">Arriving ${a.when} · ${catLabel(a.cat)}</span>
+          <h3>${a.name}<small>${a.maker}</small></h3>
+          <p>${a.line}</p>
+          <div class="fx-mini">${a.seats + (a.key === 'p2010' ? 1 : 0)} seats · ${a.cruise} km/h · ${fmt(a.range)} km</div>
+          <a class="fl-link" href="${PAGE}${a.key}">Explore the ${a.name} <span aria-hidden="true">→</span></a>
+        </div>
+      </article>`).join('');
+
+    /* ---- Compare table ---- */
+    const tbody = document.querySelector('#fxTable tbody');
+    const max = { cruise: Math.max(...list.map(a => a.cruise)), range: Math.max(...list.map(a => a.range)) };
+    tbody.innerHTML = list.map(a => `
+      <tr data-key="${a.key}" data-cat="${a.cat}">
+        <td><a class="fx-t-name" href="${PAGE}${a.key}"><small>${a.maker}</small>${a.name}</a></td>
+        <td class="fx-t-dim">${catLabel(a.cat)}<br/>${a.klass}</td>
+        <td class="fx-t-num">${pad(a.seats)} <span class="fx-t-dim">+ ${a.crew} crew</span></td>
+        <td><div class="fx-t-bar"><span class="fx-t-num">${a.cruise} km/h</span><span class="fx-t-track"><i style="width:${(a.cruise / max.cruise * 100).toFixed(1)}%"></i></span></div></td>
+        <td><div class="fx-t-bar"><span class="fx-t-num">${fmt(a.range)} km</span><span class="fx-t-track"><i style="width:${(a.range / max.range * 100).toFixed(1)}%"></i></span></div></td>
+        <td class="fx-t-dim">${a.engines}</td>
+        <td><span class="status-dot ${a.status === 'arriving' ? 'arriving' : ''}">${a.status === 'service' ? (a.regs.length > 1 ? pad(a.regs.length) + ' in service' : 'In service') : 'Arriving ' + a.when}</span></td>
+      </tr>`).join('');
+    tbody.addEventListener('click', e => {
+      if (e.target.closest('a')) return;
+      const tr = e.target.closest('tr'); if (tr) location.href = PAGE + tr.dataset.key;
+    });
+    const sortBtns = [...document.querySelectorAll('#fxTable [data-sort]')];
+    sortBtns.forEach(b => b.addEventListener('click', () => {
+      const on = b.getAttribute('aria-sort') !== 'descending';
+      sortBtns.forEach(x => x.setAttribute('aria-sort', 'none'));
+      const rows = [...tbody.children];
+      if (on) {
+        b.setAttribute('aria-sort', 'descending');
+        rows.sort((r1, r2) => byKey[r2.dataset.key][b.dataset.sort] - byKey[r1.dataset.key][b.dataset.sort]);
+      } else {
+        rows.sort((r1, r2) => ORDER.indexOf(r1.dataset.key) - ORDER.indexOf(r2.dataset.key));
+      }
+      rows.forEach(r => tbody.appendChild(r));
+    }));
+
+    /* ---- Missions matrix ---- */
+    const cols = ['rotary', 'fixed'].flatMap(c => list.filter(a => a.cat === c));
+    const nRot = cols.filter(a => a.cat === 'rotary').length;
+    document.getElementById('fxMatrix').innerHTML = `
+      <colgroup><col class="mcol" />${cols.map(() => '<col />').join('')}</colgroup>
+      <thead>
+        <tr class="grp"><th></th><th colspan="${nRot}" data-cat="rotary">Rotary</th><th colspan="${cols.length - nRot}" data-cat="fixed">Fixed-wing</th></tr>
+        <tr class="ac"><th scope="col">Mission</th>${cols.map((a, i) => `<th scope="col" data-col="${i}" data-cat="${a.cat}"><a href="${PAGE}${a.key}">${a.name}</a><small>${a.status === 'service' ? 'In service' : 'Arriving'}</small></th>`).join('')}</tr>
+      </thead>
+      <tbody>${MISSIONS.map(m => `<tr><th scope="row">${m.label}</th>${cols.map((a, i) => {
+        const on = a.missions.includes(m.key);
+        return `<td data-col="${i}" data-cat="${a.cat}">${on ? `<span class="fx-dot" role="img" aria-label="${a.name}: yes"></span>` : `<span class="fx-dash" role="img" aria-label="${a.name}: no"></span>`}</td>`;
+      }).join('')}</tr>`).join('')}</tbody>`;
+    const mx = document.getElementById('fxMatrix');
+    mx.addEventListener('mouseover', e => {
+      const c = e.target.closest('[data-col]')?.dataset.col;
+      mx.querySelectorAll('.col-hi').forEach(x => x.classList.remove('col-hi'));
+      if (c != null) mx.querySelectorAll(`[data-col="${c}"]`).forEach(x => x.classList.add('col-hi'));
+    });
+    mx.addEventListener('mouseleave', () => mx.querySelectorAll('.col-hi').forEach(x => x.classList.remove('col-hi')));
+
+    /* ---- Hover: play video / show second photo ---- */
+    document.querySelectorAll('.fx-media').forEach(m => {
+      const v = m.querySelector('video'); if (!v) return;
+      v.playbackRate = 0.85;
+      m.addEventListener('mouseenter', () => { v.preload = 'auto'; v.play().then(() => m.classList.add('is-playing')).catch(() => {}); });
+      m.addEventListener('mouseleave', () => { m.classList.remove('is-playing'); setTimeout(() => { if (!m.matches(':hover')) v.pause(); }, 800); });
+    });
+
+    /* ---- Category filter (also from #rotary / #fixed-wing links) ---- */
+    const segBtns = [...document.querySelectorAll('.fx-seg button')];
+    const bar = document.getElementById('fxBar');
+    function setFilter(f, scroll = true) {
+      segBtns.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.f === f)));
+      const show = c => f === 'all' || c === f;
+      document.querySelectorAll('.fx-group').forEach(s => s.hidden = !show(s.dataset.cat));
+      document.querySelectorAll('.fx-card, #fxTable tbody tr, #fxMatrix [data-cat]').forEach(el => el.hidden = !show(el.dataset.cat));
+      history.replaceState(null, '', f === 'all' ? location.pathname + location.search : '#' + (f === 'fixed' ? 'fixed-wing' : 'rotary'));
+      if (scroll) {
+        const target = document.getElementById(f === 'fixed' ? 'fixed-wing' : 'rotary');
+        const y = target.getBoundingClientRect().top + scrollY - bar.offsetHeight;
+        if (Math.abs(scrollY - y) > 4) scrollTo({ top: y, behavior: reduced ? 'auto' : 'smooth' });
+      }
+      window.dispatchEvent(new Event('scroll'));
+    }
+    segBtns.forEach(b => b.addEventListener('click', () => setFilter(b.dataset.f)));
+    const h = location.hash.slice(1);
+    if (h === 'rotary' || h === 'fixed-wing') requestAnimationFrame(() => setFilter(h === 'rotary' ? 'rotary' : 'fixed'));
+
+    /* ---- Bar sits under the header when it is showing, and takes the colour of the section beneath ---- */
+    const header = document.getElementById('header');
+    const secs = [...document.querySelectorAll('main > section')];
+    function syncBar() {
+      const shown = !header.classList.contains('nav-hidden');
+      document.documentElement.style.setProperty('--bar-top', shown ? header.offsetHeight + 'px' : '0px');
+      const probe = bar.getBoundingClientRect().bottom + 2;
+      let surf = 'surf-navy';
+      secs.forEach(s => { const r = s.getBoundingClientRect(); if (r.top <= probe && r.bottom > probe) surf = s.classList.contains('surf-grey') ? 'surf-grey' : 'surf-navy'; });
+      bar.classList.toggle('surf-grey', surf === 'surf-grey');
+      bar.classList.toggle('surf-navy', surf !== 'surf-grey');
+      // While the bar is stuck under the header, the header takes the bar's colour so they read as one band
+      if (shown && bar.getBoundingClientRect().top <= header.offsetHeight + 1) header.classList.toggle('on-dark', surf !== 'surf-grey');
+    }
+    window.addEventListener('scroll', syncBar, { passive: true });
+    window.addEventListener('resize', syncBar);
+    new MutationObserver(syncBar).observe(header, { attributes: true, attributeFilter: ['class'] });
+    syncBar();
+
+    window.SKY_SUB.reveal();
+  })();
+  </script>
+</body>
+</html>

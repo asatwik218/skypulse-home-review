@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="robots" content="noindex, nofollow" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aircraft — SkyPulse Solutions IFSC</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=IBM+Plex+Mono:wght@300;400;500&family=Inter:wght@300;400;500&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="maison-sub.css" />
+  <style>
+    .ac-sec { padding: var(--sec-pad) var(--gutter); }
+
+    /* ---------- 1. Product hero: gallery + summary ---------- */
+    .ac-hero { padding: calc(var(--hdr-h) + clamp(1.5rem, 4vh, 2.5rem)) var(--gutter) var(--sec-pad); }
+    .ac-crumb { display: flex; gap: 0.7rem; align-items: center; margin-bottom: clamp(1.2rem, 3vh, 2rem); font-family: var(--label); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--surf-muted); }
+    .ac-crumb a:hover { color: var(--surf-accent); }
+    .ac-crumb span[aria-current] { color: var(--surf-fg); }
+    .ac-top { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: clamp(1.8rem, 4vw, 4.5rem); align-items: start; }
+
+    .ac-main { position: relative; aspect-ratio: 16 / 10.5; overflow: hidden; background: var(--navy-2); }
+    .ac-view { position: absolute; inset: 0; opacity: 0; transform: scale(1.025); transition: opacity 0.6s ease, transform 0.9s var(--ease); }
+    .ac-view.is-on { opacity: 1; transform: none; z-index: 1; }
+    .ac-view > img, .ac-view > video { width: 100%; height: 100%; object-fit: cover; }
+    .ac-view.is-plan { background: #fff; display: grid; place-items: center; }
+    .ac-view.is-plan img { width: 100%; height: 100%; object-fit: contain; padding: 4% 6%; }
+    .ac-plan-note {
+      position: absolute; right: 1rem; top: 1rem; font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: #4A5172; background: rgba(245,246,251,0.92); padding: 0.35rem 0.6rem;
+    }
+    .ac-main-cap {
+      position: absolute; left: 1rem; bottom: 1rem; z-index: 2; font-family: var(--mono); font-size: 0.64rem; letter-spacing: 0.14em; text-transform: uppercase;
+      padding: 0.3rem 0.55rem; background: rgba(5,10,48,0.62); color: #F5F6FB; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+    }
+
+    .ac-thumbs { display: flex; gap: 0.6rem; margin-top: 0.75rem; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+    .ac-thumbs::-webkit-scrollbar { display: none; }
+    .ac-thumb {
+      position: relative; flex: 1 1 0; min-width: 84px; max-width: 160px; aspect-ratio: 16 / 10.5; overflow: hidden; background: var(--navy-2);
+      opacity: 0.55; transition: opacity 0.3s ease;
+    }
+    .ac-thumb::after { content: ''; position: absolute; inset: 0; box-shadow: inset 0 0 0 1px transparent; transition: box-shadow 0.3s ease; }
+    .ac-thumb:hover { opacity: 0.9; }
+    .ac-thumb[aria-current="true"] { opacity: 1; }
+    .ac-thumb[aria-current="true"]::after { box-shadow: inset 0 0 0 1px var(--gold); }
+    .ac-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .ac-thumb.is-plan { background: #fff; }
+    .ac-thumb.is-plan img { object-fit: contain; padding: 6%; }
+    .ac-thumb .drafting svg { width: 70%; stroke-width: 1.2; }
+    .ac-thumb .drafting small { display: none; }
+    .ac-thumb b {
+      position: absolute; left: 0; right: 0; bottom: 0; padding: 0.9rem 0.4rem 0.3rem; font-weight: 400;
+      font-family: var(--label); font-size: 0.5rem; letter-spacing: 0.18em; text-transform: uppercase; color: #F5F6FB;
+      background: linear-gradient(transparent, rgba(5,10,48,0.75));
+    }
+    .ac-thumb.is-plan b { color: #050A30; background: linear-gradient(transparent, rgba(245,246,251,0.95)); }
+    .ac-thumb .play { position: absolute; left: 50%; top: 42%; transform: translate(-50%, -50%); width: 24px; height: 24px; border-radius: 50%; border: 1px solid rgba(245,246,251,0.85); display: grid; place-items: center; }
+    .ac-thumb .play::before { content: ''; margin-left: 2px; border-left: 7px solid #F5F6FB; border-block: 4.5px solid transparent; }
+
+    .ac-sum { position: sticky; top: calc(var(--hdr-h) + 1.5rem); }
+    .ac-class { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; margin-bottom: 1rem; font-family: var(--label); font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--surf-muted); }
+    .ac-sum h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(2.6rem, 4.6vw, 4.2rem); line-height: 0.98; letter-spacing: var(--display-track); }
+    .ac-sum h1 small { display: block; font-size: 0.4em; font-style: italic; color: var(--surf-accent); margin-bottom: 0.45rem; }
+    .ac-desc { margin: 1.4rem 0 1.8rem; font-size: 0.98rem; line-height: 1.75; font-weight: 300; color: var(--surf-muted); }
+    .ac-specs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid var(--surf-rule); }
+    .ac-specs > div { display: flex; flex-direction: column; padding: 0.95rem 0; border-bottom: 1px solid var(--surf-rule); }
+    .ac-specs > div:nth-child(even) { padding-left: 1.2rem; border-left: 1px solid var(--surf-rule); }
+    .ac-specs dd { font-family: var(--serif); font-size: 1.85rem; line-height: 1; }
+    .ac-specs dd small { font-family: var(--label); font-size: 0.6rem; letter-spacing: 0.14em; margin-left: 0.35rem; color: var(--surf-muted); text-transform: uppercase; }
+    .ac-specs dt { order: 2; font-family: var(--label); font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--surf-muted); margin-top: 0.45rem; }
+    .ac-regs { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem; margin: 1.5rem 0 1.8rem; }
+    .ac-regs > span:first-child { font-family: var(--label); font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--surf-muted); margin-right: 0.6rem; }
+    .ac-links { display: flex; flex-wrap: wrap; gap: 1.2rem 2rem; }
+
+    /* ---------- 2. Each airframe ---------- */
+    .ac-frames { display: grid; grid-template-columns: repeat(var(--n, 4), minmax(0, 1fr)); gap: clamp(1rem, 2vw, 1.6rem); }
+    .ac-frames.is-few { grid-template-columns: repeat(var(--n), minmax(0, 1fr)); }
+    .ac-frames.is-few .ac-frame figure { aspect-ratio: 3 / 2; }
+    .ac-frames.is-one { grid-template-columns: minmax(0, 0.62fr); }
+    .ac-frame figure { position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: var(--navy-2); }
+    .ac-frame img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
+    .ac-frame:hover img { transform: scale(1.04); }
+    .ac-frame-meta { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding-top: 1rem; border-bottom: 1px solid var(--surf-rule); padding-bottom: 0.9rem; }
+    .ac-frame-meta strong { font-family: var(--mono); font-weight: 400; font-size: 1rem; letter-spacing: 0.14em; }
+    .ac-frame-meta span { font-family: var(--label); font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--surf-muted); }
+
+    /* ---------- 3. Specification sheet ---------- */
+    .ac-sheet { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); gap: clamp(2rem, 5vw, 6rem); align-items: start; }
+    .ac-sheet-intro h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(2rem, 3.2vw, 2.8rem); line-height: 1.05; margin-bottom: 1rem; }
+    .ac-sheet-intro h3 em { font-style: italic; color: var(--surf-accent); }
+    .ac-sheet-intro p { font-size: 0.92rem; line-height: 1.75; font-weight: 300; color: var(--surf-muted); max-width: 36ch; }
+    .surf-grey .ac-sheet-intro p, .surf-grey .ac-desc { font-weight: 400; }
+    .ac-sheet dl { border-top: 1px solid var(--surf-fg); }
+    .ac-sheet dl > div { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 1.5rem; padding: 1.05rem 0; border-bottom: 1px solid var(--surf-rule); }
+    .ac-sheet dt { font-family: var(--label); font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--surf-muted); padding-top: 0.2rem; }
+    .ac-sheet dd { font-family: var(--serif); font-size: 1.3rem; line-height: 1.3; }
+
+    /* ---------- 4. Missions ---------- */
+    .ac-missions { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); border-top: 1px solid var(--surf-rule); }
+    .ac-mission { display: flex; gap: 1rem; align-items: baseline; padding: 1.4rem 1.2rem 1.4rem 0; border-bottom: 1px solid var(--surf-rule); }
+    .ac-mission b { font-family: var(--mono); font-weight: 400; font-size: 0.68rem; color: var(--surf-accent); letter-spacing: 0.14em; }
+    .ac-mission span { font-family: var(--serif); font-size: 1.6rem; line-height: 1.1; }
+
+    /* ---------- 5. Rest of the fleet ---------- */
+    .ac-next { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: clamp(1.5rem, 3vw, 3rem); align-items: stretch; margin-bottom: clamp(2.5rem, 5vw, 4rem); }
+    .ac-next-media { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: var(--navy-2); display: block; }
+    .ac-next-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.4s var(--ease); }
+    .ac-next:hover .ac-next-media img { transform: scale(1.04); }
+    .ac-next-text { display: flex; flex-direction: column; justify-content: flex-end; gap: 1rem; padding-bottom: 0.5rem; }
+    .ac-next-text p { font-family: var(--label); font-size: 0.62rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--surf-accent); }
+    .ac-next-text h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(2.4rem, 4.4vw, 4rem); line-height: 1; }
+    .ac-next-text h3 small { display: block; font-size: 0.4em; font-style: italic; color: var(--surf-muted); margin-bottom: 0.4rem; }
+    .ac-next-text span.line { font-size: 0.95rem; line-height: 1.7; font-weight: 300; color: var(--surf-muted); max-width: 36ch; }
+    .ac-rest { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0.9rem; }
+    .ac-rest a { display: block; }
+    .ac-rest figure { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: var(--navy-2); }
+    .ac-rest img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: opacity 0.4s ease, transform 1s var(--ease); }
+    .ac-rest a:hover img { opacity: 1; transform: scale(1.04); }
+    .ac-rest .drafting svg { width: 62%; }
+    .ac-rest .drafting small { display: none; }
+    .ac-rest p { padding-top: 0.7rem; font-family: var(--serif); font-size: 1.2rem; line-height: 1.1; }
+    .ac-rest p small { display: block; font-family: var(--label); font-size: 0.52rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--surf-muted); margin-top: 0.3rem; }
+
+    @media (max-width: 980px) {
+      .ac-top, .ac-sheet, .ac-next { grid-template-columns: minmax(0, 1fr); }
+      .ac-sum { position: static; }
+      .ac-frames, .ac-frames.is-few { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .ac-frames.is-one { grid-template-columns: 1fr; }
+      .ac-rest { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+    @media (max-width: 560px) {
+      .ac-rest { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .ac-sheet dl > div { grid-template-columns: 1fr; gap: 0.35rem; }
+      .ac-frames, .ac-frames.is-few { grid-template-columns: 1fr; }
+      .ac-frame figure { aspect-ratio: 4 / 3; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header" id="header">
+    <nav class="header-nav" aria-label="Left navigation">
+      <a href="./#about">Leasing</a>
+      <a href="fleet.html" aria-current="page">Fleet</a>
+      <a href="./#missions">Missions</a>
+    </nav>
+    <a href="./" class="crest" aria-label="SkyPulse Solutions IFSC home">
+      <img src="media/mark.png" alt="SkyPulse feather crest" />
+    </a>
+    <nav class="header-nav right" aria-label="Right navigation">
+      <a href="./#why">Why SkyPulse</a>
+      <a href="./#journal">News</a>
+      <a href="fleet.html" class="keep">All aircraft</a>
+    </nav>
+  </header>
+
+  <main id="ac"></main>
+
+  <footer id="footer" class="surf-join" style="--surf-rule: rgba(245,246,251,0.15)" data-theme="dark">
+    <div class="footer-crest">
+      <img src="media/mark.png" alt="SkyPulse feather crest" />
+      <span>SkyPulse Solutions IFSC Private Limited</span>
+    </div>
+    <div class="footer-cols">
+      <div><h4>Registered Office</h4><p>Unit 80, The Platform, Ground Floor, 11 T2, Block 11, GIFT SEZ, Gandhinagar 382355, Gujarat, India.<br/>Monday–Friday · 10:00–18:00 IST</p></div>
+      <div><h4>Directory</h4><ul><li><a href="./#about">Leasing</a></li><li><a href="fleet.html">Fleet Register</a></li><li><a href="./#why">Why SkyPulse</a></li><li><a href="./#journal">News</a></li></ul></div>
+      <div><h4>Governance</h4><ul><li>Leadership &amp; Board</li><li>Annual Return (Form MGT-7)</li><li>Privacy Policy</li><li>Grievance Redressal</li></ul></div>
+      <div><h4>Correspondence</h4><ul><li>info@skypulsesolutions.com</li><li>+91 98214 32482</li><li>GIFT City · Gandhinagar</li></ul></div>
+    </div>
+    <div class="footer-legal">
+      <span>© 2026 SkyPulse Solutions IFSC Private Limited · Aircraft Operating Lessor · Not a Charter Operator</span>
+      <span>Statutory disclosures published pursuant to Companies (Incorporation) Rules r.26</span>
+    </div>
+  </footer>
+
+  <script src="maison-fleet-data.js"></script>
+  <script src="maison-sub.js"></script>
+  <script>
+  (() => {
+    const { FLEET, MISSIONS } = window.SKY_FLEET;
+    const ORDER = ['aw109', 'h130', 'kingair', 'hawker', 'h125', 'r44', 'p2010'];
+    const byKey = Object.fromEntries(FLEET.map(a => [a.key, a]));
+    const key = new URLSearchParams(location.search).get('a');
+    const a = byKey[key] || byKey.aw109;
+    const pad = n => String(n).padStart(2, '0');
+    const fmt = n => n.toLocaleString('en-IN');
+    const catLabel = c => c === 'rotary' ? 'Rotary' : 'Fixed-wing';
+    const catHash = c => c === 'rotary' ? 'rotary' : 'fixed-wing';
+    const PAGE = 'aircraft.html?a=';
+    const drafting = (x, note = 'Imagery to follow') => `<div class="drafting">${x.drawing}<small>${note}</small></div>`;
+    const twin = a.power.startsWith('Twin');
+    const status = a.status === 'service'
+      ? (a.regs.length > 1 ? `${pad(a.regs.length)} in service` : 'In service')
+      : `Arriving ${a.when}${a.count ? ' · ' + a.count + ' aircraft' : ''}`;
+    document.title = `${a.full} — SkyPulse Fleet`;
+
+    /* Gallery views: photos, then films, then the cabin layout (or the drawing for aircraft still arriving) */
+    const views = [];
+    a.photos.forEach(p => views.push({ kind: 'photo', ...p }));
+    if (!a.photos.length && a.drawing) views.push({ kind: 'drawing', label: 'Overview' });
+    (a.films || []).forEach(f => views.push({ kind: 'film', ...f }));
+    if (a.layout) views.push({ kind: 'plan', src: a.layout, label: 'Cabin layout' });
+    const capFor = v => v.kind === 'plan' ? 'Cabin layout' : v.kind === 'film' ? v.label : v.kind === 'drawing' ? 'Imagery to follow' : v.alt;
+
+    const viewHTML = (v, i) => {
+      if (v.kind === 'photo') return `<div class="ac-view" data-i="${i}"><img src="${v.src}" alt="${v.alt}" style="object-position:${v.pos}" /></div>`;
+      if (v.kind === 'drawing') return `<div class="ac-view" data-i="${i}">${drafting(a)}</div>`;
+      if (v.kind === 'film') return `<div class="ac-view" data-i="${i}"><video muted loop playsinline preload="none" poster="${v.poster}" style="object-position:${v.pos};${v.scale ? `transform:scale(${v.scale})` : ''}"><source src="${v.src}" type="video/mp4" /></video></div>`;
+      return `<div class="ac-view is-plan" data-i="${i}"><img src="${v.src}" alt="${a.name} cabin layout" />${a.layoutOwn ? '' : '<span class="ac-plan-note">Sample layout · real drawing to follow</span>'}</div>`;
+    };
+    const thumbHTML = (v, i) => {
+      const inner = v.kind === 'photo' ? `<img src="${v.src}" alt="" style="object-position:${v.pos}" loading="lazy" />`
+        : v.kind === 'drawing' ? drafting(a)
+        : v.kind === 'film' ? `<img src="${v.poster}" alt="" style="object-position:${v.pos}" loading="lazy" /><span class="play"></span><b>${v.label}</b>`
+        : `<img src="${v.src}" alt="" loading="lazy" /><b>Cabin layout</b>`;
+      return `<button type="button" class="ac-thumb ${v.kind === 'plan' ? 'is-plan' : ''}" data-i="${i}" aria-label="Show ${capFor(v)}" aria-current="false">${inner}</button>`;
+    };
+
+    const specs = `<dl class="ac-specs">
+        <div><dt>Passengers</dt><dd>${pad(a.seats)}<small>+ ${a.crew} crew</small></dd></div>
+        <div><dt>Cruise speed</dt><dd>${a.cruise}<small>km/h</small></dd></div>
+        <div><dt>Range</dt><dd>${fmt(a.range)}<small>km</small></dd></div>
+        <div><dt>Engines</dt><dd>${twin ? '02' : '01'}<small>${a.power.split(' ')[1]}${twin ? 's' : ''}</small></dd></div>
+      </dl>`;
+
+    // Next aircraft in the fleet order, and the rest as a strip
+    const idx = ORDER.indexOf(a.key);
+    const next = byKey[ORDER[(idx + 1) % ORDER.length]];
+    const rest = ORDER.filter(k => k !== a.key && k !== next.key).map(k => byKey[k]);
+    const cover = x => x.photos[0] ? `<img src="${x.photos[0].src}" alt="" style="object-position:${x.photos[0].pos}" loading="lazy" />` : drafting(x);
+
+    // Surfaces alternate down the page, starting navy
+    const secs = [];
+    secs.push(`
+      <section class="ac-hero surf-navy" data-theme="dark">
+        <div class="wrap">
+          <nav class="ac-crumb" aria-label="Breadcrumb"><a href="fleet.html">Fleet</a><span aria-hidden="true">/</span><a href="fleet.html#${catHash(a.cat)}">${catLabel(a.cat)}</a><span aria-hidden="true">/</span><span aria-current="page">${a.name}</span></nav>
+          <div class="ac-top">
+            <div class="ac-gallery">
+              <div class="ac-main" id="acMain">${views.map(viewHTML).join('')}<span class="ac-main-cap" id="acCap"></span></div>
+              <div class="ac-thumbs" id="acThumbs" role="group" aria-label="Photos">${views.map(thumbHTML).join('')}</div>
+            </div>
+            <div class="ac-sum">
+              <p class="ac-class"><span class="status-dot ${a.status === 'arriving' ? 'arriving' : ''}">${status}</span><span>${catLabel(a.cat)} · ${a.klass}</span></p>
+              <h1><small>${a.maker}</small>${a.full.replace(a.maker + ' ', '')}</h1>
+              <p class="ac-desc">${a.desc}</p>
+              ${specs}
+              ${a.regs.length ? `<div class="ac-regs"><span>In the fleet</span>${a.regs.map(r => `<span class="plate">${r.reg}</span>`).join('')}</div>` : '<div class="ac-regs"></div>'}
+              <div class="ac-links">
+                <a class="fl-link" href="#spec">Full specification <span aria-hidden="true">→</span></a>
+                <a class="fl-link" href="fleet.html#compare">Compare with the fleet <span aria-hidden="true">→</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>`);
+    if (a.regs.length > 1) secs.push(`
+      <section class="ac-sec" id="airframes">
+        <div class="wrap">
+          <header class="fleet-ledger"><span class="fl-num">01</span><h2 class="fl-title">In the <em>fleet</em></h2><span class="fl-meta">${a.regs.length > 1 ? pad(a.regs.length) + ' registered airframes' : 'One registered airframe'}</span></header>
+          <div class="ac-frames ${a.regs.length < 3 ? 'is-few' : ''} ${a.regs.length === 1 ? 'is-one' : ''}" style="--n:${a.regs.length}">
+            ${a.regs.map(r => `<article class="ac-frame rv"><figure><img src="${r.img}" alt="${a.name} ${r.reg}" loading="lazy" /></figure><div class="ac-frame-meta"><strong>${r.reg}</strong><span>${r.note}</span></div></article>`).join('')}
+          </div>
+        </div>
+      </section>`);
+    secs.push(`
+      <section class="ac-sec" id="spec">
+        <div class="wrap">
+          <header class="fleet-ledger"><span class="fl-num">${pad(secs.length)}</span><h2 class="fl-title">Specification</h2><span class="fl-meta">${a.full}</span></header>
+          <div class="ac-sheet">
+            <div class="ac-sheet-intro rv">
+              <h3>${a.name}, <em>by the numbers.</em></h3>
+              <p>Indicative manufacturer figures for the type. Exact seating, speed and range depend on the configuration of each airframe and are confirmed in every lease.</p>
+            </div>
+            <dl class="rv">${a.spec.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('')}</dl>
+          </div>
+        </div>
+      </section>`);
+    secs.push(`
+      <section class="ac-sec" id="missions">
+        <div class="wrap">
+          <header class="fleet-ledger"><span class="fl-num">${pad(secs.length)}</span><h2 class="fl-title">Flown <em>for</em></h2><span class="fl-meta">Missions our lessees fly with the ${a.name}</span><a class="fl-link" href="fleet.html#roles">All missions &amp; aircraft <span aria-hidden="true">→</span></a></header>
+          <div class="ac-missions">${MISSIONS.filter(m => a.missions.includes(m.key)).map((m, i) => `<div class="ac-mission rv"><b>${pad(i + 1)}</b><span>${m.label}</span></div>`).join('')}</div>
+        </div>
+      </section>`);
+    secs.push(`
+      <section class="ac-sec" id="more">
+        <div class="wrap">
+          <header class="fleet-ledger"><span class="fl-num">${pad(secs.length)}</span><h2 class="fl-title">The rest of <em>the fleet</em></h2><a class="fl-link" href="fleet.html">All aircraft <span aria-hidden="true">→</span></a></header>
+          <a class="ac-next rv" href="${PAGE}${next.key}">
+            <span class="ac-next-media">${cover(next)}</span>
+            <span class="ac-next-text">
+              <p>Next aircraft</p>
+              <h3><small>${next.maker}</small>${next.name}</h3>
+              <span class="line">${next.line}</span>
+              <span class="fl-link">Explore the ${next.name} <span aria-hidden="true">→</span></span>
+            </span>
+          </a>
+          <div class="ac-rest">${rest.map(x => `<a href="${PAGE}${x.key}" class="rv"><figure>${cover(x)}</figure><p>${x.name}<small>${catLabel(x.cat)} · ${x.status === 'service' ? 'In service' : 'Arriving'}</small></p></a>`).join('')}</div>
+        </div>
+      </section>`);
+    const main = document.getElementById('ac');
+    main.innerHTML = secs.join('');
+    [...main.children].forEach((s, i) => {
+      if (i === 0) return;
+      const grey = i % 2 === 1;
+      s.classList.add(grey ? 'surf-grey' : 'surf-navy');
+      s.dataset.theme = grey ? 'light' : 'dark';
+    });
+
+    /* Gallery: a thumbnail swaps into the main view (product-page style) */
+    const vEls = [...main.querySelectorAll('.ac-view')];
+    const tEls = [...main.querySelectorAll('.ac-thumb')];
+    const cap = document.getElementById('acCap');
+    let cur = -1;
+    function go(i) {
+      if (i === cur) return;
+      cur = i;
+      vEls.forEach((el, j) => {
+        el.classList.toggle('is-on', j === i);
+        const vid = el.querySelector('video');
+        if (vid) { if (j === i) { vid.preload = 'auto'; vid.playbackRate = 0.85; vid.play().catch(() => {}); } else vid.pause(); }
+      });
+      tEls.forEach((t, j) => t.setAttribute('aria-current', String(j === i)));
+      const v = views[i];
+      cap.textContent = capFor(v);
+      cap.style.display = views[i].kind === 'plan' || views[i].kind === 'drawing' ? 'none' : '';
+      tEls[i].scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: 'smooth' });
+    }
+    tEls.forEach((t, i) => t.addEventListener('click', () => go(i)));
+    document.getElementById('acThumbs').addEventListener('keydown', e => {
+      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+      e.preventDefault();
+      const n = (cur + (e.key === 'ArrowRight' ? 1 : -1) + views.length) % views.length;
+      go(n); tEls[n].focus();
+    });
+    go(0);
+
+    window.SKY_SUB.reveal();
+    window.dispatchEvent(new Event('scroll'));
+  })();
+  </script>
+</body>
+</html>
